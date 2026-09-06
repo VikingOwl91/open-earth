@@ -1,0 +1,45 @@
+/* P1.5 tectonic context: PB2002 step classes + plate polygons.
+   PB2002 STEPCLASS: SUB, OSR, CRB, OTF, CTF, OCB, CCB. */
+let plateStepData=empty,platePolygonData=empty;
+const STEP_META={SUB:{family:'subduction',label:'Subduction zone'},OSR:{family:'divergent',label:'Oceanic spreading ridge'},CRB:{family:'divergent',label:'Continental rift boundary'},OTF:{family:'transform',label:'Oceanic transform fault'},CTF:{family:'transform',label:'Continental transform fault'},OCB:{family:'convergent',label:'Oceanic convergent boundary'},CCB:{family:'convergent',label:'Continental convergent boundary'}};
+function ensureTectonicLayers(){
+  if(!map.getSource('plate-polygons'))map.addSource('plate-polygons',{type:'geojson',data:platePolygonData});
+  if(!map.getLayer('plate-polygons'))map.addLayer({id:'plate-polygons',type:'fill',source:'plate-polygons',paint:{'fill-color':'#63d7e6','fill-opacity':.025}});
+  if(!map.getLayer('plate-polygon-lines'))map.addLayer({id:'plate-polygon-lines',type:'line',source:'plate-polygons',minzoom:2,paint:{'line-color':'rgba(99,215,230,.10)','line-width':.6}});
+  if(!map.getSource('plate-steps'))map.addSource('plate-steps',{type:'geojson',data:plateStepData});
+  const specs=[
+    ['tectonic-subduction',['==',['get','Boundary_Family'],'subduction'],'#ff8b62',3.2],
+    ['tectonic-convergent',['==',['get','Boundary_Family'],'convergent'],'#ffbd66',2.5],
+    ['tectonic-divergent',['==',['get','Boundary_Family'],'divergent'],'#58d7e7',2.4],
+    ['tectonic-transform',['==',['get','Boundary_Family'],'transform'],'#d58cff',2.2],
+    ['tectonic-other',['==',['get','Boundary_Family'],'other'],'#8aa4aa',1.5]
+  ];
+  for(const [id,filter,color,width] of specs)if(!map.getLayer(id))map.addLayer({id,type:'line',source:'plate-steps',filter,paint:{'line-color':color,'line-width':['interpolate',['linear'],['zoom'],0,width*.55,5,width,9,width*1.35],'line-opacity':.9}});
+  /* The old compact PB2002 boundary stays as a low-opacity reference casing. */
+  if(map.getLayer('plates'))map.setPaintProperty('plates','line-opacity',.16);
+  if(map.getLayer('plates-casing'))map.setPaintProperty('plates-casing','line-opacity',.12);
+}
+const addLayersBeforeTectonics=addLayers;addLayers=function(){addLayersBeforeTectonics();ensureTectonicLayers()};
+async function loadTectonicContext(){
+  const [steps,polygons]=await Promise.all([localSnapshot('plate-steps.json','plateSteps'),localSnapshot('plate-polygons.json','platePolygons')]);
+  plateStepData=steps?.features?steps:empty;platePolygonData=polygons?.features?polygons:empty;
+  ensureTectonicLayers();map.getSource('plate-steps')?.setData(plateStepData);map.getSource('plate-polygons')?.setData(platePolygonData);
+}
+function pointInRing(p,ring){let inside=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j],hit=((a[1]>p[1])!==(b[1]>p[1]))&&(p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1]||1e-12)+a[0]);if(hit)inside=!inside}return inside}
+function pointInPolygon(p,g){if(!g)return false;const poly=rings=>rings?.length&&pointInRing(p,rings[0])&&!rings.slice(1).some(r=>pointInRing(p,r));return g.type==='Polygon'?poly(g.coordinates):g.type==='MultiPolygon'?g.coordinates.some(poly):false}
+function containingPlate(coords){return platePolygonData.features.find(f=>pointInPolygon(coords,f.geometry))||null}
+function boundaryContext(coords){const hit=plateStepData.features.length?nearestLine(coords,plateStepData):null;if(!hit)return null;const p=hit.feature.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{family:value(p.Boundary_Family,'other'),label:value(p.Boundary_Label,'Plate boundary')};return {...hit,code,family:meta.family,label:value(p.Boundary_Label,meta.label),pair:value(p.Plate_Pair,p.PLATEBOUND)}}
+function plateName(f){if(!f)return null;const p=f.properties||{};return value(p.Plate_Name,p.PlateName,p.Name,p.NAME,p.Plate_Code,p.Code)}
+const relationshipsBeforeTectonics=relationships;relationships=function(coords){
+  const boundary=boundaryContext(coords),plate=containingPlate(coords),fault=faultData.features.length?nearestLine(coords,faultData):null,qs=nearbyQuakes(coords,quakeData,250),strong=qs[0];
+  if(!boundary&&!plate)return relationshipsBeforeTectonics(coords);
+  const tectonic=`<div class="inspector-section tectonic-context"><div class="inspector-heading">Tectonic context</div><div class="context-primary">${plate?`<div><b>${esc(plateName(plate))}</b><span>PB2002 plate</span></div>`:''}${boundary?`<div><b>${esc(boundary.label)}</b><span>${boundary.pair?esc(boundary.pair)+' · ':''}${Math.round(boundary.distance)} km away</span></div>`:''}</div></div>`;
+  const nearby=`<div class="inspector-section"><div class="inspector-heading">Nearby</div><div class="relationship-grid"><div><b>${boundary?Math.round(boundary.distance)+' km':'—'}</b><span>${boundary?esc(boundary.label.toLowerCase()):'nearest typed boundary'}</span></div><div><b>${qs.length}</b><span>earthquakes / 250 km (${historicalMode?'search':'current'})</span></div><div><b>${strong?`M ${Number(strong.properties.mag).toFixed(1)}`:'—'}</b><span>${strong?`${Math.round(strong._distance)} km away`:'strongest nearby'}</span></div><div><b>${fault?Math.round(fault.distance)+' km':viewState.layers.faults?'—':'off'}</b><span>nearest active fault</span></div></div></div>`;
+  return tectonic+nearby;
+};
+/* Click typed boundaries using the existing details panel. */
+for(const id of ['tectonic-subduction','tectonic-convergent','tectonic-divergent','tectonic-transform','tectonic-other']){
+  map.on('click',id,e=>{const f=e.features?.[0];if(!f)return;const p=f.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{label:'Plate boundary',family:'other'},body=document.querySelector('#details-body');body.innerHTML=`<div class="eyebrow">Plate tectonics · ${esc(code||'PB2002')}</div><h2>${esc(value(p.Boundary_Label,meta.label))}</h2><div class="inspector-section"><div class="inspector-heading">Boundary</div><div class="meta">${fact('Class',meta.family)}${fact('Plate pair',value(p.Plate_Pair,p.PLATEBOUND))}${fact('Step length',p.STEPLENGTH!=null?`${Number(p.STEPLENGTH).toFixed(1)} km`:null)}${fact('Relative velocity',p.VELOCITYLE!=null?`${Number(p.VELOCITYLE).toFixed(1)} mm/yr`:null)}</div></div><div class="inspector-section"><div class="inspector-heading">Source</div><p class="source">PB2002 · Peter Bird (2003)</p></div>`;document.querySelector('#details').hidden=false});
+  map.on('mouseenter',id,()=>map.getCanvas().style.cursor='pointer');map.on('mouseleave',id,()=>map.getCanvas().style.cursor='');
+}
+loadTectonicContext();
