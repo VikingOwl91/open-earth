@@ -29,11 +29,22 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: '3.13'
-      - name: Refresh snapshots
+      - name: Refresh core snapshots (GVP)
+        run: python scripts/update_data.py
+      - name: Refresh seafloor trenches (GEBCO)
+        run: python scripts/update_trenches.py
+      - name: Refresh regional volcano monitoring (PVMBG)
+        continue-on-error: true
+        id: pvmbg
+        run: python scripts/update_pvmbg.py
+      - name: Report snapshot status
+        if: always()
         run: |
-          python scripts/update_data.py
-          python scripts/update_trenches.py
-          python scripts/update_pvmbg.py
+          if [ "${{ steps.pvmbg.outcome }}" = "failure" ]; then
+            echo "::warning title=PVMBG Snapshot Stale::PVMBG / MAGMA Indonesia snapshot could not be refreshed; retained previous snapshot if present."
+          fi
+      - name: Run data tests
+        run: python -m unittest discover tests
       - name: Commit changed snapshots
         run: |
           git config user.name 'open-earth-data-bot'
