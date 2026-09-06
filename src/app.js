@@ -1,32 +1,248 @@
-const SOURCES={earthquakes:{name:'USGS Earthquake Hazards Program',url:'https://earthquake.usgs.gov/earthquakes/feed/v1.0/geojson.php'},volcanoes:{name:'Smithsonian Global Volcanism Program · VOTW 5.4.0',url:'https://volcano.si.edu/volcanolist_holocene.cfm'},activity:{name:'Smithsonian / USGS Weekly Volcanic Activity Report',url:'https://volcano.si.edu/reports_weekly.cfm'},plates:{name:'PB2002 plate boundaries · Peter Bird',url:'https://github.com/fraxen/tectonicplates'},faults:{name:'GEM Global Active Faults',url:'https://github.com/GEMScienceTools/gem-global-active-faults'}};
-const BASEMAPS={dark:'https://tiles.openfreemap.org/styles/dark',positron:'https://tiles.openfreemap.org/styles/positron',liberty:'https://tiles.openfreemap.org/styles/liberty',fiord:'https://tiles.openfreemap.org/styles/fiord',classic:'https://demotiles.maplibre.org/style.json'};
-const feeds={hour:'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_hour.geojson',day:'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_day.geojson',week:'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'};
-const GVP_WFS='https://webservices.volcano.si.edu/geoserver/GVP-VOTW/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=GVP-VOTW%3ASmithsonian_VOTW_Holocene_Volcanoes&outputFormat=application%2Fjson&srsName=EPSG%3A4326',GVP_SNAPSHOT='https://raw.githubusercontent.com/mhmnia/eq-volcano-explorer/main/data/gvp_holocene_volcanoes.csv',PLATES_SNAPSHOT='https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json',FAULTS='https://raw.githubusercontent.com/GEMScienceTools/gem-global-active-faults/master/geojson/gem_active_faults_harmonized.geojson';
-const empty={type:'FeatureCollection',features:[]},STATE_KEY='open-earth:view:v1',DEFAULT_STATE={basemap:'dark',projection:'mercator',earthquakeRange:'day',layers:{earthquakes:true,activity:true,volcanoes:true,plates:true,faults:false,trenches:true,bathymetry:false},camera:{center:[110,-4],zoom:2.25,bearing:0,pitch:0}};
-function readState(){try{const raw=JSON.parse(localStorage.getItem(STATE_KEY)||'null');if(!raw)return structuredClone(DEFAULT_STATE);return {...structuredClone(DEFAULT_STATE),...raw,layers:{...DEFAULT_STATE.layers,...raw.layers},camera:{...DEFAULT_STATE.camera,...raw.camera},projection:raw.projection==='globe'?'globe':'mercator',basemap:BASEMAPS[raw.basemap]?raw.basemap:'dark',earthquakeRange:feeds[raw.earthquakeRange]?raw.earthquakeRange:'day'}}catch{return structuredClone(DEFAULT_STATE)}}
-let viewState=readState(),quakeData=empty,volcanoData=empty,plateData=empty,faultData=empty,activityData=empty,currentRange=viewState.earthquakeRange;const failures=new Set();
-const map=new maplibregl.Map({container:'map',style:BASEMAPS[viewState.basemap],center:viewState.camera.center,zoom:viewState.camera.zoom,bearing:viewState.camera.bearing,pitch:viewState.camera.pitch,attributionControl:true});map.addControl(new maplibregl.NavigationControl({showCompass:true}),'bottom-right');
-const esc=s=>String(s??'Unknown').replace(/[&<>'\"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));const sourceLine=s=>`<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${s.name}</a></p>`;
-function saveState(){try{localStorage.setItem(STATE_KEY,JSON.stringify(viewState))}catch{}}
-function saveCamera(){const c=map.getCenter();viewState.camera={center:[c.lng,c.lat],zoom:map.getZoom(),bearing:map.getBearing(),pitch:map.getPitch()};saveState()}
-function syncControls(){document.querySelector('#basemap').value=viewState.basemap;document.querySelector('#projection').value=viewState.projection;for(const [id,on] of Object.entries(viewState.layers)){const el=document.querySelector(`#${id}`);if(el)el.checked=on}document.querySelectorAll('#range button').forEach(b=>b.classList.toggle('active',b.dataset.range===viewState.earthquakeRange))}
-function loading(on){document.querySelector('#map-loading').hidden=!on}
-function setStatus(){const ok=['earthquakes','volcanoes','plates'].filter(x=>!failures.has(x)).length;document.querySelector('#status').textContent=`${ok}/3 core sources healthy${failures.size?` · issues: ${[...failures].join(', ')}`:''}`}
-async function json(url,label){try{const r=await fetch(url);if(!r.ok)throw new Error(`${r.status}`);failures.delete(label);return await r.json()}catch(e){failures.add(label);console.warn(`${label} unavailable`,e);return empty}finally{setStatus()}}
-function addLayers(){if(map.getSource('earthquakes'))return;map.addSource('earthquakes',{type:'geojson',data:quakeData});map.addLayer({id:'earthquakes',type:'circle',source:'earthquakes',paint:{'circle-radius':['interpolate',['linear'],['coalesce',['get','mag'],0],0,4,4,7,7,13],'circle-color':['interpolate',['linear'],['coalesce',['get','mag'],0],0,'#ffe06b',4,'#ffb347',6,'#ff5c57'],'circle-stroke-color':'#fff5c2','circle-stroke-width':1,'circle-opacity':.9}});map.addSource('volcanoes',{type:'geojson',data:volcanoData});map.addLayer({id:'volcanoes-halo',type:'circle',source:'volcanoes',minzoom:3,paint:{'circle-radius':['interpolate',['linear'],['zoom'],3,5,7,9,11,13],'circle-color':'rgba(255,98,94,0)','circle-stroke-color':'rgba(255,98,94,.22)','circle-stroke-width':2}});map.addLayer({id:'volcanoes',type:'circle',source:'volcanoes',paint:{'circle-radius':['interpolate',['linear'],['zoom'],0,3,3,4,6,6,9,8],'circle-color':'#ff625e','circle-stroke-color':'#fff0e9','circle-stroke-width':1,'circle-opacity':.9}});map.addSource('activity',{type:'geojson',data:activityData});map.addLayer({id:'activity',type:'circle',source:'activity',paint:{'circle-radius':['interpolate',['linear'],['zoom'],0,7,6,11,10,16],'circle-color':'rgba(255,155,69,.12)','circle-stroke-color':'#ff9b45','circle-stroke-width':2.5}});map.addSource('plates',{type:'geojson',data:plateData});map.addLayer({id:'plates-casing',type:'line',source:'plates',paint:{'line-color':'rgba(3,26,34,.5)','line-width':['interpolate',['linear'],['zoom'],0,3,6,5]}});map.addLayer({id:'plates',type:'line',source:'plates',paint:{'line-color':'#45d9ec','line-width':['interpolate',['linear'],['zoom'],0,1.6,5,2.5,9,3.2],'line-opacity':.9}});map.addSource('faults',{type:'geojson',data:faultData});map.addLayer({id:'faults',type:'line',source:'faults',layout:{visibility:'none'},paint:{'line-color':'#d58cff','line-width':['interpolate',['linear'],['zoom'],2,.7,8,2],'line-opacity':.75}});applyVisibility();wireMap()}
-function vis(id){return viewState.layers[id]!==false}function applyVisibility(){for(const id of ['earthquakes','activity','volcanoes','plates','faults'])if(map.getLayer(id))map.setLayoutProperty(id,'visibility',vis(id)?'visible':'none');if(map.getLayer('volcanoes-halo'))map.setLayoutProperty('volcanoes-halo','visibility',vis('volcanoes')?'visible':'none');if(map.getLayer('plates-casing'))map.setLayoutProperty('plates-casing','visibility',vis('plates')?'visible':'none');for(const id of ['tectonic-subduction','tectonic-convergent','tectonic-divergent','tectonic-transform','tectonic-other','plate-polygons','plate-polygon-lines','tectonic-selection','tectonic-selection-casing'])if(map.getLayer(id))map.setLayoutProperty(id,'visibility',vis('plates')?'visible':'none');for(const id of ['trenches-line','trenches-hit','trenches-label','trench-selection'])if(map.getLayer(id))map.setLayoutProperty(id,'visibility',vis('trenches')?'visible':'none');if(map.getLayer('gebco-bathymetry'))map.setLayoutProperty('gebco-bathymetry','visibility',vis('bathymetry')?'visible':'none')}
-async function loadQuakes(range=currentRange){currentRange=range;viewState.earthquakeRange=range;saveState();quakeData=await json(feeds[range],'earthquakes');map.getSource('earthquakes')?.setData(quakeData);document.querySelector('#quake-count').textContent=quakeData.features?.length??0}
-function parseCSV(text){const rows=[];let row=[],field='',quoted=false;for(let i=0;i<text.length;i++){const c=text[i];if(c==='"'){if(quoted&&text[i+1]==='"'){field+='"';i++}else quoted=!quoted}else if(c===','&&!quoted){row.push(field);field=''}else if((c==='\n'||c==='\r')&&!quoted){if(c==='\r'&&text[i+1]==='\n')i++;row.push(field);if(row.some(Boolean))rows.push(row);row=[];field=''}else field+=c}if(field||row.length){row.push(field);rows.push(row)}return rows}
-function gvpCSVToGeoJSON(text){const rows=parseCSV(text),hi=rows.findIndex(r=>r.includes('Volcano Number')&&r.includes('Volcano Name'));if(hi<0)throw Error('GVP CSV header not found');const h=rows[hi],idx=n=>h.indexOf(n),lat=idx('Latitude'),lon=idx('Longitude');return {type:'FeatureCollection',features:rows.slice(hi+1).filter(r=>Number.isFinite(+r[lat])&&Number.isFinite(+r[lon])).map(r=>({type:'Feature',properties:{Volcano_Number:r[idx('Volcano Number')],Volcano_Name:r[idx('Volcano Name')],Country:r[idx('Country')],Primary_Volcano_Type:r[idx('Primary Volcano Type')],Activity_Evidence:r[idx('Activity Evidence')],Last_Known_Eruption:r[idx('Last Known Eruption')],Elevation_m:r[idx('Elevation (m)')],Tectonic_Setting:r[idx('Tectonic Setting')]},geometry:{type:'Point',coordinates:[+r[lon],+r[lat]]}}))}}
-async function loadVolcanoes(){volcanoData=await json(GVP_WFS,'volcanoes');if(!volcanoData.features?.length)try{const r=await fetch(GVP_SNAPSHOT);if(!r.ok)throw Error(r.status);volcanoData=gvpCSVToGeoJSON(await r.text());failures.delete('volcanoes');setStatus()}catch(e){console.warn(e)}map.getSource('volcanoes')?.setData(volcanoData);document.querySelector('#volcano-count').textContent=volcanoData.features?.length??0}
-async function loadPlates(){const live='https://earthquake.usgs.gov/arcgis/rest/services/eq/map_plateboundaries/MapServer/1/query?where=1%3D1&outFields=*&returnGeometry=true&f=geojson';plateData=await json(live,'plates');if(!plateData.features?.length)plateData=await json(PLATES_SNAPSHOT,'plates');map.getSource('plates')?.setData(plateData)}
-function norm(s){return String(s||'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]/g,'')}
-async function loadActivity(){try{const r=await fetch('https://volcano.si.edu/reports_weekly.cfm');if(!r.ok)throw Error(r.status);const html=await r.text(),doc=new DOMParser().parseFromString(html,'text/html'),names=[...doc.querySelectorAll('table a')].map(a=>a.textContent.trim()).filter(Boolean);const seen=new Set(),features=[];for(const name of names){const key=norm(name);if(!key||seen.has(key))continue;const f=volcanoData.features.find(v=>norm(v.properties?.Volcano_Name)===key);if(f){seen.add(key);features.push({...f,properties:{...f.properties,Report_Name:name,Report_URL:SOURCES.activity.url}})}}activityData={type:'FeatureCollection',features};map.getSource('activity')?.setData(activityData);document.querySelector('#activity-count').textContent=features.length||'0'}catch(e){console.warn('weekly activity unavailable',e);document.querySelector('#activity-count').textContent='0'}}
-async function loadFaults(){if(faultData.features.length)return;document.querySelector('#fault-count').textContent='…';faultData=await json(FAULTS,'faults');map.getSource('faults')?.setData(faultData);document.querySelector('#fault-count').textContent=faultData.features?.length??0}
-function detail(layer,f){const p=f.properties||{},body=document.querySelector('#details-body'),panel=document.querySelector('#details');let h='';if(layer==='volcanoes'||layer==='activity'){const name=p.Volcano_Name||p.Report_Name||'Volcano',isLive=activityData.features.some(x=>norm(x.properties?.Volcano_Name)===norm(name));h=`<div class="eyebrow">Volcano</div><h2>🌋 ${esc(name)}</h2>${isLive?'<span class="live-badge">Weekly activity report</span>':''}<div class="meta"><div class="fact"><b>Location</b>${esc(p.Country)} · ${esc(f.geometry.coordinates[1].toFixed(3))}, ${esc(f.geometry.coordinates[0].toFixed(3))}</div><div class="fact"><b>Type / elevation</b>${esc(p.Primary_Volcano_Type)} · ${esc(p.Elevation_m)} m</div><div class="fact"><b>Last known eruption</b>${esc(p.Last_Known_Eruption)}</div><div class="fact"><b>Tectonic setting</b>${esc(p.Tectonic_Setting)}</div></div>${isLive?sourceLine(SOURCES.activity):''}${sourceLine(SOURCES.volcanoes)}`}else if(layer==='earthquakes')h=`<div class="eyebrow">Live earthquake</div><h2>M ${esc(p.mag)} · ${esc(p.place)}</h2><div class="meta"><div class="fact"><b>Time</b>${new Date(Number(p.time)).toLocaleString()}</div><div class="fact"><b>Depth</b>${esc(f.geometry.coordinates[2])} km</div></div>${p.url?`<p><a href="${esc(p.url)}" target="_blank">USGS event details ↗</a></p>`:''}${sourceLine(SOURCES.earthquakes)}`;else if(layer==='faults')h=`<div class="eyebrow">Active fault</div><h2>${esc(p.name||p.Name||p.fault_name||'Mapped fault')}</h2><div class="meta"><div class="fact"><b>Slip type</b>${esc(p.slip_type||p.slip_type_text||p.sense||'Not specified')}</div><div class="fact"><b>Source</b>GEM Global Active Faults database</div></div>${sourceLine(SOURCES.faults)}`;else h=`<div class="eyebrow">Plate tectonics</div><h2>Plate boundary</h2><div class="meta">${esc(p.LABEL||p.type||p.TYPE||p.Name||'Tectonic boundary')}</div>${sourceLine(SOURCES.plates)}`;body.innerHTML=h;panel.hidden=false}
-function selectFeature(layer,f){detail(layer,f)}
-let wired=false;function wireMap(){if(wired)return;wired=true;for(const layer of ['earthquakes','activity','volcanoes','plates','faults']){map.on('click',layer,e=>{if(e.features?.[0])selectFeature(layer,e.features[0])});map.on('mouseenter',layer,()=>map.getCanvas().style.cursor='pointer');map.on('mouseleave',layer,()=>map.getCanvas().style.cursor='')}}
-function setProjection(mode,persist=true){mode=mode==='globe'?'globe':'mercator';viewState.projection=mode;map.setProjection({type:mode});document.querySelector('#projection').value=mode;document.querySelector('#projection-note').textContent=mode==='globe'?'Globe uses MapLibre’s native spherical projection.':'Classic Web Mercator projection.';if(persist)saveState()}
-function changeBasemap(name){if(!BASEMAPS[name]||name===viewState.basemap)return;saveCamera();viewState.basemap=name;saveState();loading(true);const camera={...viewState.camera},projection=viewState.projection;map.once('style.load',()=>{addLayers();setProjection(projection,false);map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});map.once('idle',()=>loading(false));setTimeout(()=>loading(false),2500)});map.setStyle(BASEMAPS[name])}
-function wireControls(){for(const id of ['earthquakes','activity','volcanoes','plates','faults','trenches','bathymetry']){const el=document.querySelector(`#${id}`);if(el)el.addEventListener('change',async e=>{viewState.layers[id]=e.target.checked;saveState();if(id==='faults'&&e.target.checked)await loadFaults();applyVisibility()})}document.querySelector('#range').addEventListener('click',e=>{const r=e.target.dataset.range;if(!r)return;document.querySelectorAll('#range button').forEach(b=>b.classList.toggle('active',b===e.target));loadQuakes(r)});document.querySelector('#projection').addEventListener('change',e=>setProjection(e.target.value));document.querySelector('#basemap').addEventListener('change',e=>changeBasemap(e.target.value));document.querySelector('#reset-view').addEventListener('click',()=>{localStorage.removeItem(STATE_KEY);location.reload()});document.querySelector('#details-close').onclick=()=>document.querySelector('#details').hidden=true;const input=document.querySelector('#search'),box=document.querySelector('#search-results');let timer;input.addEventListener('input',()=>{clearTimeout(timer);timer=setTimeout(()=>search(input.value),250)});async function search(q){q=q.trim();if(q.length<2){box.hidden=true;return}const local=[];for(const f of volcanoData.features||[]){const p=f.properties||{},name=p.Volcano_Name;if(name?.toLowerCase().includes(q.toLowerCase()))local.push({label:`🌋 ${name}${p.Country?`, ${p.Country}`:''}`,coords:f.geometry.coordinates,feature:f})}let remote=[];try{const r=await fetch(`https://nominatim.openstreetmap.org/search?format=json&limit=5&q=${encodeURIComponent(q)}`);if(r.ok)remote=(await r.json()).map(x=>({label:`⌖ ${x.display_name}`,coords:[+x.lon,+x.lat]}))}catch{}const results=[...local.slice(0,5),...remote].slice(0,7);box.innerHTML='';for(const item of results){const b=document.createElement('button');b.textContent=item.label;b.onclick=()=>{map.flyTo({center:item.coords.slice(0,2),zoom:7});box.hidden=true;input.value=item.label.replace(/^[^ ]+ /,'');if(item.feature)setTimeout(()=>detail('volcanoes',item.feature),500)};box.appendChild(b)}box.hidden=!results.length}}
-map.on('moveend',saveCamera);map.on('load',async()=>{syncControls();addLayers();wireControls();setProjection(viewState.projection,false);await Promise.all([loadQuakes(viewState.earthquakeRange),loadVolcanoes(),loadPlates()]);await loadActivity();if(viewState.layers.faults)await loadFaults();applyVisibility()});
+/**
+ * Open Earth - Main Application Orchestrator
+ * Integrates state, data store, map controller, feature inspector, search, and modals.
+ */
+(() => {
+  'use strict';
+
+  async function init() {
+    const detailsPanel = document.querySelector('#details');
+    const detailsBody = document.querySelector('#details-body');
+    const searchInput = document.querySelector('#search');
+    const searchResults = document.querySelector('#search-results');
+
+    // 1. Initialize State
+    const stateManager = new window.OpenEarth.state.StateManager();
+    window.OpenEarth.appState = stateManager;
+
+    // 2. Data Store
+    const dataStore = window.OpenEarth.dataStore;
+
+    // 3. Map Controller
+    const mapController = new window.OpenEarth.mapModule.MapController('map', stateManager, dataStore);
+    window.OpenEarth.mapController = mapController;
+    window.map = mapController.map; // Backward compatibility
+
+    // 4. Feature Inspector
+    const inspector = new window.OpenEarth.inspectorModule.InspectorController(
+      detailsPanel,
+      detailsBody,
+      stateManager,
+      dataStore,
+      mapController
+    );
+    window.OpenEarth.inspector = inspector;
+
+    // 5. Search Controller
+    const searchController = new window.OpenEarth.searchModule.SearchController(
+      searchInput,
+      searchResults,
+      stateManager,
+      dataStore,
+      mapController,
+      inspector
+    );
+    window.OpenEarth.searchController = searchController;
+
+    // 6. UI Controls Binding
+    syncControls(stateManager.get());
+    wireControls(stateManager, mapController, dataStore, inspector);
+
+    // 7. Subscribe to State Changes (Popstate Back/Forward Restoration)
+    window.OpenEarth.onStateRestored = restoredState => {
+      syncControls(restoredState);
+      mapController.applyVisibility();
+      mapController.setProjection(restoredState.projection, false);
+      if (restoredState.basemap !== mapController.stateManager.get().basemap) {
+        mapController.changeBasemap(restoredState.basemap);
+      }
+      if (restoredState.selectedFeature) {
+        restoreSelectedFeature(restoredState.selectedFeature, dataStore, inspector);
+      } else {
+        inspector.close();
+      }
+    };
+
+    // 8. Bootstrap Data Pipeline
+    try {
+      await dataStore.loadManifest();
+      window.setStatus();
+
+      const state = stateManager.get();
+      const loadTasks = [
+        dataStore.loadEarthquakes(state.earthquakeRange),
+        dataStore.loadVolcanoes(),
+        dataStore.loadActivity(),
+        dataStore.loadPlates(),
+        dataStore.loadTectonics(),
+        dataStore.loadTrenches()
+      ];
+
+      if (state.layers.faults) {
+        loadTasks.push(dataStore.loadFaults());
+      }
+
+      await Promise.all(loadTasks);
+
+      // Rehydrate all layers on the map
+      mapController.rehydrateLayers();
+
+      // Update layer counts in sidebar
+      updateLayerCounts(dataStore);
+      window.setStatus();
+
+      // Check for deep-linked feature in URL
+      if (state.selectedFeature) {
+        restoreSelectedFeature(state.selectedFeature, dataStore, inspector);
+      }
+    } catch (e) {
+      console.error('[OpenEarth] Bootstrap error:', e);
+    }
+  }
+
+  function restoreSelectedFeature(identity, dataStore, inspector) {
+    if (!identity?.type || !identity?.id) return;
+    const { type, id } = identity;
+
+    let feature = null;
+    let layer = null;
+
+    if (type === 'volcano') {
+      feature = dataStore.findVolcano(id);
+      layer = 'volcanoes';
+    } else if (type === 'earthquake') {
+      feature = dataStore.findEarthquake(id);
+      layer = 'earthquakes';
+    } else if (type === 'trench') {
+      feature = dataStore.findTrench(id);
+      layer = 'trenches';
+    } else if (type === 'fault') {
+      feature = dataStore.findFault(id);
+      layer = 'faults';
+    } else if (type === 'boundary') {
+      feature = dataStore.findBoundary(id);
+      layer = 'plates';
+    }
+
+    if (feature && layer) {
+      inspector.inspect(layer, feature, 'overview', false);
+    }
+  }
+
+  function syncControls(state) {
+    const baseSel = document.querySelector('#basemap');
+    if (baseSel) baseSel.value = state.basemap || 'dark';
+
+    const projSel = document.querySelector('#projection');
+    if (projSel) projSel.value = state.projection || 'mercator';
+
+    for (const [id, on] of Object.entries(state.layers || {})) {
+      const el = document.querySelector(`#${id}`);
+      if (el) el.checked = on;
+    }
+
+    document.querySelectorAll('#range button').forEach(b => {
+      b.classList.toggle('active', b.dataset.range === state.earthquakeRange);
+    });
+  }
+
+  function updateLayerCounts(ds) {
+    const qEl = document.querySelector('#quake-count');
+    if (qEl) qEl.textContent = ds.earthquakes?.features?.length ?? '0';
+
+    const vEl = document.querySelector('#volcano-count');
+    if (vEl) vEl.textContent = ds.volcanoes?.features?.length ?? '0';
+
+    const aEl = document.querySelector('#activity-count');
+    if (aEl) aEl.textContent = ds.activity?.features?.length ?? '0';
+
+    const tEl = document.querySelector('#trench-count');
+    if (tEl) tEl.textContent = ds.trenches?.features?.length ?? '0';
+
+    const fEl = document.querySelector('#fault-count');
+    if (fEl) fEl.textContent = ds.faults?.features?.length ? ds.faults.features.length : (ds.faults?.features ? 'off' : '…');
+  }
+
+  function wireControls(stateManager, mapController, dataStore, inspector) {
+    // Layer checkboxes
+    const layerIds = ['earthquakes', 'activity', 'volcanoes', 'plates', 'trenches', 'faults', 'bathymetry'];
+    for (const id of layerIds) {
+      const el = document.querySelector(`#${id}`);
+      if (el) {
+        el.addEventListener('change', async e => {
+          const checked = e.target.checked;
+          const currentLayers = { ...stateManager.get().layers, [id]: checked };
+          stateManager.update({ layers: currentLayers }, { pushHistory: false, replaceHistory: true });
+
+          if (id === 'faults' && checked && !dataStore.faults.features.length) {
+            const fCount = document.querySelector('#fault-count');
+            if (fCount) fCount.textContent = '…';
+            await dataStore.loadFaults();
+            mapController.rehydrateLayers();
+            if (fCount) fCount.textContent = dataStore.faults.features.length;
+          }
+
+          mapController.applyVisibility();
+        });
+      }
+    }
+
+    // Earthquake range pills (1h, 24h, 7d)
+    const rangeContainer = document.querySelector('#range');
+    if (rangeContainer) {
+      rangeContainer.addEventListener('click', async e => {
+        const r = e.target.dataset.range;
+        if (!r) return;
+        document.querySelectorAll('#range button').forEach(b => b.classList.toggle('active', b === e.target));
+        stateManager.update({ earthquakeRange: r }, { pushHistory: false, replaceHistory: true });
+        await dataStore.loadEarthquakes(r);
+        mapController.rehydrateLayers();
+        const qEl = document.querySelector('#quake-count');
+        if (qEl) qEl.textContent = dataStore.earthquakes.features?.length ?? '0';
+      });
+    }
+
+    // Projection dropdown
+    const projSel = document.querySelector('#projection');
+    if (projSel) {
+      projSel.addEventListener('change', e => {
+        mapController.setProjection(e.target.value);
+      });
+    }
+
+    // Basemap dropdown
+    const baseSel = document.querySelector('#basemap');
+    if (baseSel) {
+      baseSel.addEventListener('change', e => {
+        mapController.changeBasemap(e.target.value);
+      });
+    }
+
+    // Reset view button
+    const resetBtn = document.querySelector('#reset-view');
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        localStorage.removeItem('open-earth:view:v1');
+        window.location.href = window.location.pathname;
+      });
+    }
+
+    // Modals triggers
+    document.querySelector('#open-about')?.addEventListener('click', () => {
+      window.OpenEarth.modalController?.open('about');
+    });
+    document.querySelector('#open-imprint')?.addEventListener('click', () => {
+      window.OpenEarth.modalController?.open('imprint');
+    });
+    document.querySelector('#open-privacy')?.addEventListener('click', () => {
+      window.OpenEarth.modalController?.open('privacy');
+    });
+  }
+
+  // Self-start on DOM ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
