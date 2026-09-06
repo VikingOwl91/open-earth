@@ -25,29 +25,32 @@
   function showEruption(f,volcano,p){const body=document.querySelector('#details-body'),v=eVei(p),n=eNum(p);body.innerHTML=`<button class="drawer-back" type="button">← Eruption history</button><section class="event-detail"><div class="eyebrow">GVP eruption${n?` · ${esc(n)}`:''}</div><h2>${esc(eruptionLabel(p))}</h2>${v!==null&&v!==''?`<span class="vei-badge">VEI ${esc(v)}</span>`:''}<div class="meta">${fact('Classification',eCategory(p))}${fact('Start',eruptionLabel(p))}${fact('End',pval(p,'End_Date','EndDate')||pval(p,'EndDateYear','End_Year'))}${fact('Evidence',pval(p,'Evidence_Method','EvidenceMethod'))}</div><p class="semantic-note">Dates, classification and VEI are catalog facts from the Smithsonian Global Volcanism Program and may be revised as evidence changes.</p><a class="drawer-source-link" href="${esc(eruptionUrl(volcano,p))}" target="_blank" rel="noreferrer">Open source record on GVP ↗</a></section>`;body.querySelector('.drawer-back').onclick=()=>renderVolcano(f,'history')}
   async function loadPoiImage(name,country){const hero=document.querySelector('[data-poi-image]');if(!hero)return;try{const q=encodeURIComponent(`${name} volcano ${country||''}`),r=await fetch(`https://en.wikipedia.org/w/api.php?action=query&generator=search&gsrsearch=${q}&gsrlimit=1&prop=pageimages|info&piprop=thumbnail&pithumbsize=900&inprop=url&format=json&origin=*`);if(!r.ok)throw Error(r.status);const d=await r.json(),page=Object.values(d.query?.pages||{})[0];if(!page?.thumbnail?.source)throw Error('no image');hero.innerHTML=`<a href="${esc(page.fullurl||'#')}" target="_blank" rel="noreferrer"><img src="${esc(page.thumbnail.source)}" alt="${esc(name)}"/><span>${esc(page.title)} · Wikipedia ↗</span></a>`}catch{hero.innerHTML='<div class="poi-image-placeholder">No preview image available</div>'}}
 
-  /* Volcano markers are real MapLibre icon layers. A generated RGBA triangle avoids
-     font/glyph dependencies and survives every basemap style rehydrate. */
+  /* Semantic marker rendering lives on the map lifecycle rather than monkeypatching
+     addLayers(). app.js and the basemap rehydration can therefore finish first. */
   const markerImage=(fill,stroke)=>{
-    const size=32,data=new Uint8Array(size*size*4),canvas=document.createElement('canvas');canvas.width=canvas.height=size;
+    const size=32,canvas=document.createElement('canvas');canvas.width=canvas.height=size;
     const ctx=canvas.getContext('2d');ctx.clearRect(0,0,size,size);ctx.beginPath();ctx.moveTo(16,3);ctx.lineTo(29,27);ctx.lineTo(3,27);ctx.closePath();ctx.fillStyle=fill;ctx.fill();ctx.lineWidth=2;ctx.strokeStyle=stroke;ctx.stroke();
-    const pixels=ctx.getImageData(0,0,size,size);data.set(pixels.data);return {width:size,height:size,data};
+    const pixels=ctx.getImageData(0,0,size,size);return {width:size,height:size,data:new Uint8Array(pixels.data)};
   };
   function ensureMarkerImages(){
     if(!map.hasImage('open-earth-volcano'))map.addImage('open-earth-volcano',markerImage('#ff625e','#fff0e9'),{pixelRatio:2});
     if(!map.hasImage('open-earth-activity'))map.addImage('open-earth-activity',markerImage('#ff9b45','#fff0e9'),{pixelRatio:2});
   }
   function installSemanticMarkers(){
-    if(!map.isStyleLoaded())return;
+    if(!map.isStyleLoaded()||!map.getSource('volcanoes')||!map.getSource('activity'))return;
     const visibility=id=>map.getLayer(id)?(map.getLayoutProperty(id,'visibility')||'visible'):'visible';
     const vv=visibility('volcanoes'),av=visibility('activity');
     for(const id of ['volcanoes-halo','volcanoes','activity'])if(map.getLayer(id))map.removeLayer(id);
     ensureMarkerImages();
-    if(map.getSource('volcanoes'))map.addLayer({id:'volcanoes',type:'symbol',source:'volcanoes',layout:{'icon-image':'open-earth-volcano','icon-size':['interpolate',['linear'],['zoom'],0,.75,4,1,8,1.35],'icon-allow-overlap':true,'icon-ignore-placement':true,visibility:vv}});
-    if(map.getSource('activity'))map.addLayer({id:'activity',type:'symbol',source:'activity',layout:{'icon-image':'open-earth-activity','icon-size':['interpolate',['linear'],['zoom'],0,1,4,1.35,8,1.7],'icon-allow-overlap':true,'icon-ignore-placement':true,visibility:av}});
+    map.addLayer({id:'volcanoes',type:'symbol',source:'volcanoes',layout:{'icon-image':'open-earth-volcano','icon-size':['interpolate',['linear'],['zoom'],0,.75,4,1,8,1.35],'icon-allow-overlap':true,'icon-ignore-placement':true,visibility:vv}});
+    map.addLayer({id:'activity',type:'symbol',source:'activity',layout:{'icon-image':'open-earth-activity','icon-size':['interpolate',['linear'],['zoom'],0,1,4,1.35,8,1.7],'icon-allow-overlap':true,'icon-ignore-placement':true,visibility:av}});
   }
-  const previousAddLayers=addLayers;addLayers=function(){previousAddLayers();installSemanticMarkers()};
+  const installAfterHydration=()=>setTimeout(installSemanticMarkers,0);
+  map.on('load',installAfterHydration);
+  map.on('style.load',installAfterHydration);
+
   const priorDetail=detail;detail=function(layer,f){if(layer==='volcanoes'||layer==='activity'){renderVolcano(f,'overview');return}priorDetail(layer,f)};
   document.querySelector('#details-close')?.addEventListener('click',()=>activeTab='overview');
-  async function load(){const d=await localSnapshot('eruptions.json','eruptions');eruptionData=d?.features?d:empty;if(map.isStyleLoaded())installSemanticMarkers()}
+  async function load(){const d=await localSnapshot('eruptions.json','eruptions');eruptionData=d?.features?d:empty;if(map.isStyleLoaded())installAfterHydration()}
   load();
 })();
