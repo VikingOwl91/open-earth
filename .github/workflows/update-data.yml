@@ -5,11 +5,14 @@ on:
   schedule:
     - cron: '17 1 * * *'
   push:
-    branches: [main, feat/p1-trenches-bathymetry, feat/p1-pvmbg-status]
+    branches: [main, feat/p1-trenches-bathymetry, feat/p1-pvmbg-status, feat/p1-final]
     paths:
       - scripts/update_data.py
       - scripts/update_trenches.py
       - scripts/update_pvmbg.py
+      - scripts/update_usgs_volcanoes.py
+      - scripts/update_jma_volcanoes.py
+      - scripts/update_geonet_volcanoes.py
       - .github/workflows/update-data.yml
 
 permissions:
@@ -37,11 +40,32 @@ jobs:
         continue-on-error: true
         id: pvmbg
         run: python scripts/update_pvmbg.py
+      - name: Refresh regional volcano monitoring (USGS)
+        continue-on-error: true
+        id: usgs
+        run: python scripts/update_usgs_volcanoes.py
+      - name: Refresh regional volcano monitoring (JMA)
+        continue-on-error: true
+        id: jma
+        run: python scripts/update_jma_volcanoes.py
+      - name: Refresh regional volcano monitoring (GeoNet)
+        continue-on-error: true
+        id: geonet
+        run: python scripts/update_geonet_volcanoes.py
       - name: Report snapshot status
         if: always()
         run: |
           if [ "${{ steps.pvmbg.outcome }}" = "failure" ]; then
             echo "::warning title=PVMBG Snapshot Stale::PVMBG / MAGMA Indonesia snapshot could not be refreshed; retained previous snapshot if present."
+          fi
+          if [ "${{ steps.usgs.outcome }}" = "failure" ]; then
+            echo "::warning title=USGS Snapshot Stale::USGS Volcano Hazards snapshot could not be refreshed; retained previous snapshot if present."
+          fi
+          if [ "${{ steps.jma.outcome }}" = "failure" ]; then
+            echo "::warning title=JMA Snapshot Stale::JMA volcano snapshot could not be refreshed; retained previous snapshot if present."
+          fi
+          if [ "${{ steps.geonet.outcome }}" = "failure" ]; then
+            echo "::warning title=GeoNet Snapshot Stale::GeoNet New Zealand snapshot could not be refreshed; retained previous snapshot if present."
           fi
       - name: Run data tests
         run: python -m unittest discover tests
