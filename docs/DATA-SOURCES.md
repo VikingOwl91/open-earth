@@ -26,7 +26,7 @@ Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and
 
 The browser should not depend on upstream CORS policy for reference geology. GitHub Actions performs cross-origin acquisition and normalization, commits changed snapshots, and the static web client reads same-origin files from `data/`. Direct USGS earthquake feeds remain live because they are explicitly designed for browser consumption.
 
-Failure isolation is enforced in `.github/workflows/update-data.yml`: every regional provider runs in its own step with isolated error handling so an upstream outage at one national agency never blocks data updates for the rest of the application.
+Failure isolation is enforced in `.github/workflows/update-data.yml`: every upstream refresh step (GVP core snapshots, GEBCO trenches, and each regional volcano monitoring provider) runs with isolated error handling so an upstream outage never blocks data updates for the rest of the application.
 
 ## Regional volcano monitoring providers
 

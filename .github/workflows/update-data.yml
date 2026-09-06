@@ -33,8 +33,12 @@ jobs:
         with:
           python-version: '3.13'
       - name: Refresh core snapshots (GVP)
+        continue-on-error: true
+        id: gvp
         run: python scripts/update_data.py
       - name: Refresh seafloor trenches (GEBCO)
+        continue-on-error: true
+        id: gebco
         run: python scripts/update_trenches.py
       - name: Refresh regional volcano monitoring (PVMBG)
         continue-on-error: true
@@ -55,6 +59,12 @@ jobs:
       - name: Report snapshot status
         if: always()
         run: |
+          if [ "${{ steps.gvp.outcome }}" = "failure" ]; then
+            echo "::warning title=GVP Core Snapshot Stale::Core GVP snapshots could not be refreshed; retained previous snapshot if present."
+          fi
+          if [ "${{ steps.gebco.outcome }}" = "failure" ]; then
+            echo "::warning title=GEBCO Trenches Snapshot Stale::GEBCO trenches snapshot could not be refreshed; retained previous snapshot if present."
+          fi
           if [ "${{ steps.pvmbg.outcome }}" = "failure" ]; then
             echo "::warning title=PVMBG Snapshot Stale::PVMBG / MAGMA Indonesia snapshot could not be refreshed; retained previous snapshot if present."
           fi
