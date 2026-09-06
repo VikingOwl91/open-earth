@@ -22,6 +22,11 @@
 
   function inject() {
     if (busy || !current) return;
+    const eyebrow = body.querySelector('.drawer-head .eyebrow')?.textContent || '';
+    if (!eyebrow.toLowerCase().includes('volcano')) {
+      current = null;
+      return;
+    }
     busy = true;
     try {
       const s = window.pvmbgForVolcano?.(current);

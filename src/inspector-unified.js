@@ -5,6 +5,7 @@
   const sourceSection=s=>`<section class="drawer-section"><div class="inspector-heading">Sources</div>${sourceLine(s)}${snapshotAge()?`<p class="source">Open Earth snapshot: ${esc(snapshotAge())}</p>`:''}</section>`;
   function render(layer,f,tab='overview'){
     const p=f.properties||{},body=document.querySelector('#details-body'),panel=document.querySelector('#details'),coords=f.geometry?.coordinates||[],isQuake=layer==='earthquakes',isFault=layer==='faults';
+    selectedMapFeature={layer,feature:f};
     const items=isQuake?[['overview','Overview'],['nearby','Nearby'],['sources','Sources']]:[['overview','Overview'],['nearby','Nearby'],['sources','Sources']];
     let eyebrow,title,icon,content,source;
     if(isQuake){
@@ -26,7 +27,7 @@
 
   /* tectonics.js has its own click path, so give typed boundaries the same drawer directly. */
   showTectonicDetail=function(f){
-    selectTectonicStep(f);const p=f.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{label:'Plate boundary',family:'other'},body=document.querySelector('#details-body'),panel=document.querySelector('#details'),c=featureCenter(f),items=[['overview','Overview'],['nearby','Nearby'],['sources','Sources']];
+    selectTectonicStep(f);selectedMapFeature={layer:'plates',feature:f};const p=f.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{label:'Plate boundary',family:'other'},body=document.querySelector('#details-body'),panel=document.querySelector('#details'),c=featureCenter(f),items=[['overview','Overview'],['nearby','Nearby'],['sources','Sources']];
     const draw=tab=>{let content;if(tab==='nearby')content=c?relationships(c):'';else if(tab==='sources')content=sourceSection(SOURCES.plates);else content=`<section class="drawer-section"><div class="inspector-heading">Boundary information</div><div class="meta">${fact('Class',meta.family)}${fact('Plate pair',value(p.Plate_Pair,p.PLATEBOUND))}${fact('Step length',p.STEPLENGTH!=null?`${Number(p.STEPLENGTH).toFixed(1)} km`:null)}${fact('Relative velocity',p.VELOCITYLE!=null?`${Number(p.VELOCITYLE).toFixed(1)} mm/yr`:null)}</div></section><section class="drawer-card"><div class="inspector-heading">Tectonic context</div><p>${esc(value(p.Boundary_Label,meta.label))}</p><p class="semantic-note">Boundary classification and relative motion come from the PB2002 plate model.</p></section>`;body.innerHTML=shell(`Plate tectonics · ${esc(code||'PB2002')}`,esc(value(p.Boundary_Label,meta.label)),'━',items,tab,content);panel.hidden=false;body.querySelectorAll('[data-unified-tab]').forEach(b=>b.onclick=()=>draw(b.dataset.unifiedTab))};draw('overview');
   };
 })();
