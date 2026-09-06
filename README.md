@@ -42,7 +42,7 @@ A core rule:
 
 > Every displayed fact should know where it came from and how old it is.
 
-See [DATA-SOURCES.md](docs/DATA-SOURCES.md) and [ARCHITECTURE.md](docs/ARCHITECTURE.md).
+See [ARCHITECTURE.md](docs/ARCHITECTURE.md), [DATA-SOURCES.md](docs/DATA-SOURCES.md), [PRIVACY.md](docs/PRIVACY.md), and [CONTRIBUTING.md](CONTRIBUTING.md).
 
 ## Scope
 
@@ -50,7 +50,12 @@ Open Earth is a geology explorer, not a general disaster dashboard. Wildfires, s
 
 ## Status
 
-P1 feature-complete: multi-provider regional monitoring, tectonic boundary kinematics, GEBCO trenches, navigable relationship stack, and geodynamic classification tiers.
+P1.5 stabilization complete:
+- Clean, modular architecture without runtime monkey-patch chains
+- URL-first state management with browser Back/Forward navigation support
+- Unified feature inspector across all 5 entity types with bounded report excerpts
+- Resilient basemap switching and projection toggling
+- Zero-tracking static deployment and privacy audit
 
 ## License
 
