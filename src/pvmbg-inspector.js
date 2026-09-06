@@ -9,14 +9,19 @@
 
   function card(s) {
     const age = window.pvmbgSnapshotAge?.();
+    const lvl = (s.level || '').toLowerCase();
+    const provMeta = ['PVMBG / MAGMA Indonesia', age].filter(Boolean).join(' · ');
+    const statusLabel = s.level ? `LEVEL ${escFn(s.level)} · ${escFn(s.label.toUpperCase())}` : escFn(s.label.toUpperCase());
     return `<section class="drawer-card pvmbg-card" data-pvmbg-card>
-      <div class="inspector-heading">Regional monitoring · PVMBG / MAGMA Indonesia</div>
-      <div class="meta">
-        ${factFn('Activity level', `Level ${s.level} · ${s.label}`)}
-        ${age ? factFn('Snapshot', age) : ''}
+      <div class="pvmbg-header">
+        <span class="inspector-heading">Regional status</span>
+        <span class="pvmbg-provider-meta">${escFn(provMeta)}</span>
       </div>
-      <p class="semantic-note">Official Indonesian volcano activity level. This regional monitoring status is separate from the GVP weekly report and catalog.</p>
-      ${s.reportUrl ? `<a class="drawer-source-link" href="${escFn(s.reportUrl)}" target="_blank" rel="noreferrer">Latest MAGMA report ↗</a>` : ''}
+      <div class="pvmbg-status-row">
+        <span class="pvmbg-badge pvmbg-level-${escFn(lvl)}">${statusLabel}</span>
+        ${s.reportUrl ? `<a class="pvmbg-report-link" href="${escFn(s.reportUrl)}" target="_blank" rel="noreferrer">Latest MAGMA report ↗</a>` : ''}
+      </div>
+      <p class="pvmbg-note">Official Indonesian activity level. Independent of the GVP weekly report.</p>
     </section>`;
   }
 
@@ -37,7 +42,8 @@
 
       if (!head.querySelector('[data-pvmbg-badge]')) {
         const lvl = (s.level || '').toLowerCase();
-        head.insertAdjacentHTML('beforeend', ` <em data-pvmbg-badge class="pvmbg-level-${escFn(lvl)}">PVMBG · ${escFn(s.label.toUpperCase())}</em>`);
+        const badgeLabel = s.level ? `LEVEL ${escFn(s.level)} · ${escFn(s.label.toUpperCase())}` : escFn(s.label.toUpperCase());
+        head.insertAdjacentHTML('beforeend', ` <em data-pvmbg-badge class="pvmbg-level-${escFn(lvl)}">${badgeLabel}</em>`);
       }
 
       const active = body.querySelector('.drawer-tabs .active')?.dataset.drawerTab;
