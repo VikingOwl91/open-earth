@@ -13,11 +13,22 @@ URLS={
  'volcano_wfs':'https://webservices.volcano.si.edu/geoserver/GVP-VOTW/wfs?service=WFS&version=1.0.0&request=GetFeature&typeName=GVP-VOTW%3AE3WebApp_HoloceneVolcanoes&outputFormat=application%2Fjson&srsName=EPSG%3A4326',
  'volcano_csv':'https://raw.githubusercontent.com/mhmnia/eq-volcano-explorer/main/data/gvp_holocene_volcanoes.csv',
  'plates':'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json',
+ 'plate_steps':'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_steps.json',
+ 'plate_polygons':'https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_plates.json',
  'faults':'https://raw.githubusercontent.com/GEMScienceTools/gem-global-active-faults/master/geojson/gem_active_faults_harmonized.geojson',
  'activity':'https://volcano.si.edu/news/WeeklyVolcanoRSS.xml',
 }
+STEP_TYPES={
+ 'SUB':('subduction','Subduction zone'),
+ 'OSR':('divergent','Oceanic spreading ridge'),
+ 'CRB':('divergent','Continental rift boundary'),
+ 'OTF':('transform','Oceanic transform fault'),
+ 'CTF':('transform','Continental transform fault'),
+ 'OCB':('convergent','Oceanic convergent boundary'),
+ 'CCB':('convergent','Continental convergent boundary'),
+}
 def get(url):
-    with urllib.request.urlopen(urllib.request.Request(url,headers=UA),timeout=90) as r:return r.read()
+    with urllib.request.urlopen(urllib.request.Request(url,headers=UA),timeout=120) as r:return r.read()
 def write(name,obj):(OUT/name).write_text(json.dumps(obj,ensure_ascii=False,separators=(',',':'))+'\n',encoding='utf-8')
 def norm(s):
     s=unicodedata.normalize('NFKD',str(s or '')).encode('ascii','ignore').decode().lower();return re.sub(r'[^a-z0-9]','',s)
@@ -43,6 +54,19 @@ def load_volcanoes():
         if len(fs)>500:return {'type':'FeatureCollection','features':fs}
     except Exception as e:print('GVP WFS fallback:',e)
     return volcanoes_from_csv(get(URLS['volcano_csv']))
+def normalize_steps(obj):
+    fs=[]
+    for f in obj.get('features',[]):
+        p=dict(f.get('properties') or {});code=str(p.get('STEPCLASS') or '').upper();family,label=STEP_TYPES.get(code,('other','Other / uncertain boundary'))
+        p.update({'Boundary_Code':code,'Boundary_Family':family,'Boundary_Label':label,'Plate_Pair':p.get('PLATEBOUND') or ''})
+        fs.append({'type':'Feature','properties':p,'geometry':f.get('geometry')})
+    return {'type':'FeatureCollection','features':fs}
+def normalize_plate_polygons(obj):
+    fs=[]
+    for f in obj.get('features',[]):
+        p=dict(f.get('properties') or {});code=pick(p,'PlateCode','PLATE','Code','Name','NAME');name=pick(p,'PlateName','Plate_Name','Name','NAME') or code
+        p.update({'Plate_Code':code,'Plate_Name':name});fs.append({'type':'Feature','properties':p,'geometry':f.get('geometry')})
+    return {'type':'FeatureCollection','features':fs}
 def activity(volcanoes):
     root=ET.fromstring(get(URLS['activity']));features=volcanoes['features'];by_number={str(f['properties'].get('Volcano_Number')):f for f in features if f['properties'].get('Volcano_Number') not in (None,'')};names=sorted(((norm(f['properties'].get('Volcano_Name')),f) for f in features if f['properties'].get('Volcano_Name')),key=lambda x:len(x[0]),reverse=True);fs=[];seen=set();items=root.findall('.//item')
     for item in items:
@@ -57,7 +81,9 @@ def activity(volcanoes):
         seen.add(key);p.update({'Report_Name':title,'Report_URL':link or guid or 'https://volcano.si.edu/reports_weekly.cfm','Report_Published':pub,'Report_Summary':re.sub('<[^>]+>',' ',desc).strip(),'Report_Source':'Smithsonian / USGS Weekly Volcanic Activity Report'});fs.append({'type':'Feature','properties':p,'geometry':f['geometry']})
     print(f'GVP activity: matched {len(fs)}/{len(items)} RSS items');return {'type':'FeatureCollection','features':fs}
 def main():
-    fetched=datetime.now(timezone.utc).isoformat();volcanoes=load_volcanoes();plates=json.loads(get(URLS['plates']));faults=json.loads(get(URLS['faults']));reports=activity(volcanoes)
-    for obj in (volcanoes,plates,faults,reports):obj['openEarth']={'fetchedAt':fetched}
-    write('volcanoes.json',volcanoes);write('plates.json',plates);write('faults.json',faults);write('volcanic-reports.json',reports);write('manifest.json',{'generatedAt':fetched,'sources':URLS,'counts':{'volcanoes':len(volcanoes['features']),'plates':len(plates['features']),'faults':len(faults['features']),'volcanicReports':len(reports['features'])}});print('Updated:',json.loads((OUT/'manifest.json').read_text()))
+    fetched=datetime.now(timezone.utc).isoformat();volcanoes=load_volcanoes();plates=json.loads(get(URLS['plates']));steps=normalize_steps(json.loads(get(URLS['plate_steps'])));plate_polygons=normalize_plate_polygons(json.loads(get(URLS['plate_polygons'])));faults=json.loads(get(URLS['faults']));reports=activity(volcanoes)
+    datasets=(volcanoes,plates,steps,plate_polygons,faults,reports)
+    for obj in datasets:obj['openEarth']={'fetchedAt':fetched}
+    write('volcanoes.json',volcanoes);write('plates.json',plates);write('plate-steps.json',steps);write('plate-polygons.json',plate_polygons);write('faults.json',faults);write('volcanic-reports.json',reports)
+    write('manifest.json',{'generatedAt':fetched,'sources':URLS,'counts':{'volcanoes':len(volcanoes['features']),'plates':len(plates['features']),'plateSteps':len(steps['features']),'platePolygons':len(plate_polygons['features']),'faults':len(faults['features']),'volcanicReports':len(reports['features'])}});print('Updated:',json.loads((OUT/'manifest.json').read_text()))
 if __name__=='__main__':main()
