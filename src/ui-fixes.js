@@ -4,14 +4,25 @@ let selectionPulseFrame=0;
 
 function ensureSelectionLayer(){
   if(!map.getSource('selection')) map.addSource('selection',{type:'geojson',data:empty});
+  /* Dark casing keeps the cyan selection legible on light and satellite-like maps. */
+  if(!map.getLayer('selection-casing')) map.addLayer({
+    id:'selection-casing',type:'circle',source:'selection',
+    paint:{
+      'circle-radius':14,
+      'circle-color':'rgba(0,0,0,0)',
+      'circle-stroke-color':'rgba(3,26,34,.82)',
+      'circle-stroke-width':6,
+      'circle-stroke-opacity':.82
+    }
+  });
   if(!map.getLayer('selection')) map.addLayer({
     id:'selection',type:'circle',source:'selection',
     paint:{
       'circle-radius':14,
-      'circle-color':'rgba(99,215,230,0.08)',
+      'circle-color':'rgba(99,215,230,0.10)',
       'circle-stroke-color':'#63d7e6',
       'circle-stroke-width':3,
-      'circle-stroke-opacity':.95
+      'circle-stroke-opacity':1
     }
   });
 }
@@ -24,10 +35,16 @@ function restoreSelection(){
 function animateSelection(ts=0){
   if(map.getLayer('selection')&&selectedMapFeature){
     const phase=(Math.sin(ts/360)+1)/2;
-    map.setPaintProperty('selection','circle-radius',12+phase*8);
-    map.setPaintProperty('selection','circle-stroke-width',2+phase*2);
-    map.setPaintProperty('selection','circle-stroke-opacity',.95-phase*.5);
-    map.setPaintProperty('selection','circle-color',`rgba(99,215,230,${.12-phase*.08})`);
+    const radius=12+phase*8;
+    map.setPaintProperty('selection','circle-radius',radius);
+    map.setPaintProperty('selection','circle-stroke-width',2.5+phase*1.5);
+    map.setPaintProperty('selection','circle-stroke-opacity',1-phase*.35);
+    map.setPaintProperty('selection','circle-color',`rgba(99,215,230,${.16-phase*.08})`);
+    if(map.getLayer('selection-casing')){
+      map.setPaintProperty('selection-casing','circle-radius',radius);
+      map.setPaintProperty('selection-casing','circle-stroke-width',6+phase*1.5);
+      map.setPaintProperty('selection-casing','circle-stroke-opacity',.82-phase*.22);
+    }
   }
   selectionPulseFrame=requestAnimationFrame(animateSelection);
 }
@@ -68,12 +85,12 @@ changeBasemap=function(name){
     loading(false);
   };
 
-  /* style.load is the correct point to add application-owned sources/layers.
-     Waiting for isStyleLoaded()/idle creates a deadlock: the style is already
-     usable here, while glyph/sprite/tile work may still be in flight. */
   map.once('style.load',()=>{
     if(token!==styleChangeToken)return;
     try{
+      /* diff:false guarantees the old app-owned sources do not survive the
+         style swap. addLayers() has an early-return guard on earthquakes, so
+         a diffed style could preserve the source while dropping its layers. */
       addLayers();
       setProjection(projection,false);
       map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});
@@ -86,10 +103,9 @@ changeBasemap=function(name){
     }
   });
 
-  try{map.setStyle(BASEMAPS[name])}
+  try{map.setStyle(BASEMAPS[name],{diff:false})}
   catch(error){console.error('Basemap change failed',error);finish()}
 
-  /* UI safety only; this never gates rehydration. */
   setTimeout(finish,8000);
 };
 
