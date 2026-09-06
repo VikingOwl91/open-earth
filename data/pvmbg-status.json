@@ -3,7 +3,7 @@
     "name": "PVMBG / MAGMA Indonesia",
     "url": "https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas"
   },
-  "fetchedAt": "2026-09-06T15:34:34.776488+00:00",
+  "fetchedAt": "2026-09-06T15:59:22.255570+00:00",
   "statuses": [
     {
       "name": "Anak Krakatau",
@@ -105,7 +105,7 @@
       "name": "Gamalama",
       "level": "II",
       "label": "Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/325077?signature=7b04014e2cb4f7bea6e7ae0f712de05d0fdbdc3f5f0c21e9081d0bfeb7adb006",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/325168?signature=acfae490a7434aba3bec82f77e5aa2704625ad48fabbd12041e1c26639e7d222",
       "location": "Maluku Utara",
       "volcanoNumber": 268060
     },
