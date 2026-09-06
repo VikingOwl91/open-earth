@@ -6,14 +6,22 @@ Open Earth combines live seismic activity with volcanoes and tectonic context in
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y4N626HMX7)
 
-## MVP
+## Features
 
-- Live earthquakes from the USGS GeoJSON feed
-- Holocene volcano catalog from Smithsonian GVP WFS
-- Tectonic plate boundaries from USGS
-- Layer toggles and earthquake time windows
-- Search for places, volcanoes, and visible earthquake names
-- Clickable features with source links and timestamps
+- Live earthquakes from the USGS GeoJSON feed with magnitude and depth filtering
+- Enriched historical earthquake catalog search with spatial radius and map bound pivots
+- Holocene volcano catalog from the Smithsonian Global Volcanism Program (GVP)
+- Multi-provider regional volcano monitoring:
+  - PVMBG / MAGMA Indonesia (Level I to IV alert levels)
+  - USGS Volcano Hazards Program (Alert levels and aviation color codes)
+  - Japan Meteorological Agency (JMA volcanic warnings)
+  - GeoNet New Zealand / GNS Science (Volcanic Alert Levels)
+- PB2002 tectonic plate model with named plates and typed boundary kinematics (subduction, convergent, divergent, transform)
+- IHO-IOC GEBCO Gazetteer named undersea trenches and optional shaded-relief bathymetry
+- Active faults from the GEM Global Active Faults database
+- 3-tier geodynamic classification distinguishing authoritative catalog facts (REFERENCE), live/recent observations (OBSERVED), and spatial proximity analysis (DERIVED)
+- Navigable relationship graph with back-stack history across all 5 feature types (Volcano, Earthquake, Fault, Boundary, Trench)
+- Search for places, volcanoes, and visible earthquake regions
 - Static deployment: no account, database, API key, or backend required
 
 ## Run locally
@@ -42,7 +50,7 @@ Open Earth is a geology explorer, not a general disaster dashboard. Wildfires, s
 
 ## Status
 
-Very early MVP. Expect rough edges and upstream-source quirks.
+P1 feature-complete: multi-provider regional monitoring, tectonic boundary kinematics, GEBCO trenches, navigable relationship stack, and geodynamic classification tiers.
 
 ## License
 

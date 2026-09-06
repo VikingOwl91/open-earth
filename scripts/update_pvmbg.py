@@ -189,9 +189,12 @@ def parse_pvmbg_html(page: str, base_url: str = URL, gvp_lookup: dict[str, list[
         seen.add(key)
 
         entry = {
+            'providerId': 'pvmbg',
+            'providerName': 'PVMBG / MAGMA Indonesia',
             'name': name,
             'level': current_level,
             'label': LEVELS[current_level],
+            'nativeStatus': f'Level {current_level} - {LEVELS[current_level]}',
             'reportUrl': report_url,
         }
         if loc:
@@ -200,17 +203,22 @@ def parse_pvmbg_html(page: str, base_url: str = URL, gvp_lookup: dict[str, list[
         # Map to GVP volcano number if unambiguous
         nm = norm(name)
         vnum = None
+        matching_method = None
         if nm == 'sumbing' and 'jawa' in norm(loc):
             vnum = 263220
+            matching_method = 'curated_location'
         elif nm in CURATED_ALIASES:
             vnum = CURATED_ALIASES[nm]
+            matching_method = 'curated_alias'
         elif nm in gvp_lookup:
             candidates = gvp_lookup[nm]
             if len(candidates) == 1:
                 vnum = candidates[0]
+                matching_method = 'exact_catalog_name'
 
         if vnum is not None:
             entry['volcanoNumber'] = vnum
+            entry['matchingMethod'] = matching_method
 
         rows.append(entry)
 
@@ -234,6 +242,11 @@ def main():
     fetched = datetime.now(timezone.utc).isoformat()
     payload = {
         'source': {
+            'name': 'PVMBG / MAGMA Indonesia',
+            'url': URL,
+        },
+        'provider': {
+            'id': 'pvmbg',
             'name': 'PVMBG / MAGMA Indonesia',
             'url': URL,
         },
