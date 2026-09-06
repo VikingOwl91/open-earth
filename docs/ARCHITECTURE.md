@@ -35,7 +35,7 @@ browser data ─> source adapters ─> normalized features ─> map + details/se
 
 `.github/workflows/update-data.yml` runs daily and can be dispatched manually. It commits only changed generated data. Earthquakes intentionally remain direct USGS feeds.
 
-The current V2 keeps compatibility fallbacks while the pipeline proves itself. They should be removed after the generated datasets are stable.
+The browser treats repository snapshots as authoritative. It must not silently retry CORS-prone scientific upstreams when a snapshot is empty; emptiness/staleness is surfaced as data state instead.
 
 ## Normalized feature direction
 
@@ -45,12 +45,7 @@ Adapters should converge on a source-aware envelope rather than leaking upstream
 {
   kind: 'earthquake' | 'volcano' | 'volcanic-report' | 'plate-boundary' | 'fault',
   id: 'source-stable-id',
-  source: {
-    id: 'gvp',
-    name: 'Smithsonian Global Volcanism Program',
-    url: 'https://…',
-    fetchedAt: '2026-…'
-  },
+  source: { id: 'gvp', name: 'Smithsonian Global Volcanism Program', url: 'https://…', fetchedAt: '2026-…' },
   observedAt: null,
   validFrom: null,
   validTo: null,
@@ -64,8 +59,9 @@ Do not force every source into every temporal field. Reference geology may only 
 
 ## P1 architecture
 
-P1 adds **relationships** and typed geological context:
+P1 adds **relationships**, typed geological context, and time-aware exploration:
 
+- historical search by time range, magnitude/depth, region/map bounds and feature type
 - plate polygons + stable plate IDs
 - typed plate boundaries
 - subduction zones / trenches
@@ -74,6 +70,21 @@ P1 adds **relationships** and typed geological context:
 - selected-feature context queries (volcano → plate → boundary → nearby events)
 - adapter modules and fixture-based normalization tests
 - per-layer freshness/health UI
+
+### Geology Context Inspector target
+
+The details card should evolve into the primary explanation surface rather than a raw-property popup. For a selected volcano such as Krakatau, target sections are:
+
+- **Overview:** canonical name, aliases, GVP ID, country/region, coordinates, type and elevation.
+- **Status / Activity:** current observatory status where available plus the latest GVP Weekly Volcanic Activity Report, report period, summary and source link. A weekly report remains a report, not a universal active/inactive truth flag.
+- **Geology:** tectonic setting, volcanic arc, plate/subduction context and eventually trench/bathymetry context.
+- **History:** selected eruption/report history with links to the authoritative catalog; historical search should be able to pivot from here.
+- **Nearby:** nearest boundary/trench/fault and relevant earthquakes for an explicit time/radius window.
+- **Sources:** provenance and freshness for every fact group.
+
+Search should prefer exact/local scientific entities over geocoding results. A query such as `krakatau` should present the GVP volcano first and may show the Nominatim place separately; selecting one must never borrow coordinates/properties from the other.
+
+The long-term visual direction is a dense but readable dark GIS explorer: map remains primary, selected activity is visually distinct, search results identify entity type/source, and the inspector can grow into tabbed Overview / Activity / Geology / History / Nearby / Sources views without hiding provenance.
 
 Raster-scale products such as GEBCO must be preprocessed into web-appropriate tiles/overviews; multi-gigabyte scientific grids never belong in the runtime bundle.
 
