@@ -24,15 +24,15 @@ UA = {
 }
 
 CURATED_GEONET_GVP = {
-    'whiteisland': 241010,           # Whakaari / White Island
+    'whiteisland': 241040,           # Whakaari / White Island
     'ruapehu': 241100,               # Ruapehu
     'taupo': 241070,                 # Taupo
     'tongariro': 241080,             # Tongariro
     'ngauruhoe': 241080,             # Ngauruhoe (cone of Tongariro complex)
-    'taranakiegmont': 241090,         # Taranaki / Egmont
+    'taranakiegmont': 241030,         # Taranaki / Egmont
     'aucklandvolcanicfield': 241020,  # Auckland Volcanic Field
-    'mayorisland': 241050,           # Tuhua / Mayor Island
-    'okataina': 241040,              # Okataina
+    'mayorisland': 241021,           # Tuhua / Mayor Island
+    'okataina': 241050,              # Okataina
     'rotorua': 241030,               # Rotorua
 }
 

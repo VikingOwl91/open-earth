@@ -8,7 +8,7 @@
     "name": "GeoNet New Zealand (GNS Science)",
     "url": "https://www.geonet.org.nz/volcano"
   },
-  "fetchedAt": "2026-09-06T16:22:56.957141+00:00",
+  "fetchedAt": "2026-09-06T16:25:52.536987+00:00",
   "statuses": [
     {
       "providerId": "geonet",
@@ -95,7 +95,7 @@
       "reportUrl": "https://www.geonet.org.nz/volcano/mayorisland",
       "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
       "note": "Volcanic environment hazards.",
-      "volcanoNumber": 241050,
+      "volcanoNumber": 241021,
       "matchingMethod": "curated_geonet_id"
     },
     {
@@ -147,7 +147,7 @@
       "reportUrl": "https://www.geonet.org.nz/volcano/okataina",
       "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
       "note": "Volcanic environment hazards.",
-      "volcanoNumber": 241040,
+      "volcanoNumber": 241050,
       "matchingMethod": "curated_geonet_id"
     },
     {
@@ -183,7 +183,7 @@
       "reportUrl": "https://www.geonet.org.nz/volcano/whiteisland",
       "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
       "note": "Volcanic unrest hazards, potential for eruption hazards.",
-      "volcanoNumber": 241010,
+      "volcanoNumber": 241040,
       "matchingMethod": "curated_geonet_id"
     },
     {
@@ -219,7 +219,7 @@
       "reportUrl": "https://www.geonet.org.nz/volcano/taranakiegmont",
       "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
       "note": "Volcanic environment hazards.",
-      "volcanoNumber": 241090,
+      "volcanoNumber": 241030,
       "matchingMethod": "curated_geonet_id"
     }
   ]

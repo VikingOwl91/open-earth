@@ -30,7 +30,7 @@ class TestGeoNetVolcanoParser(unittest.TestCase):
         self.assertEqual(wi['level'], 'Level 2')
         self.assertEqual(wi['colorCode'], 'YELLOW')
         self.assertEqual(wi['severity'], 'watch')
-        self.assertEqual(wi.get('volcanoNumber'), 241010)
+        self.assertEqual(wi.get('volcanoNumber'), 241040)
         self.assertEqual(wi.get('matchingMethod'), 'curated_geonet_id')
         self.assertTrue(wi['reportUrl'].endswith('/whiteisland'))
 
