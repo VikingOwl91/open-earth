@@ -1,16 +1,17 @@
-/* Transitional UI/lifecycle fixes kept separate so the map state remains inspectable. */
+/* Map lifecycle + selection polish. Kept separate while the V2 branch settles. */
 let selectedMapFeature=null;
+let selectionPulseFrame=0;
 
 function ensureSelectionLayer(){
   if(!map.getSource('selection')) map.addSource('selection',{type:'geojson',data:empty});
   if(!map.getLayer('selection')) map.addLayer({
     id:'selection',type:'circle',source:'selection',
     paint:{
-      'circle-radius':['interpolate',['linear'],['zoom'],0,8,5,13,9,18],
-      'circle-color':'rgba(255,255,255,0)',
-      'circle-stroke-color':'#ffffff',
+      'circle-radius':14,
+      'circle-color':'rgba(99,215,230,0.08)',
+      'circle-stroke-color':'#63d7e6',
       'circle-stroke-width':3,
-      'circle-opacity':1
+      'circle-stroke-opacity':.95
     }
   });
 }
@@ -19,6 +20,18 @@ function restoreSelection(){
   ensureSelectionLayer();
   map.getSource('selection')?.setData(selectedMapFeature?.feature||empty);
 }
+
+function animateSelection(ts=0){
+  if(map.getLayer('selection')&&selectedMapFeature){
+    const phase=(Math.sin(ts/360)+1)/2;
+    map.setPaintProperty('selection','circle-radius',12+phase*8);
+    map.setPaintProperty('selection','circle-stroke-width',2+phase*2);
+    map.setPaintProperty('selection','circle-stroke-opacity',.95-phase*.5);
+    map.setPaintProperty('selection','circle-color',`rgba(99,215,230,${.12-phase*.08})`);
+  }
+  selectionPulseFrame=requestAnimationFrame(animateSelection);
+}
+selectionPulseFrame=requestAnimationFrame(animateSelection);
 
 const originalAddLayers=addLayers;
 addLayers=function(){
@@ -38,7 +51,20 @@ document.querySelector('#details-close').addEventListener('click',()=>{
 });
 
 let styleChangeToken=0;
-changeBasemap=function(name){
+function waitForStyle(token,timeoutMs=10000){
+  return new Promise((resolve,reject)=>{
+    const started=performance.now();
+    const check=()=>{
+      if(token!==styleChangeToken)return reject(new Error('superseded style change'));
+      try{if(map.isStyleLoaded())return resolve()}catch{}
+      if(performance.now()-started>timeoutMs)return reject(new Error('style load timed out'));
+      setTimeout(check,50);
+    };
+    check();
+  });
+}
+
+changeBasemap=async function(name){
   if(!BASEMAPS[name]||name===viewState.basemap)return;
   const token=++styleChangeToken;
   saveCamera();
@@ -48,19 +74,27 @@ changeBasemap=function(name){
   const camera={...viewState.camera};
   const projection=viewState.projection;
 
-  map.once('style.load',()=>{
+  try{
+    map.setStyle(BASEMAPS[name]);
+    await waitForStyle(token);
     if(token!==styleChangeToken)return;
-    try{
-      addLayers();
-      setProjection(projection,false);
-      map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});
-      applyVisibility();
-      restoreSelection();
-    }finally{
-      requestAnimationFrame(()=>loading(false));
-    }
-  });
-  map.setStyle(BASEMAPS[name]);
+
+    /* setStyle removes all custom sources/layers. Recreate them only after the
+       new style is actually complete, then restore view state and selection. */
+    addLayers();
+    setProjection(projection,false);
+    map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});
+    applyVisibility();
+    restoreSelection();
+
+    /* Give MapLibre one paint frame with the restored overlays before removing
+       the transition indicator. */
+    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  }catch(error){
+    if(token===styleChangeToken)console.error('Basemap rehydrate failed',error);
+  }finally{
+    if(token===styleChangeToken)loading(false);
+  }
 };
 
 /* Search-result selection should use the same visual selection path. */
@@ -72,6 +106,3 @@ document.querySelector('#search-results').addEventListener('click',()=>{
     if(f)selectFeature('volcanoes',f);
   },550);
 });
-
-/* Safety valve: a failed style request must never leave the UI blocked forever. */
-map.on('error',()=>loading(false));
