@@ -51,7 +51,26 @@ def normalize_eruptions(obj):
     fs=[]
     for f in obj.get('features',[]):
         p=dict(f.get('properties') or {})
-        p.update({'Volcano_Number':pick(p,'Volcano_Number','VolcanoNumber','volcano_number','VolcanoNo'),'Volcano_Name':pick(p,'Volcano_Name','VolcanoName','volcano_name'),'Eruption_Number':pick(p,'Eruption_Number','EruptionNumber','eruption_number'),'Eruption_Category':pick(p,'Eruption_Category','EruptionCategory','eruption_category','EruptionCategoryName'),'Start_Date':pick(p,'Start_Date','StartDate','start_date'),'Start_Year':pick(p,'Start_Year','StartYear','start_year'),'End_Date':pick(p,'End_Date','EndDate','end_date'),'End_Year':pick(p,'End_Year','EndYear','end_year'),'VEI':pick(p,'VEI','Vei','vei')})
+        # GVP WFS has used both compact (StartYear) and spaced/title-case field names
+        # across exports. Preserve the raw properties and expose one stable schema.
+        p.update({
+          'Volcano_Number':pick(p,'Volcano_Number','VolcanoNumber','volcano_number','VolcanoNo','Volcano Number'),
+          'Volcano_Name':pick(p,'Volcano_Name','VolcanoName','volcano_name','Volcano Name'),
+          'Eruption_Number':pick(p,'Eruption_Number','EruptionNumber','eruption_number','Eruption Number'),
+          'Eruption_Category':pick(p,'Eruption_Category','EruptionCategory','eruption_category','EruptionCategoryName','Eruption Category'),
+          'Start_Date':pick(p,'Start_Date','StartDate','start_date','Start Date'),
+          'Start_Year':pick(p,'Start_Year','StartYear','start_year','Start Year'),
+          'Start_Month':pick(p,'Start_Month','StartMonth','start_month','Start Month'),
+          'Start_Day':pick(p,'Start_Day','StartDay','start_day','Start Day'),
+          'Start_Year_Uncertainty':pick(p,'Start_Year_Uncertainty','StartYearUncertainty','Start Year Uncertainty'),
+          'Start_Month_Uncertainty':pick(p,'Start_Month_Uncertainty','StartMonthUncertainty','Start Month Uncertainty'),
+          'Start_Day_Uncertainty':pick(p,'Start_Day_Uncertainty','StartDayUncertainty','Start Day Uncertainty'),
+          'End_Date':pick(p,'End_Date','EndDate','end_date','End Date'),
+          'End_Year':pick(p,'End_Year','EndYear','end_year','End Year'),
+          'End_Month':pick(p,'End_Month','EndMonth','end_month','End Month'),
+          'End_Day':pick(p,'End_Day','EndDay','end_day','End Day'),
+          'VEI':pick(p,'VEI','Vei','vei')
+        })
         fs.append({'type':'Feature','properties':p,'geometry':f.get('geometry')})
     return {'type':'FeatureCollection','features':fs}
 def load_eruptions():
