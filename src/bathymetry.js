@@ -12,7 +12,14 @@
   function install(){
     if(!map?.isStyleLoaded?.())return;
     if(!map.getSource(SOURCE_ID))map.addSource(SOURCE_ID,{type:'raster',tiles:[WMS],tileSize:512,attribution:'GEBCO Compilation Group (2026)'});
-    if(!map.getLayer(LAYER_ID))map.addLayer({id:LAYER_ID,type:'raster',source:SOURCE_ID,layout:{visibility:enabled()?'visible':'none'},paint:{'raster-opacity':0.24,'raster-saturation':-0.72,'raster-contrast':0.18,'raster-brightness-min':0.12,'raster-brightness-max':0.72,'raster-fade-duration':180}},firstOverlay());
+    if(!map.getLayer(LAYER_ID))map.addLayer({id:LAYER_ID,type:'raster',source:SOURCE_ID,layout:{visibility:enabled()?'visible':'none'},paint:{
+      'raster-opacity':['interpolate',['linear'],['zoom'],0,0.18,2,0.24,4,0.24,5.5,0.18,6.5,0.10,7.5,0.03,8,0],
+      'raster-saturation':-0.72,
+      'raster-contrast':0.18,
+      'raster-brightness-min':0.12,
+      'raster-brightness-max':0.72,
+      'raster-fade-duration':180
+    }},firstOverlay());
     else map.setLayoutProperty(LAYER_ID,'visibility',enabled()?'visible':'none');
   }
   function sync(){try{install()}catch(e){console.warn('GEBCO bathymetry setup failed',e)}}
