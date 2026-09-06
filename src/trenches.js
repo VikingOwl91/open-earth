@@ -1,8 +1,9 @@
 /* P1 trenches: named seafloor features from the IHO-IOC GEBCO Gazetteer. */
 (() => {
-  let trenchData={type:'FeatureCollection',features:[]},selected=null;
+  let trenchData={type:'FeatureCollection',features:[]},selected=null,activeTab='overview';
   const SOURCE='trenches', LINE='trenches-line', LABEL='trenches-label', HIT='trenches-hit', SELECT='trench-selection';
   const nameOf=f=>value(f?.properties?.Name,f?.properties?.name,'Named trench');
+  const genericOf=f=>value(f?.properties?.Generic,f?.properties?.generic,'Trench');
   function enabled(){return document.querySelector('#trenches')?.checked ?? true}
   function install(){
     if(!map?.isStyleLoaded?.())return;
@@ -21,14 +22,25 @@
     install();map.getSource(SOURCE)?.setData(trenchData);
     const count=document.querySelector('#trench-count');if(count)count.textContent=trenchData.features.length||'—';
   }
-  function show(f){
-    selected={type:'Feature',properties:{...(f.properties||{})},geometry:f.geometry};map.getSource(SELECT)?.setData(selected);
-    const body=document.querySelector('#details-body'),panel=document.querySelector('#details'),p=f.properties||{};
-    body.innerHTML=`<div class="eyebrow">Seafloor · GEBCO Gazetteer</div><h2>${esc(nameOf(f))}</h2><div class="inspector-section"><div class="inspector-heading">Feature</div><div class="meta">${fact('Type',value(p.Generic,'Trench'))}${fact('Tectonic context','Deep-ocean trench / named seafloor feature')}</div><p class="semantic-note">The mapped geometry and name describe the recognized undersea feature. Nearby PB2002 subduction boundaries provide the tectonic interpretation separately.</p></div><div class="inspector-section"><div class="inspector-heading">Source</div><p class="source">IHO-IOC GEBCO Gazetteer of Undersea Feature Names</p>${snapshotAge()?`<p class="source">Open Earth snapshot: ${esc(snapshotAge())}</p>`:''}</div>`;
-    panel.hidden=false;
+  function centerOfGeometry(g){
+    const pts=[];const walk=x=>Array.isArray(x)&&typeof x[0]==='number'?pts.push(x):Array.isArray(x)&&x.forEach(walk);walk(g?.coordinates);
+    if(!pts.length)return null;return [pts.reduce((s,p)=>s+p[0],0)/pts.length,pts.reduce((s,p)=>s+p[1],0)/pts.length];
+  }
+  function sourceContent(){return `<section class="drawer-section"><div class="inspector-heading">Sources</div><p class="source"><a class="drawer-source-link" href="https://www.gebco.net/data-products/undersea-feature-names" target="_blank" rel="noreferrer">IHO-IOC GEBCO Gazetteer of Undersea Feature Names ↗</a></p>${snapshotAge()?`<p class="source">Open Earth snapshot: ${esc(snapshotAge())}</p>`:''}<p class="semantic-note">GEBCO supplies the recognized undersea feature name and mapped geometry. PB2002 is kept as a separate source for plate-boundary interpretation.</p></section>`}
+  function render(f,tab=activeTab){
+    activeTab=tab;selected={type:'Feature',properties:{...(f.properties||{})},geometry:f.geometry};map.getSource(SELECT)?.setData(selected);
+    const body=document.querySelector('#details-body'),panel=document.querySelector('#details'),coords=centerOfGeometry(f.geometry),boundary=coords&&typeof boundaryContext==='function'?boundaryContext(coords):null,plate=coords&&typeof containingPlate==='function'?containingPlate(coords):null;
+    const tabs=`<nav class="drawer-tabs"><button data-trench-tab="overview">Overview</button><button data-trench-tab="nearby">Nearby</button><button data-trench-tab="sources">Sources</button></nav>`;
+    let content;
+    if(tab==='nearby')content=coords&&typeof relationships==='function'?relationships(coords):'<section class="drawer-section"><p class="semantic-note">No nearby tectonic context available.</p></section>';
+    else if(tab==='sources')content=sourceContent();
+    else content=`<section class="drawer-section"><div class="inspector-heading">Basic information</div><div class="meta">${fact('Feature type',genericOf(f))}${coords?fact('Approx. center',`${coords[1].toFixed(3)}, ${coords[0].toFixed(3)}`):''}${plate?fact('PB2002 plate',plateName(plate)):''}${boundary?fact('Nearest boundary',`${boundary.label} · ${Math.round(boundary.distance)} km`):''}</div></section><section class="drawer-card"><div class="inspector-heading">Tectonic context</div><p>Deep-ocean trench / named seafloor feature</p><p class="semantic-note">The trench geometry and name come from GEBCO. Nearby PB2002 boundaries provide the tectonic interpretation separately rather than treating every subduction boundary as a named trench.</p></section>`;
+    body.innerHTML=`<header class="drawer-head"><div><div class="eyebrow">Seafloor · GEBCO Gazetteer</div><h2><span class="feature-icon" aria-hidden="true">⌄</span>${esc(nameOf(f))}</h2></div></header>${tabs}<div class="drawer-content">${content}</div>`;
+    panel.hidden=false;body.querySelectorAll('[data-trench-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.trenchTab===activeTab);b.onclick=()=>render(f,b.dataset.trenchTab)});
   }
   document.querySelector('#trenches')?.addEventListener('change',install);
-  map.on('click',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits[0])show(hits[0])});
+  document.querySelector('#details-close')?.addEventListener('click',()=>activeTab='overview');
+  map.on('click',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits[0])render(hits[0],'overview')});
   map.on('mousemove',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits.length)map.getCanvas().style.cursor='pointer'});
   map.on('load',()=>{install();load()});
   map.on('style.load',()=>setTimeout(()=>{install();map.getSource(SOURCE)?.setData(trenchData);if(selected)map.getSource(SELECT)?.setData(selected)},0));
