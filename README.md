@@ -1,6 +1,6 @@
 # Open Earth
 
-**A modern open-source map for understanding what the Earth is doing — and why.**
+**A modern open-source map for understanding what the Earth is doing - and why.**
 
 Open Earth combines live seismic activity with volcanoes and tectonic context in one small, source-aware web app.
 

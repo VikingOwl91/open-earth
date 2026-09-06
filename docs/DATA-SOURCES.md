@@ -6,7 +6,7 @@ Open Earth prefers authoritative public sources and keeps provenance visible in 
 
 Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and `.github/workflows/update-data.yml` runs the refresh daily. `data/manifest.json` records upstream URLs, generation time, and feature counts.
 
-## P0 — implemented
+## P0: implemented
 
 | Layer | Authority / upstream | Runtime strategy | Freshness | Notes |
 | --- | --- | --- | --- | --- |
@@ -30,7 +30,7 @@ GVP states that the Weekly Volcanic Activity Report is preliminary and not compr
 
 Official feed: `https://volcano.si.edu/news/WeeklyVolcanoRSS.xml`
 
-## P1 — next geological context
+## P1: next geological context
 
 P1 turns the current collection of layers into a map that explains relationships.
 
@@ -79,7 +79,7 @@ The normalized model must preserve the authority's own alert scale instead of pr
 - source adapters split out of `src/app.js`
 - tests for normalization and source fixtures
 
-## P2 — deeper solid-Earth exploration
+## P2: deeper solid-Earth exploration
 
 P2 is intentionally planned but not committed to a specific upstream until source/licensing audits are complete.
 
@@ -107,6 +107,6 @@ A source is not promoted from candidate to implemented until we know:
 5. license / terms / required attribution;
 6. browser CORS behavior or a snapshot strategy;
 7. expected transfer size and whether simplification/tiling is required;
-8. failure behavior — one bad source must never break unrelated layers.
+8. failure behavior: one bad source must never break unrelated layers.
 
 The UI should always distinguish **observed events**, **current reports/status**, and **reference geology**.
