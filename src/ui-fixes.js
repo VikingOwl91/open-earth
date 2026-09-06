@@ -51,20 +51,7 @@ document.querySelector('#details-close').addEventListener('click',()=>{
 });
 
 let styleChangeToken=0;
-function waitForStyle(token,timeoutMs=10000){
-  return new Promise((resolve,reject)=>{
-    const started=performance.now();
-    const check=()=>{
-      if(token!==styleChangeToken)return reject(new Error('superseded style change'));
-      try{if(map.isStyleLoaded())return resolve()}catch{}
-      if(performance.now()-started>timeoutMs)return reject(new Error('style load timed out'));
-      setTimeout(check,50);
-    };
-    check();
-  });
-}
-
-changeBasemap=async function(name){
+changeBasemap=function(name){
   if(!BASEMAPS[name]||name===viewState.basemap)return;
   const token=++styleChangeToken;
   saveCamera();
@@ -73,28 +60,37 @@ changeBasemap=async function(name){
   loading(true);
   const camera={...viewState.camera};
   const projection=viewState.projection;
+  let settled=false;
 
-  try{
-    map.setStyle(BASEMAPS[name]);
-    await waitForStyle(token);
+  const finish=()=>{
+    if(settled||token!==styleChangeToken)return;
+    settled=true;
+    loading(false);
+  };
+
+  /* style.load is the correct point to add application-owned sources/layers.
+     Waiting for isStyleLoaded()/idle creates a deadlock: the style is already
+     usable here, while glyph/sprite/tile work may still be in flight. */
+  map.once('style.load',()=>{
     if(token!==styleChangeToken)return;
+    try{
+      addLayers();
+      setProjection(projection,false);
+      map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});
+      applyVisibility();
+      restoreSelection();
+      requestAnimationFrame(()=>requestAnimationFrame(finish));
+    }catch(error){
+      console.error('Basemap rehydrate failed',error);
+      finish();
+    }
+  });
 
-    /* setStyle removes all custom sources/layers. Recreate them only after the
-       new style is actually complete, then restore view state and selection. */
-    addLayers();
-    setProjection(projection,false);
-    map.jumpTo({center:camera.center,zoom:camera.zoom,bearing:camera.bearing,pitch:camera.pitch});
-    applyVisibility();
-    restoreSelection();
+  try{map.setStyle(BASEMAPS[name])}
+  catch(error){console.error('Basemap change failed',error);finish()}
 
-    /* Give MapLibre one paint frame with the restored overlays before removing
-       the transition indicator. */
-    await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));
-  }catch(error){
-    if(token===styleChangeToken)console.error('Basemap rehydrate failed',error);
-  }finally{
-    if(token===styleChangeToken)loading(false);
-  }
+  /* UI safety only; this never gates rehydration. */
+  setTimeout(finish,8000);
 };
 
 /* Search-result selection should use the same visual selection path. */
