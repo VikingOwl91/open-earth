@@ -1,20 +1,21 @@
-/* Normalized regional volcano monitoring model and provider adapters.
- *
- * Supported regional monitoring agencies:
+/**
+ * Open Earth - Regional Volcano Monitoring Providers
+ * Multi-agency regional observatory status adapters:
  * - PVMBG / MAGMA Indonesia (Indonesia)
  * - USGS Volcano Hazards Program (United States)
  * - Japan Meteorological Agency / JMA (Japan)
  * - GeoNet / GNS Science (New Zealand)
  *
- * Each provider preserves its native terminology, official alert levels,
- * source URLs, and snapshot freshness.
+ * Preserves native alert scales, provider terminology, and snapshot freshness.
  */
 (() => {
+  'use strict';
+
   const providers = {
     pvmbg: { id: 'pvmbg', name: 'PVMBG / MAGMA Indonesia', url: 'https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas', file: 'pvmbg-status.json', statuses: [], fetchedAt: null },
     usgs: { id: 'usgs', name: 'USGS Volcano Hazards Program', url: 'https://volcanoes.usgs.gov/hans-public/', file: 'usgs-volcano-status.json', statuses: [], fetchedAt: null },
     jma: { id: 'jma', name: 'Japan Meteorological Agency', url: 'https://www.jma.go.jp/bosai/map.html#contents=volcano', file: 'jma-volcano-status.json', statuses: [], fetchedAt: null },
-    geonet: { id: 'geonet', name: 'GeoNet New Zealand (GNS Science)', url: 'https://www.geonet.org.nz/volcano', file: 'geonet-volcano-status.json', statuses: [], fetchedAt: null },
+    geonet: { id: 'geonet', name: 'GeoNet New Zealand (GNS Science)', url: 'https://www.geonet.org.nz/volcano', file: 'geonet-volcano-status.json', statuses: [], fetchedAt: null }
   };
 
   const normStr = s => typeof norm === 'function' ? norm(s) : String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
@@ -50,7 +51,7 @@
     'tangkoko': 'tangkokoduasudara',
     'tangkokoduasudara': 'tangkokoduasudara',
     'lewotobilakilaki': 'lewotobi',
-    'lewotobi': 'lewotobi',
+    'lewotobi': 'lewotobi'
   };
 
   const keyPvmbg = s => {
@@ -88,7 +89,7 @@
         sourceUrl: p.url,
         snapshotAge: age,
         provenance: 'Official Indonesian volcano hazard activity level published by PVMBG / MAGMA Indonesia.',
-        note: 'Official Indonesian activity level. Independent of the GVP weekly report.',
+        note: 'Official Indonesian activity level. Independent of the GVP weekly report.'
       };
     }
     if (providerId === 'usgs') {
@@ -109,7 +110,7 @@
         sourceUrl: p.url,
         snapshotAge: age,
         provenance: s.provenance || 'Official alert level and aviation color code from USGS Volcano Hazards Program.',
-        note: s.observatory ? `${s.observatory} alert level. Independent of the GVP weekly report.` : null,
+        note: s.observatory ? `${s.observatory} alert level. Independent of the GVP weekly report.` : null
       };
     }
     if (providerId === 'jma') {
@@ -129,7 +130,7 @@
         sourceUrl: p.url,
         snapshotAge: age,
         provenance: s.provenance || 'Official volcanic warning published by the Japan Meteorological Agency (JMA).',
-        note: s.note ? `${s.note}. Official JMA advisory.` : 'Official JMA volcanic warning. Independent of the GVP weekly report.',
+        note: s.note ? `${s.note}. Official JMA advisory.` : 'Official JMA volcanic warning. Independent of the GVP weekly report.'
       };
     }
     if (providerId === 'geonet') {
@@ -150,7 +151,7 @@
         sourceUrl: p.url,
         snapshotAge: age,
         provenance: s.provenance || 'Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.',
-        note: s.hazards ? `${s.hazards}` : 'Official GeoNet alert level. Independent of the GVP weekly report.',
+        note: s.hazards ? `${s.hazards}` : 'Official GeoNet alert level. Independent of the GVP weekly report.'
       };
     }
     return s;
@@ -208,8 +209,7 @@
     return hit ? normalizeRecord('geonet', hit) : null;
   }
 
-  /* Multi-provider volcano lookup: returns array of attributed monitoring records. */
-  window.regionalMonitoringForVolcano = p => {
+  function regionalMonitoringForVolcano(p) {
     if (!p) return [];
     const vnum = String(getVal(p?.Volcano_Number, p?.VolcanoNumber, p?.volcano_number, '')).trim();
     const country = String(getVal(p?.Country, p?.country, '')).toLowerCase();
@@ -229,22 +229,7 @@
     if (gn) records.push(gn);
 
     return records;
-  };
-
-  /* Backward compatibility aliases */
-  window.pvmbgForVolcano = p => {
-    const list = window.regionalMonitoringForVolcano(p);
-    return list.find(r => r.providerId === 'pvmbg') || null;
-  };
-
-  window.pvmbgSnapshotAge = () => relativeAge(providers.pvmbg.fetchedAt);
-  window.regionalProviders = providers;
-  window.regionalProviderAges = () => ({
-    pvmbg: relativeAge(providers.pvmbg.fetchedAt),
-    usgs: relativeAge(providers.usgs.fetchedAt),
-    jma: relativeAge(providers.jma.fetchedAt),
-    geonet: relativeAge(providers.geonet.fetchedAt),
-  });
+  }
 
   async function loadProvider(id) {
     const p = providers[id];
@@ -259,18 +244,51 @@
     }
   }
 
-  async function loadAll() {
-    await Promise.all(Object.keys(providers).map(loadProvider));
-    window.dispatchEvent(new CustomEvent('openearth:regional-monitoring-ready', {
-      detail: {
-        pvmbg: providers.pvmbg.statuses.length,
-        usgs: providers.usgs.statuses.length,
-        jma: providers.jma.statuses.length,
-        geonet: providers.geonet.statuses.length,
-      }
-    }));
-    window.dispatchEvent(new CustomEvent('openearth:pvmbg-ready', { detail: { count: providers.pvmbg.statuses.length } }));
+  let loadPromise = null;
+  function loadAll() {
+    if (!loadPromise) {
+      loadPromise = Promise.all(Object.keys(providers).map(loadProvider)).then(() => {
+        if (typeof window !== 'undefined') {
+          window.dispatchEvent(new CustomEvent('openearth:regional-monitoring-ready', {
+            detail: {
+              pvmbg: providers.pvmbg.statuses.length,
+              usgs: providers.usgs.statuses.length,
+              jma: providers.jma.statuses.length,
+              geonet: providers.geonet.statuses.length
+            }
+          }));
+        }
+      });
+    }
+    return loadPromise;
   }
 
-  loadAll();
+  const Providers = {
+    providers,
+    loadAll,
+    regionalMonitoringForVolcano,
+    relativeAge
+  };
+
+  if (typeof window !== 'undefined') {
+    window.OpenEarth = window.OpenEarth || {};
+    window.OpenEarth.providers = Providers;
+    // Backward compatibility globals
+    window.regionalMonitoringForVolcano = regionalMonitoringForVolcano;
+    window.pvmbgForVolcano = p => regionalMonitoringForVolcano(p).find(r => r.providerId === 'pvmbg') || null;
+    window.pvmbgSnapshotAge = () => relativeAge(providers.pvmbg.fetchedAt);
+    window.regionalProviders = providers;
+    window.regionalProviderAges = () => ({
+      pvmbg: relativeAge(providers.pvmbg.fetchedAt),
+      usgs: relativeAge(providers.usgs.fetchedAt),
+      jma: relativeAge(providers.jma.fetchedAt),
+      geonet: relativeAge(providers.geonet.fetchedAt)
+    });
+    // Auto-load on script execution
+    loadAll();
+  }
+
+  if (typeof module !== 'undefined' && module.exports) {
+    module.exports = Providers;
+  }
 })();
