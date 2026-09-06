@@ -11,158 +11,55 @@
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css"/>
   <link rel="stylesheet" href="./src/style.css"/>
   <link rel="stylesheet" href="./src/inspector.css"/>
+  <link rel="stylesheet" href="./src/popups.css"/>
 </head>
 <body>
   <main id="app">
     <div id="map" aria-label="Interactive map of Earth"></div>
     <div id="map-loading" class="map-loading" hidden><span></span> Updating map…</div>
 
-    <header class="brand panel">
-      <div class="mark" aria-hidden="true">◎</div>
-      <div>
-        <strong>OPEN EARTH</strong>
-        <span>living geology explorer</span>
-      </div>
-    </header>
+    <header class="brand panel"><div class="mark" aria-hidden="true">◎</div><div><strong>OPEN EARTH</strong><span>living geology explorer</span></div></header>
 
     <section class="controls panel" aria-label="Map controls">
-      <label class="search">
-        <span aria-hidden="true">⌕</span>
-        <input id="search" type="search" placeholder="Find Jakarta, Krakatau, Japan…" autocomplete="off" aria-label="Search locations or features"/>
-      </label>
+      <label class="search"><span aria-hidden="true">⌕</span><input id="search" type="search" placeholder="Find Jakarta, Krakatau, Japan…" autocomplete="off" aria-label="Search locations or features"/></label>
       <div id="search-results" class="search-results" hidden></div>
-
       <div class="control-title">LIVE</div>
-      <label>
-        <input id="earthquakes" type="checkbox" checked/>
-        <i class="dot quake" aria-hidden="true"></i> Earthquakes <b id="quake-count">…</b>
-      </label>
-      <label>
-        <input id="activity" type="checkbox" checked/>
-        <i class="legend-shape triangle activity-shape" aria-hidden="true"></i> Volcanic reports <b id="activity-count">…</b>
-      </label>
-
+      <label><input id="earthquakes" type="checkbox" checked/><i class="dot quake" aria-hidden="true"></i> Earthquakes <b id="quake-count">…</b></label>
+      <label><input id="activity" type="checkbox" checked/><i class="legend-shape triangle activity-shape" aria-hidden="true"></i> Volcanic reports <b id="activity-count">…</b></label>
       <div class="control-title">GEOLOGY</div>
-      <label>
-        <input id="volcanoes" type="checkbox" checked/>
-        <i class="legend-shape triangle volcano-shape" aria-hidden="true"></i> Known volcanoes <b id="volcano-count">…</b>
-      </label>
-      <label>
-        <input id="plates" type="checkbox" checked/>
-        <i class="dot plate" aria-hidden="true"></i> Plate boundaries
-      </label>
-      <label>
-        <input id="trenches" type="checkbox" checked/>
-        <i class="line bathymetry" aria-hidden="true"></i> Named trenches <b id="trench-count">…</b>
-      </label>
-      <label>
-        <input id="faults" type="checkbox"/>
-        <i class="line fault" aria-hidden="true"></i> Active faults <b id="fault-count">off</b>
-      </label>
-      <label>
-        <input id="bathymetry" type="checkbox"/>
-        <i class="line bathymetry" aria-hidden="true"></i> Seafloor relief <b>GEBCO</b>
-      </label>
-
+      <label><input id="volcanoes" type="checkbox" checked/><i class="legend-shape triangle volcano-shape" aria-hidden="true"></i> Known volcanoes <b id="volcano-count">…</b></label>
+      <label><input id="plates" type="checkbox" checked/><i class="dot plate" aria-hidden="true"></i> Plate boundaries</label>
+      <label><input id="trenches" type="checkbox" checked/><i class="line bathymetry" aria-hidden="true"></i> Named trenches <b id="trench-count">…</b></label>
+      <label><input id="faults" type="checkbox"/><i class="line fault" aria-hidden="true"></i> Active faults <b id="fault-count">off</b></label>
+      <label><input id="bathymetry" type="checkbox"/><i class="line bathymetry" aria-hidden="true"></i> Seafloor relief <b>GEBCO</b></label>
       <div class="feature-legend" aria-label="Feature symbols">
-        <span><i class="legend-shape triangle volcano-shape" aria-hidden="true"></i>Volcano</span>
-        <span><i class="legend-shape circle" aria-hidden="true"></i>Earthquake</span>
-        <span><i class="legend-shape line-shape" aria-hidden="true"></i>Boundary</span>
-        <span><i class="legend-shape slash" aria-hidden="true"></i>Fault</span>
+        <span><i class="legend-shape triangle volcano-shape" aria-hidden="true"></i>Volcano</span><span><i class="legend-shape circle" aria-hidden="true"></i>Earthquake</span><span><i class="legend-shape line-shape" aria-hidden="true"></i>Boundary</span><span><i class="legend-shape slash" aria-hidden="true"></i>Fault</span>
       </div>
-
       <div class="tectonic-legend" aria-label="Plate boundary kinematics">
-        <span><i class="tectonic-key subduction" aria-hidden="true"></i>Subduction</span>
-        <span><i class="tectonic-key divergent" aria-hidden="true"></i>Spreading / rift</span>
-        <span><i class="tectonic-key transform" aria-hidden="true"></i>Transform</span>
-        <span><i class="tectonic-key convergent" aria-hidden="true"></i>Convergent</span>
+        <span><i class="tectonic-key subduction" aria-hidden="true"></i>Subduction</span><span><i class="tectonic-key divergent" aria-hidden="true"></i>Spreading / rift</span><span><i class="tectonic-key transform" aria-hidden="true"></i>Transform</span><span><i class="tectonic-key convergent" aria-hidden="true"></i>Convergent</span>
       </div>
-
       <div class="control-title">EARTHQUAKES</div>
-      <div class="segmented" id="range" role="group" aria-label="Earthquake time range">
-        <button data-range="hour" type="button">1h</button>
-        <button data-range="day" class="active" type="button">24h</button>
-        <button data-range="week" type="button">7d</button>
-      </div>
-
+      <div class="segmented" id="range" role="group" aria-label="Earthquake time range"><button data-range="hour" type="button">1h</button><button data-range="day" class="active" type="button">24h</button><button data-range="week" type="button">7d</button></div>
       <details class="history-search">
         <summary>Historical search</summary>
-        <div class="history-grid">
-          <label>Start<input id="history-start" type="date"/></label>
-          <label>End<input id="history-end" type="date"/></label>
-          <label>Min magnitude<input id="history-mag" type="number" min="0" max="10" step="0.1" value="4"/></label>
-          <label>Radius (km)<input id="history-radius" type="number" min="1" max="20000" step="1" value="250"/></label>
-        </div>
-        <label class="history-around">
-          <input id="history-selected" type="checkbox" checked/> Around selected feature
-        </label>
-        <div class="history-actions">
-          <button id="history-run" type="button">Search USGS catalog</button>
-          <button id="history-live" type="button">Back to live</button>
-        </div>
+        <div class="history-grid"><label>Start<input id="history-start" type="date"/></label><label>End<input id="history-end" type="date"/></label><label>Min magnitude<input id="history-mag" type="number" min="0" max="10" step="0.1" value="4"/></label><label>Radius (km)<input id="history-radius" type="number" min="1" max="20000" step="1" value="250"/></label></div>
+        <label class="history-around"><input id="history-selected" type="checkbox" checked/> Around selected feature</label>
+        <div class="history-actions"><button id="history-run" type="button">Search USGS catalog</button><button id="history-live" type="button">Back to live</button></div>
         <div id="history-status" class="note">Select a feature for a radius search, or search current map bounds.</div>
       </details>
-
       <div class="control-title">VIEW</div>
-      <div class="view-grid">
-        <label>
-          Projection
-          <select id="projection">
-            <option value="mercator">Mercator</option>
-            <option value="globe">Globe</option>
-          </select>
-        </label>
-        <label>
-          Base map
-          <select id="basemap">
-            <option value="dark">Dark</option>
-            <option value="positron">Positron</option>
-            <option value="liberty">Liberty</option>
-            <option value="fiord">Fiord</option>
-            <option value="classic">Classic</option>
-          </select>
-        </label>
-      </div>
+      <div class="view-grid"><label>Projection<select id="projection"><option value="mercator">Mercator</option><option value="globe">Globe</option></select></label><label>Base map<select id="basemap"><option value="dark">Dark</option><option value="positron">Positron</option><option value="liberty">Liberty</option><option value="fiord">Fiord</option><option value="classic">Classic</option></select></label></div>
       <div id="projection-note" class="note">Classic Web Mercator projection.</div>
       <button id="reset-view" class="reset-view" type="button">Reset view & settings</button>
       <div id="status" class="status">Loading public sources…</div>
-
-      <!-- Public OSS & Legal Navigation Footer -->
       <footer class="controls-footer" aria-label="Project links and legal">
-        <a class="github-link" href="https://github.com/VikingOwl91/open-earth" target="_blank" rel="noreferrer" title="Open Earth repository on GitHub">
-          <svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-          GitHub
-        </a>
-        <span>·</span>
-        <button id="open-about" type="button">About</button>
-        <span>·</span>
-        <button id="open-imprint" type="button">Impressum</button>
-        <span>·</span>
-        <button id="open-privacy" type="button">Datenschutz</button>
-        <span>·</span>
-        <a href="https://ko-fi.com/Y4N626HMX7" target="_blank" rel="noreferrer" title="Support Open Earth">♡ Support</a>
+        <a class="github-link" href="https://github.com/VikingOwl91/open-earth" target="_blank" rel="noreferrer" title="Open Earth repository on GitHub"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a>
+        <span>·</span><button id="open-about" type="button">About</button><span>·</span><button id="open-imprint" type="button">Impressum</button><span>·</span><button id="open-privacy" type="button">Privacy</button><span>·</span><a href="https://ko-fi.com/Y4N626HMX7" target="_blank" rel="noreferrer" title="Support Open Earth">♡ Support</a>
       </footer>
     </section>
-
-    <!-- Unified Feature Inspector Drawer -->
-    <aside id="details" class="details panel" hidden>
-      <button id="details-close" class="details-close" aria-label="Close feature details">×</button>
-      <div id="details-body"></div>
-    </aside>
+    <aside id="details" class="details panel" hidden><button id="details-close" class="details-close" aria-label="Close feature details">×</button><div id="details-body"></div></aside>
   </main>
-
-  <!-- External MapLibre GL -->
   <script src="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.js"></script>
-
-  <!-- Clean Open Earth Core Modules -->
-  <script src="./src/geo.js"></script>
-  <script src="./src/state.js"></script>
-  <script src="./src/providers.js"></script>
-  <script src="./src/data.js"></script>
-  <script src="./src/map.js"></script>
-  <script src="./src/inspector.js"></script>
-  <script src="./src/search.js"></script>
-  <script src="./src/modals.js"></script>
-  <script src="./src/app.js"></script>
+  <script src="./src/geo.js"></script><script src="./src/state.js"></script><script src="./src/providers.js"></script><script src="./src/data.js"></script><script src="./src/map.js"></script><script src="./src/inspector.js"></script><script src="./src/search.js"></script><script src="./src/modals.js"></script><script src="./src/app.js"></script>
 </body>
 </html>
