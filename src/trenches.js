@@ -39,7 +39,9 @@
   window.trenchName=nameOf;
   window.testRunInstall=install;
 
-  function sourceContent(){return `<section class="drawer-section"><div class="inspector-heading">Sources</div><p class="source"><a class="drawer-source-link" href="https://www.gebco.net/data-products/undersea-feature-names" target="_blank" rel="noreferrer">IHO-IOC GEBCO Gazetteer of Undersea Feature Names ↗</a></p>${snapshotAge()?`<p class="source">Open Earth snapshot: ${esc(snapshotAge())}</p>`:''}<p class="semantic-note">GEBCO supplies the recognized undersea feature name and mapped geometry. PB2002 is kept as a separate source for plate-boundary interpretation.</p></section>`}
+  function sourceContent(){
+    return `<section class="drawer-section"><div class="inspector-heading">Sources</div><p class="source"><a class="drawer-source-link" href="https://www.gebco.net/data-products/undersea-feature-names" target="_blank" rel="noreferrer">IHO-IOC GEBCO Gazetteer of Undersea Feature Names ↗</a></p><p class="source"><a class="drawer-source-link" href="https://www.gebco.net/" target="_blank" rel="noreferrer">GEBCO Gridded Bathymetry Data ↗</a></p>${snapshotAge()?`<p class="source">Open Earth snapshot: ${esc(snapshotAge())}</p>`:''}<p class="semantic-note">GEBCO supplies the recognized undersea feature name and mapped geometry. PB2002 is kept as a separate source for plate-boundary interpretation.</p><p class="semantic-note bathymetry-disclaimer">Notice: GEBCO bathymetric data and undersea feature names are provided for scientific research and educational map visualization only. Not for navigation.</p></section>`;
+  }
   function render(f,tab=activeTab){
     activeTab=tab;selected={type:'Feature',properties:{...(f.properties||{})},geometry:f.geometry};
     window.selectedTrenchFeature=selected;
@@ -49,12 +51,15 @@
     map.getSource('selection')?.setData({type:'FeatureCollection',features:[]});
     map.getSource(SELECT)?.setData(selected);
     const body=document.querySelector('#details-body'),panel=document.querySelector('#details'),coords=centerOfGeometry(f.geometry),boundary=coords&&typeof boundaryContext==='function'?boundaryContext(coords):null,plate=coords&&typeof containingPlate==='function'?containingPlate(coords):null;
+    const nearV=coords&&typeof window.nearestVolcano==='function'?window.nearestVolcano(coords,1000):null;
+    const nearVName=nearV?value(nearV.feature.properties?.Volcano_Name,nearV.feature.properties?.VolcanoName,'Volcano'):null;
     const tabs=`<nav class="drawer-tabs"><button data-trench-tab="overview">Overview</button><button data-trench-tab="nearby">Nearby</button><button data-trench-tab="sources">Sources</button></nav>`;
     let content;
     if(tab==='nearby')content=coords&&typeof relationships==='function'?relationships(coords):'<section class="drawer-section"><p class="semantic-note">No nearby tectonic context available.</p></section>';
     else if(tab==='sources')content=sourceContent();
-    else content=`<section class="drawer-section"><div class="inspector-heading">Basic information</div><div class="meta">${fact('Feature type',genericOf(f))}${coords?fact('Approx. center',`${coords[1].toFixed(3)}, ${coords[0].toFixed(3)}`):''}${plate?fact('PB2002 plate',plateName(plate)):''}${boundary?fact('Nearest boundary',`${boundary.label} · ${Math.round(boundary.distance)} km`):''}</div></section><section class="drawer-card"><div class="inspector-heading">Tectonic context</div><p>Deep-ocean trench / named seafloor feature</p><p class="semantic-note">The trench geometry and name come from GEBCO. Nearby PB2002 boundaries provide the tectonic interpretation separately rather than treating every subduction boundary as a named trench.</p></section>`;
-    body.innerHTML=`<header class="drawer-head"><div><div class="eyebrow">Seafloor · GEBCO Gazetteer</div><h2><span class="feature-icon" aria-hidden="true">⌄</span>${esc(nameOf(f))}</h2></div></header>${tabs}<div class="drawer-content">${content}</div>`;
+    else content=`<section class="drawer-section"><div class="inspector-heading">Basic information</div><div class="meta">${fact('Feature type',genericOf(f))}${coords?fact('Approx. center',`${coords[1].toFixed(3)}, ${coords[0].toFixed(3)}`):''}${plate?fact('PB2002 plate',plateName(plate)):''}${boundary?fact('Nearest boundary',`${boundary.label} · ${Math.round(boundary.distance)} km`):''}${nearV?fact('Nearest arc volcano',`${nearVName} · ${Math.round(nearV.distance)} km`):''}</div></section><section class="drawer-card"><div class="inspector-heading">Tectonic context</div><p>Deep-ocean trench / named seafloor feature</p><p class="semantic-note">The trench geometry and name come from the IHO-IOC GEBCO Gazetteer. Nearby PB2002 boundaries and Smithsonian GVP volcanoes provide the tectonic arc interpretation independently rather than treating every subduction boundary as an anonymous trench.</p></section>`;
+    body.innerHTML=`${window.renderInspectorNavBar?.()||''}<header class="drawer-head"><div><div class="eyebrow">Seafloor · GEBCO Gazetteer</div><h2><span class="feature-icon" aria-hidden="true">⌄</span>${esc(nameOf(f))}</h2></div></header>${tabs}<div class="drawer-content">${content}</div>`;
+    window.wireInspectorNavBar?.(body);
     panel.hidden=false;body.querySelectorAll('[data-trench-tab]').forEach(b=>{b.classList.toggle('active',b.dataset.trenchTab===activeTab);b.onclick=()=>render(f,b.dataset.trenchTab)});
   }
   document.querySelector('#trenches')?.addEventListener('change',e=>{
@@ -81,7 +86,7 @@
       return priorDetailForTrench(layer, f);
     };
   }
-  map.on('click',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits[0])render(hits[0],'overview')});
+  map.on('click',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits[0]){window.inspectorNav?.clear();render(hits[0],'overview')}});
   map.on('mousemove',e=>{if(!enabled()||!map.getLayer(HIT))return;const hits=map.queryRenderedFeatures(e.point,{layers:[HIT]});if(hits.length)map.getCanvas().style.cursor='pointer'});
   const addLayersBeforeTrenches = typeof addLayers === 'function' ? addLayers : null;
   if (addLayersBeforeTrenches) {

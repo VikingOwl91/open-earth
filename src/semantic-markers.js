@@ -32,7 +32,7 @@
   };
 
   function install() {
-    if (!map.isStyleLoaded() || !map.getSource('volcanoes') || !map.getSource('activity')) return false;
+    if (!map.getStyle() || !map.getSource('volcanoes') || !map.getSource('activity')) return false;
 
     const volcanoVisibility = visibility('volcanoes');
     const activityVisibility = visibility('activity');
