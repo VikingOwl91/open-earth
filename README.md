@@ -4,6 +4,8 @@
 
 Open Earth combines live seismic activity with volcanoes and tectonic context in one small, source-aware web app.
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/Y4N626HMX7)
+
 ## MVP
 
 - Live earthquakes from the USGS GeoJSON feed
