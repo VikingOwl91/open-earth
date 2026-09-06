@@ -15,15 +15,20 @@ function ensureTectonicLayers(){
     ['tectonic-other',['==',['get','Boundary_Family'],'other'],'#8aa4aa',1.5]
   ];
   for(const [id,filter,color,width] of specs)if(!map.getLayer(id))map.addLayer({id,type:'line',source:'plate-steps',filter,paint:{'line-color':color,'line-width':['interpolate',['linear'],['zoom'],0,width*.55,5,width,9,width*1.35],'line-opacity':.9}});
-  /* The old compact PB2002 boundary stays as a low-opacity reference casing. */
+  if(!map.getSource('tectonic-selection'))map.addSource('tectonic-selection',{type:'geojson',data:empty});
+  if(!map.getLayer('tectonic-selection-casing'))map.addLayer({id:'tectonic-selection-casing',type:'line',source:'tectonic-selection',paint:{'line-color':'#031a22','line-width':['interpolate',['linear'],['zoom'],0,6,5,9,9,13],'line-opacity':.9}});
+  if(!map.getLayer('tectonic-selection'))map.addLayer({id:'tectonic-selection',type:'line',source:'tectonic-selection',paint:{'line-color':'#f4fbff','line-width':['interpolate',['linear'],['zoom'],0,3,5,5,9,7],'line-opacity':1}});
   if(map.getLayer('plates'))map.setPaintProperty('plates','line-opacity',.16);
   if(map.getLayer('plates-casing'))map.setPaintProperty('plates-casing','line-opacity',.12);
 }
-const addLayersBeforeTectonics=addLayers;addLayers=function(){addLayersBeforeTectonics();ensureTectonicLayers()};
+const addLayersBeforeTectonics=addLayers;addLayers=function(){addLayersBeforeTectonics();ensureTectonicLayers();restoreTectonicSelection()};
+let selectedTectonicStep=null;
+function restoreTectonicSelection(){ensureTectonicLayers();map.getSource('tectonic-selection')?.setData(selectedTectonicStep||empty)}
+function selectTectonicStep(f){selectedTectonicStep={type:'Feature',properties:{...(f.properties||{})},geometry:f.geometry};restoreTectonicSelection()}
 async function loadTectonicContext(){
   const [steps,polygons]=await Promise.all([localSnapshot('plate-steps.json','plateSteps'),localSnapshot('plate-polygons.json','platePolygons')]);
   plateStepData=steps?.features?steps:empty;platePolygonData=polygons?.features?polygons:empty;
-  ensureTectonicLayers();map.getSource('plate-steps')?.setData(plateStepData);map.getSource('plate-polygons')?.setData(platePolygonData);
+  ensureTectonicLayers();map.getSource('plate-steps')?.setData(plateStepData);map.getSource('plate-polygons')?.setData(platePolygonData);restoreTectonicSelection();
 }
 function pointInRing(p,ring){let inside=false;for(let i=0,j=ring.length-1;i<ring.length;j=i++){const a=ring[i],b=ring[j],hit=((a[1]>p[1])!==(b[1]>p[1]))&&(p[0]<(b[0]-a[0])*(p[1]-a[1])/(b[1]-a[1]||1e-12)+a[0]);if(hit)inside=!inside}return inside}
 function pointInPolygon(p,g){if(!g)return false;const poly=rings=>rings?.length&&pointInRing(p,rings[0])&&!rings.slice(1).some(r=>pointInRing(p,r));return g.type==='Polygon'?poly(g.coordinates):g.type==='MultiPolygon'?g.coordinates.some(poly):false}
@@ -39,7 +44,8 @@ const relationshipsBeforeTectonics=relationships;relationships=function(coords){
 };
 /* Click typed boundaries using the existing details panel. */
 for(const id of ['tectonic-subduction','tectonic-convergent','tectonic-divergent','tectonic-transform','tectonic-other']){
-  map.on('click',id,e=>{const f=e.features?.[0];if(!f)return;const p=f.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{label:'Plate boundary',family:'other'},body=document.querySelector('#details-body');body.innerHTML=`<div class="eyebrow">Plate tectonics · ${esc(code||'PB2002')}</div><h2>${esc(value(p.Boundary_Label,meta.label))}</h2><div class="inspector-section"><div class="inspector-heading">Boundary</div><div class="meta">${fact('Class',meta.family)}${fact('Plate pair',value(p.Plate_Pair,p.PLATEBOUND))}${fact('Step length',p.STEPLENGTH!=null?`${Number(p.STEPLENGTH).toFixed(1)} km`:null)}${fact('Relative velocity',p.VELOCITYLE!=null?`${Number(p.VELOCITYLE).toFixed(1)} mm/yr`:null)}</div></div><div class="inspector-section"><div class="inspector-heading">Source</div><p class="source">PB2002 · Peter Bird (2003)</p></div>`;document.querySelector('#details').hidden=false});
+  map.on('click',id,e=>{const f=e.features?.[0];if(!f)return;selectTectonicStep(f);const p=f.properties||{},code=value(p.Boundary_Code,p.STEPCLASS),meta=STEP_META[code]||{label:'Plate boundary',family:'other'},body=document.querySelector('#details-body');body.innerHTML=`<div class="eyebrow">Plate tectonics · ${esc(code||'PB2002')}</div><h2>${esc(value(p.Boundary_Label,meta.label))}</h2><div class="inspector-section"><div class="inspector-heading">Boundary</div><div class="meta">${fact('Class',meta.family)}${fact('Plate pair',value(p.Plate_Pair,p.PLATEBOUND))}${fact('Step length',p.STEPLENGTH!=null?`${Number(p.STEPLENGTH).toFixed(1)} km`:null)}${fact('Relative velocity',p.VELOCITYLE!=null?`${Number(p.VELOCITYLE).toFixed(1)} mm/yr`:null)}</div></div><div class="inspector-section"><div class="inspector-heading">Source</div><p class="source">PB2002 · Peter Bird (2003)</p></div>`;document.querySelector('#details').hidden=false});
   map.on('mouseenter',id,()=>map.getCanvas().style.cursor='pointer');map.on('mouseleave',id,()=>map.getCanvas().style.cursor='');
 }
+document.querySelector('#details-close')?.addEventListener('click',()=>{selectedTectonicStep=null;map.getSource('tectonic-selection')?.setData(empty)});
 loadTectonicContext();
