@@ -5,9 +5,20 @@
   const volcanoId=p=>String(pval(p,'Volcano_Number','VolcanoNumber','volcano_number')||'');
   const volcanoName=p=>norm(pval(p,'Volcano_Name','VolcanoName','volcano_name'));
   function eruptionsFor(p){const id=volcanoId(p),name=volcanoName(p);return (eruptionData.features||[]).filter(f=>{const q=f.properties||{};return (id&&volcanoId(q)===id)||(name&&volcanoName(q)===name)}).sort((a,b)=>eruptionSort(b.properties)-eruptionSort(a.properties))}
-  function eruptionSort(p){const y=Number(pval(p,'Start_Year','StartYear','start_year'));if(Number.isFinite(y))return y;const d=Date.parse(pval(p,'Start_Date','StartDate','start_date')||'');return Number.isFinite(d)?new Date(d).getUTCFullYear():-Infinity}
-  function eruptionLabel(p){const date=pval(p,'Start_Date','StartDate','start_date'),year=pval(p,'Start_Year','StartYear','start_year');if(date){const d=new Date(date);if(!Number.isNaN(d.valueOf()))return d.toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric'})}return year?String(year):'Date uncertain'}
-  function category(p){return pval(p,'Eruption_Category','EruptionCategory','eruption_category')||'GVP eruption'}
+  function numberPart(v){const n=Number(v);return Number.isFinite(n)&&n!==0?n:null}
+  function eruptionParts(p){
+    const date=pval(p,'Start_Date','StartDate','start_date','Start Date');
+    if(date){const d=new Date(date);if(!Number.isNaN(d.valueOf()))return {year:d.getUTCFullYear(),month:d.getUTCMonth()+1,day:d.getUTCDate(),fromDate:true}}
+    return {year:numberPart(pval(p,'Start_Year','StartYear','start_year','Start Year')),month:numberPart(pval(p,'Start_Month','StartMonth','start_month','Start Month')),day:numberPart(pval(p,'Start_Day','StartDay','start_day','Start Day')),fromDate:false};
+  }
+  function eruptionSort(p){const d=eruptionParts(p);if(!d.year)return-Infinity;return Date.UTC(d.year,d.month?d.month-1:0,d.day||1)}
+  function eruptionLabel(p){
+    const d=eruptionParts(p);if(!d.year)return'Date uncertain';
+    if(d.month&&d.day)return new Date(Date.UTC(d.year,d.month-1,d.day)).toLocaleDateString(undefined,{year:'numeric',month:'short',day:'numeric',timeZone:'UTC'});
+    if(d.month)return new Date(Date.UTC(d.year,d.month-1,1)).toLocaleDateString(undefined,{year:'numeric',month:'short',timeZone:'UTC'});
+    return String(d.year);
+  }
+  function category(p){return pval(p,'Eruption_Category','EruptionCategory','eruption_category','Eruption Category')||'GVP eruption'}
   function historyUrl(p){const id=volcanoId(p);return id?`https://volcano.si.edu/volcano.cfm?vn=${encodeURIComponent(id)}&vtab=Eruptions`:'https://volcano.si.edu/search_eruption.cfm'}
   historySection=function(p){const eruptions=eruptionsFor(p),reports=reportsForVolcano(p).slice().sort((a,b)=>Date.parse(value(b.properties?.Report_Published,b.properties?.Report_Date)||0)-Date.parse(value(a.properties?.Report_Published,a.properties?.Report_Date)||0));if(!eruptions.length&&!reports.length)return'';const rows=[];for(const r of reports.slice(0,3)){const q=r.properties||{};rows.push(`<div class="timeline-item activity-timeline"><time>${esc(fmtDate(value(q.Report_Published,q.Report_Date))||'Report')}</time><span>Weekly activity report</span></div>`)}for(const e of eruptions.slice(0,8)){const q=e.properties||{},vei=pval(q,'VEI','Vei','vei');rows.push(`<div class="timeline-item"><time>${esc(eruptionLabel(q))}</time><span>${esc(category(q))}${vei!==null&&vei!==''?` · VEI ${esc(vei)}`:''}</span></div>`)}return `<div class="inspector-section"><div class="inspector-heading">Eruption history</div><div class="timeline">${rows.join('')}</div>${eruptions.length>8?`<p class="semantic-note">Showing the 8 most recent of ${eruptions.length.toLocaleString()} GVP eruption records.</p>`:''}<a href="${esc(historyUrl(p))}" target="_blank" rel="noreferrer">Open full GVP eruption history ↗</a><p class="semantic-note">Eruption dates and VEI values reflect the GVP catalog and may be approximate or revised as evidence changes.</p></div>`};
 
