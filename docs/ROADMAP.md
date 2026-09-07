@@ -111,6 +111,53 @@ The split is both a product and technical boundary:
 
 Do not prematurely choose a monorepo, multi-repo, package, or deployment architecture for this. Build a second real domain first; then extract what is demonstrably shared.
 
+## Open telemetry and public nerd logs
+
+If Open Earth eventually needs usage telemetry, the telemetry system should follow the same openness and provenance principles as the scientific data.
+
+The telemetry implementation itself should be part of the public repository rather than a hidden third-party analytics black box. Its event schema, collection behavior, retention rules, aggregation logic, and public metrics should be inspectable.
+
+The guiding principle is:
+
+> **These stats describe Open Earth, not its users.**
+
+Possible telemetry includes aggregate visits, explored topics, inspector opens, layer usage, provider/runtime health, traffic served, and similar product-level statistics. Avoid user profiles, cross-site tracking, fingerprinting, or telemetry whose purpose is to identify individual visitors.
+
+Where practical, publish the aggregate data itself as machine-readable open data as well as presenting it in the UI.
+
+A future optional **Nerd logs** panel could expose fun and useful public statistics such as:
+
+- visitors / visits over time
+- events explored
+- most explored topic (for example volcanoes vs earthquakes)
+- most explored current events or features
+- relative interest across future domains such as Geology, Ocean, Fire, and Ice
+- provider health / freshness summaries
+- data served
+- IPv4 vs IPv6 traffic, because of course
+
+Metric definitions must be explicit. For example, "most explored topic" should say whether it means inspector opens, layer activations, or another concrete event rather than presenting an opaque analytics score.
+
+Telemetry is a future capability, not an immediate requirement. For simple traffic counts, server access-log aggregation may be sufficient before any client-side event collection exists.
+
+Any telemetry that is actually deployed must be reflected accurately in the privacy documentation.
+
+## Open and reproducible operation
+
+The long-term Open Earth philosophy should extend beyond application source code:
+
+- **Open source** - application and telemetry implementation are public.
+- **Open data** - use authoritative open/public data where licensing permits, with source and freshness visible.
+- **Open methodology** - derived values and relationships should be explainable and reproducible.
+- **Open telemetry** - collection and aggregation behavior is public, and aggregate statistics can themselves be public data.
+- **Reproducible infrastructure** - document enough of the production architecture that another operator can host Open Earth in substantially the same way.
+
+The actual production server is intentionally **not** public configuration/state. Do not publish secrets, deployment credentials, recovery details, private host metadata, security-sensitive operational state, or an exact production snapshot merely for philosophical purity.
+
+Instead, a future sanitized infrastructure reference may document the relevant architecture, Caddy/static-hosting setup, deployment contract, release layout, health checks, rollback model, and telemetry pipeline without exposing the real host unnecessarily.
+
+The goal is reproducibility, not giving the internet a blueprint of a live machine.
+
 ## Scope guardrails
 
 Open Earth should not become a random collection of map layers.
@@ -125,7 +172,7 @@ Key rules:
 4. **Observation is not causation.** Spatial or temporal proximity must not silently become a causal claim.
 5. **Do not normalize away scientific meaning.** Provider-specific classifications and uncertainty must remain visible.
 6. **Keep infrastructure boring.** Prefer static/client-side delivery and direct authoritative sources where practical; add backend infrastructure only when a real requirement demands it.
-7. **Ideas are not commitments.** Ocean, Fire, Ice, Weather, and other domains remain future possibilities until the preceding work is mature.
+7. **Ideas are not commitments.** Ocean, Fire, Ice, Weather, telemetry, and other domains remain future possibilities until the preceding work is mature.
 
 The immediate roadmap remains deliberately narrow:
 
