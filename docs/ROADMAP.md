@@ -57,9 +57,49 @@ Goals include:
 
 The objective is feature and semantic parity where it makes sense, not pixel-for-pixel desktop parity. Mobile may use different interaction patterns when they better fit the device.
 
+## P1.9 - Frontend architecture bake-off
+
+Before P2 adds another layer of state, visualization, and interaction complexity, evaluate whether the current Vanilla JavaScript + native ES modules architecture is still the simplest way to build Open Earth.
+
+This is an evaluation milestone, **not a pre-decided framework migration**. Staying on Vanilla is a valid outcome if the bake-off does not demonstrate a meaningful improvement.
+
+Start by documenting concrete pain points observed while building P1 through P1.75. In particular, look for places where Open Earth is beginning to recreate framework machinery itself: UI state synchronization, DOM lifecycle, component composition, event wiring, inspector variants, responsive/mobile variants, and shared interactive primitives.
+
+Candidate approaches should include at least:
+
+- **Vanilla JS + native ES modules** as the baseline
+- **Svelte** as the primary framework candidate
+- **Lit / Web Components** as a standards-oriented lightweight candidate
+- **Solid** as another lightweight reactive candidate worth measuring
+
+**htmx** may be documented as considered, but it is not an obvious fit for the current architecture because Open Earth is a static, highly interactive client-side map rather than a server-rendered hypermedia application. It should only enter the implementation bake-off if a concrete architecture makes it competitive without introducing a backend merely to accommodate the framework.
+
+The bake-off should use one or more representative vertical slices from the real application rather than toy counters. Good candidates include an inspector with provenance/freshness state, search + selection + URL state, a mobile sheet, or another interaction that exercises MapLibre integration and real Open Earth state.
+
+Evaluate candidates against explicit criteria such as:
+
+- implementation complexity and amount of application-owned glue
+- readability and maintainability
+- state and lifecycle correctness
+- MapLibre integration and imperative escape hatches
+- desktop/mobile component reuse without forcing identical UX
+- bundle/payload cost and startup performance
+- runtime memory/CPU where differences are meaningful
+- accessibility ergonomics
+- testing ergonomics
+- build/tooling complexity and dependency surface
+- long-term maintenance risk and ecosystem maturity
+- suitability for future focused Open Earth domain experiences
+
+Any prototype should preserve existing scientific semantics, data contracts, URL/deep-link behavior, and MapLibre behavior closely enough to make the comparison meaningful. Do not combine a framework migration with a broad redesign and then attribute the result to the framework.
+
+If a candidate wins, document **why**, what gets migrated, what remains framework-independent, and a staged migration path. Prefer keeping scientific/data/provider logic independent of the UI framework where practical.
+
+If no candidate clearly beats Vanilla, keep Vanilla and record the result. The purpose of P1.9 is to reduce future development complexity, not to modernize the stack for its own sake.
+
 ## P2 - Dynamic Earth
 
-After regional geology coverage is mature and the current product has a solid mobile experience, deepen the solid-Earth experience rather than immediately broadening into unrelated hazards.
+After regional geology coverage is mature, the current product has a solid mobile experience, and the frontend architecture has been deliberately evaluated, deepen the solid-Earth experience rather than immediately broadening into unrelated hazards.
 
 Candidate capabilities:
 
@@ -201,6 +241,7 @@ P1      DONE
 P1.5    DONE
 P1.5x   Regional geology / volcano coverage
 P1.75   Mobile experience
+P1.9    Frontend architecture bake-off
 P2      Dynamic Earth
 
 Then stop, evaluate, and only expand into another Earth-system domain if it still makes sense.
