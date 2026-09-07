@@ -37,9 +37,29 @@ Potential providers/regions to investigate include INGV (Italy), IMO (Iceland), 
 
 This list is research input, not an integration commitment.
 
+## P1.75 - Mobile experience
+
+Before P2 adds more scientific capability and UI complexity, make the existing Open Earth geology experience genuinely usable on phones and small touch devices.
+
+This should be a deliberate mobile product pass rather than merely making the desktop layout technically responsive.
+
+Goals include:
+
+- touch-first map interaction and controls
+- inspectors that work comfortably on narrow screens, likely using mobile-appropriate sheets/panels rather than squeezed desktop sidebars
+- usable layer and filter controls without covering the map
+- search, history, deep links, and sharing that remain practical on mobile
+- sensible viewport/safe-area handling and browser chrome behavior
+- readable provenance, freshness, source, and scientific-context information on small screens
+- accessibility and adequate touch targets
+- performance and payload review for mobile networks and less powerful devices
+- test the real application on representative mobile viewport sizes and touch interaction, not only desktop responsive emulation
+
+The objective is feature and semantic parity where it makes sense, not pixel-for-pixel desktop parity. Mobile may use different interaction patterns when they better fit the device.
+
 ## P2 - Dynamic Earth
 
-After regional geology coverage is mature, deepen the solid-Earth experience rather than immediately broadening into unrelated hazards.
+After regional geology coverage is mature and the current product has a solid mobile experience, deepen the solid-Earth experience rather than immediately broadening into unrelated hazards.
 
 Candidate capabilities:
 
@@ -180,6 +200,7 @@ The immediate roadmap remains deliberately narrow:
 P1      DONE
 P1.5    DONE
 P1.5x   Regional geology / volcano coverage
+P1.75   Mobile experience
 P2      Dynamic Earth
 
 Then stop, evaluate, and only expand into another Earth-system domain if it still makes sense.
