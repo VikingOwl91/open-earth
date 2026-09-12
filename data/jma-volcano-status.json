@@ -8,7 +8,7 @@
     "name": "Japan Meteorological Agency",
     "url": "https://www.jma.go.jp/bosai/map.html#contents=volcano"
   },
-  "fetchedAt": "2026-09-11T05:56:49.339208+00:00",
+  "fetchedAt": "2026-09-12T05:45:45.521756+00:00",
   "statuses": [
     {
       "providerId": "jma",
@@ -166,23 +166,6 @@
     {
       "providerId": "jma",
       "providerName": "Japan Meteorological Agency",
-      "name": "Tokachidake",
-      "nameJp": "十勝岳",
-      "volcanoCode": "108",
-      "level": "Level 2",
-      "nativeStatus": "レベル２（火口周辺規制）",
-      "label": "Level 2 · レベル２（火口周辺規制）",
-      "severity": "advisory",
-      "observedAt": "2026-06-18T11:00:00+09:00",
-      "reportUrl": "https://www.data.jma.go.jp/multi/volcano/volcano_detail.html?code=108&lang=en",
-      "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
-      "note": "Near-crater Warning (Restriction on proximity to crater)",
-      "volcanoNumber": 285070,
-      "matchingMethod": "curated_jma_code"
-    },
-    {
-      "providerId": "jma",
-      "providerName": "Japan Meteorological Agency",
       "name": "Kuchinoerabujima",
       "nameJp": "口永良部島",
       "volcanoCode": "509",
@@ -246,6 +229,23 @@
       "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
       "note": "Caution advised around crater",
       "volcanoNumber": 284090,
+      "matchingMethod": "curated_jma_code"
+    },
+    {
+      "providerId": "jma",
+      "providerName": "Japan Meteorological Agency",
+      "name": "Tokachidake",
+      "nameJp": "十勝岳",
+      "volcanoCode": "108",
+      "level": "Level 3",
+      "nativeStatus": "レベル３（入山規制）",
+      "label": "Level 3 · レベル３（入山規制）",
+      "severity": "watch",
+      "observedAt": "2026-09-12T09:30:00+09:00",
+      "reportUrl": "https://www.data.jma.go.jp/multi/volcano/volcano_detail.html?code=108&lang=en",
+      "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
+      "note": "Near-crater Warning (Restriction on proximity to volcano)",
+      "volcanoNumber": 285070,
       "matchingMethod": "curated_jma_code"
     }
   ]
