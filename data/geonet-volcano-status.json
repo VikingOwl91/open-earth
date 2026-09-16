@@ -8,7 +8,7 @@
     "name": "GeoNet New Zealand (GNS Science)",
     "url": "https://www.geonet.org.nz/volcano"
   },
-  "fetchedAt": "2026-09-15T06:13:32.072057+00:00",
+  "fetchedAt": "2026-09-16T06:03:14.553647+00:00",
   "statuses": [
     {
       "providerId": "geonet",
@@ -63,22 +63,6 @@
       "note": "Volcanic environment hazards.",
       "volcanoNumber": 241020,
       "matchingMethod": "curated_geonet_id"
-    },
-    {
-      "providerId": "geonet",
-      "providerName": "GeoNet New Zealand (GNS Science)",
-      "name": "Kermadec Islands",
-      "volcanoId": "kermadecislands",
-      "level": "Level 0",
-      "colorCode": "GREEN",
-      "nativeStatus": "Level 0 (No volcanic unrest.)",
-      "label": "Level 0 · GREEN",
-      "severity": "normal",
-      "activity": "No volcanic unrest.",
-      "hazards": "Volcanic environment hazards.",
-      "reportUrl": "https://www.geonet.org.nz/volcano/kermadecislands",
-      "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
-      "note": "Volcanic environment hazards."
     },
     {
       "providerId": "geonet",
@@ -221,6 +205,22 @@
       "note": "Volcanic environment hazards.",
       "volcanoNumber": 241030,
       "matchingMethod": "curated_geonet_id"
+    },
+    {
+      "providerId": "geonet",
+      "providerName": "GeoNet New Zealand (GNS Science)",
+      "name": "Rangitāhua/Kermadec Islands",
+      "volcanoId": "kermadecislands",
+      "level": "Level 0",
+      "colorCode": "GREEN",
+      "nativeStatus": "Level 0 (No volcanic unrest.)",
+      "label": "Level 0 · GREEN",
+      "severity": "normal",
+      "activity": "No volcanic unrest.",
+      "hazards": "Volcanic environment hazards.",
+      "reportUrl": "https://www.geonet.org.nz/volcano/kermadecislands",
+      "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
+      "note": "Volcanic environment hazards."
     }
   ]
 }
