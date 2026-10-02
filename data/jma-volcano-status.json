@@ -8,7 +8,7 @@
     "name": "Japan Meteorological Agency",
     "url": "https://www.jma.go.jp/bosai/map.html#contents=volcano"
   },
-  "fetchedAt": "2026-10-01T07:10:34.038227+00:00",
+  "fetchedAt": "2026-10-02T06:59:39.071205+00:00",
   "statuses": [
     {
       "providerId": "jma",
@@ -229,6 +229,23 @@
       "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
       "note": "Volcanic Forecast (Potential for increased activity)",
       "volcanoNumber": 282050,
+      "matchingMethod": "curated_jma_code"
+    },
+    {
+      "providerId": "jma",
+      "providerName": "Japan Meteorological Agency",
+      "name": "Hokkaido-Komagatake",
+      "nameJp": "北海道駒ヶ岳",
+      "volcanoCode": "113",
+      "level": "Level 2",
+      "nativeStatus": "レベル２（火口周辺規制）",
+      "label": "Level 2 · レベル２（火口周辺規制）",
+      "severity": "advisory",
+      "observedAt": "2026-10-02T07:30:00+09:00",
+      "reportUrl": "https://www.data.jma.go.jp/multi/volcano/volcano_detail.html?code=113&lang=en",
+      "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
+      "note": "Near-crater Warning (Restriction on proximity to crater)",
+      "volcanoNumber": 285020,
       "matchingMethod": "curated_jma_code"
     }
   ]
