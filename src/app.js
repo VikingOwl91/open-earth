@@ -6,6 +6,7 @@
   'use strict';
 
   async function init() {
+    wireResponsiveControls();
     const detailsPanel = document.querySelector('#details');
     const detailsBody = document.querySelector('#details-body');
     const searchInput = document.querySelector('#search');
@@ -98,6 +99,45 @@
     } catch (e) {
       console.error('[OpenEarth] Bootstrap error:', e);
     }
+  }
+
+  function wireResponsiveControls() {
+    const panel = document.querySelector('.controls');
+    const toggle = document.querySelector('#controls-toggle');
+    const action = document.querySelector('#controls-toggle-action');
+    const app = document.querySelector('#app');
+    const phone = window.matchMedia('(max-width: 600px)');
+    const compact = window.matchMedia('(max-width: 1024px)');
+    let collapsed = phone.matches;
+
+    const updateClearance = () => {
+      const mapBottom = document.querySelector('#map').getBoundingClientRect().bottom;
+      const clearance = phone.matches ? Math.max(0, mapBottom - panel.getBoundingClientRect().top + 8) : 0;
+      app.style.setProperty('--controls-clearance', `${clearance}px`);
+    };
+
+    const render = () => {
+      const isCollapsed = compact.matches && collapsed;
+      panel.classList.toggle('is-collapsed', isCollapsed);
+      toggle.setAttribute('aria-expanded', String(!isCollapsed));
+      action.textContent = isCollapsed ? 'Show' : 'Hide';
+      updateClearance();
+    };
+
+    toggle.addEventListener('click', () => {
+      collapsed = !collapsed;
+      render();
+    });
+    const resetLayout = () => {
+      collapsed = phone.matches;
+      render();
+    };
+    phone.addEventListener('change', resetLayout);
+    compact.addEventListener('change', resetLayout);
+    new ResizeObserver(updateClearance).observe(panel);
+    window.addEventListener('resize', updateClearance);
+    window.visualViewport?.addEventListener('resize', updateClearance);
+    render();
   }
 
   function restoreSelectedFeature(identity, dataStore, inspector) {

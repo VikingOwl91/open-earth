@@ -11,6 +11,8 @@
   width: min(480px, 92vw) !important;
   height: 100vh !important;
   max-height: 100vh !important;
+  height: 100dvh !important;
+  max-height: 100dvh !important;
   border-radius: 0 !important;
   border-top: 0 !important;
   border-right: 0 !important;
@@ -18,7 +20,7 @@
   border-left: 1px solid var(--border-panel) !important;
   background: var(--bg-panel-elevated) !important;
   box-shadow: var(--shadow-drawer) !important;
-  padding: 0 !important;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left) !important;
   overflow-y: auto;
   overflow-x: hidden;
   z-index: 100;
@@ -40,8 +42,8 @@
 
 .details-close {
   position: fixed !important;
-  top: 14px !important;
-  right: 14px !important;
+  top: calc(14px + env(safe-area-inset-top)) !important;
+  right: calc(14px + env(safe-area-inset-right)) !important;
   width: 32px !important;
   height: 32px !important;
   border: 0 !important;
@@ -59,6 +61,19 @@
 .details-close:hover {
   background: var(--bg-hover) !important;
   color: var(--text-bright) !important;
+}
+
+@media (max-width: 1024px) {
+  .details-close {
+    width: 44px !important;
+    height: 44px !important;
+    top: calc(8px + env(safe-area-inset-top)) !important;
+    right: calc(8px + env(safe-area-inset-right)) !important;
+  }
+
+  .drawer-head {
+    padding-right: 64px;
+  }
 }
 
 /* ==========================================================================
@@ -721,4 +736,3 @@
   color: #fff;
   outline: none;
 }
-
