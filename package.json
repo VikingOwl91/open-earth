@@ -1,0 +1,15 @@
+{
+  "name": "open-earth",
+  "version": "1.0.0",
+  "private": true,
+  "description": "A modern open-source map for understanding what the Earth is doing — and why.",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "test:js": "node --test tests/*.test.js",
+    "test:py": "pytest tests/"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
