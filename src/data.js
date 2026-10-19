@@ -22,6 +22,7 @@
   };
 
   const EMPTY = Object.freeze({ type: 'FeatureCollection', features: [] });
+  const geoRef = () => (typeof window !== 'undefined' && window.OpenEarth && window.OpenEarth.geo) || null;
 
   class DataStore {
     constructor() {
@@ -205,12 +206,12 @@
     findVolcano(idOrName) {
       if (!idOrName || !this.volcanoes?.features) return null;
       const s = String(idOrName).trim();
-      const normS = (typeof norm === 'function' ? norm(s) : s.toLowerCase());
+      const normS = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(s);
       return this.volcanoes.features.find(f => {
         const p = f.properties || {};
         const vnum = String(p.Volcano_Number || p.volcano_number || '').trim();
         if (vnum && vnum === s) return true;
-        const vname = (typeof norm === 'function' ? norm(p.Volcano_Name || '') : String(p.Volcano_Name || '').toLowerCase());
+        const vname = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(p.Volcano_Name || '');
         return vname === normS;
       }) || null;
     }
@@ -218,12 +219,12 @@
     findReportForVolcano(p) {
       if (!p || !this.activity?.features) return null;
       const vnum = String(p.Volcano_Number || p.volcano_number || p.VolcanoNumber || '').trim();
-      const vname = typeof norm === 'function' ? norm(p.Volcano_Name || p.Report_Name || '') : '';
+      const vname = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(p.Volcano_Name || p.Report_Name || '');
       return this.activity.features.find(f => {
         const q = f.properties || {};
         const qNum = String(q.Volcano_Number || q.volcano_number || '').trim();
         if (vnum && qNum && vnum === qNum) return true;
-        const qName = typeof norm === 'function' ? norm(q.Volcano_Name || q.Report_Name || '') : '';
+        const qName = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(q.Volcano_Name || q.Report_Name || '');
         return vname && qName && vname === qName;
       }) || null;
     }
@@ -231,12 +232,12 @@
     findEruptionsForVolcano(p) {
       if (!p || !this.eruptions?.features) return [];
       const vnum = String(p.Volcano_Number || p.volcano_number || p.VolcanoNumber || '').trim();
-      const vname = typeof norm === 'function' ? norm(p.Volcano_Name || '') : '';
+      const vname = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(p.Volcano_Name || '');
       return this.eruptions.features.filter(f => {
         const q = f.properties || {};
         const qNum = String(q.Volcano_Number || q.volcano_number || '').trim();
         if (vnum && qNum && vnum === qNum) return true;
-        const qName = typeof norm === 'function' ? norm(q.Volcano_Name || '') : '';
+        const qName = (geoRef()?.norm || (s => String(s || '').toLowerCase()))(q.Volcano_Name || '');
         return vname && qName && vname === qName;
       });
     }

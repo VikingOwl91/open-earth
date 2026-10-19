@@ -123,7 +123,15 @@
         tabsList = [['overview', 'Overview'], ['history', 'History'], ['nearby', 'Nearby'], ['sources', 'Sources']];
 
         if (tab === 'history') {
-          contentHtml = this._renderVolcanoHistory(props, vnum);
+          if (!this.dataStore.eruptions.features.length) {
+            contentHtml = '<p class="note">Loading eruption history…</p>';
+            this.dataStore.loadEruptions().then(() => this.render()).catch(() => {
+              contentHtml = '<p class="note">Eruption history is currently unavailable.</p>';
+              this.render();
+            });
+          } else {
+            contentHtml = this._renderVolcanoHistory(props, vnum);
+          }
         } else if (tab === 'nearby') {
           contentHtml = this._renderNearby(coords);
         } else if (tab === 'sources') {
