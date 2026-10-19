@@ -18,8 +18,9 @@
     geonet: { id: 'geonet', name: 'GeoNet New Zealand (GNS Science)', url: 'https://www.geonet.org.nz/volcano', file: 'geonet-volcano-status.json', statuses: [], fetchedAt: null }
   };
 
-  const normStr = s => typeof norm === 'function' ? norm(s) : String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
-  const getVal = (...xs) => typeof value === 'function' ? value(...xs) : xs.find(x => x !== undefined && x !== null && String(x).trim() !== '' && String(x).trim().toLowerCase() !== 'unknown') ?? null;
+  const geoRef = (typeof window !== 'undefined' && window.OpenEarth && window.OpenEarth.geo) || null;
+  const normStr = s => geoRef ? geoRef.norm(s) : String(s || '').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]/g, '');
+  const getVal = (...xs) => geoRef ? geoRef.value(...xs) : xs.find(x => x !== undefined && x !== null && String(x).trim() !== '' && String(x).trim().toLowerCase() !== 'unknown') ?? null;
 
   const pvmbgAliases = {
     'anakkrakatau': 'krakatau',

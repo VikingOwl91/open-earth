@@ -588,6 +588,10 @@ body {
   line-height: 1.5;
   color: var(--text-muted);
 }
+.status-degraded {
+  color: var(--color-activity);
+  border-top-color: var(--color-activity);
+}
 
 /* Sidebar Footer Links */
 .controls-footer {

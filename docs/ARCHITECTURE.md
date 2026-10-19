@@ -145,3 +145,11 @@ P2 adds deeper optional datasets such as historical earthquakes/tsunamis, GNSS v
 
 See `DATA-SOURCES.md` for the source registry, acceptance checklist, and candidate authorities.
 
+
+### Static hosting requirements
+
+The checked-in snapshot files under `data/` include several multi-megabyte GeoJSON documents (`eruptions.json` ~10 MB, `faults.json` ~9 MB, `plate-steps.json` ~9 MB, `volcanoes.json` ~2 MB). To keep first paint fast on slow links:
+
+- **Transport compression is required at the hosting layer.** Serve `.json` with on-the-fly gzip (or brotli) compression. For Caddy this is a single global directive: `encode zstd gzip`. Brotli/gzip reduces these files by roughly 75–95% in transit with no change to the frontend.
+- **Correct MIME type and cache headers**: `Content-Type: application/json`, long-lived `Cache-Control` on snapshot files (they only change via the daily refresh workflow), and `no-cache` for `manifest.json` so clients pick up fresh snapshots.
+- Precompressed `.json.gz`/`.json.br` variants are intentionally **not** checked in: on-the-fly encoding at the host avoids duplicate storage, pipeline changes, and stale-compression bugs, and the daily `update-data.yml` workflow would need to regenerate them on every snapshot commit.

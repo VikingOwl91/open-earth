@@ -99,11 +99,15 @@
       const core = ['earthquakes', 'volcanoes', 'plates'];
       const ok = core.filter(x => !this.failures.has(x)).length;
       const age = this.snapshotAge();
-      let text = `${ok}/3 core sources healthy`;
-      if (age) text += ` · snapshot ${age}`;
-      if (this.failures.size > 0) {
-        text += ` · issues: ${[...this.failures].join(', ')}`;
+      let text;
+      if (ok === core.length) {
+        text = `${ok}/${core.length} core sources healthy`;
+      } else if (ok === 0) {
+        text = 'Live sources unreachable — showing cached snapshots where available';
+      } else {
+        text = `Source issues: ${[...this.failures].join(', ')} — data may be incomplete`;
       }
+      if (age) text += ` · snapshot ${age}`;
       return text;
     }
 
@@ -338,7 +342,10 @@
     window.snapshotAge = () => window.OpenEarth.dataStore.snapshotAge();
     window.setStatus = () => {
       const el = document.querySelector('#status');
-      if (el) el.textContent = window.OpenEarth.dataStore.getStatusSummary();
+      if (!el) return;
+      const store = window.OpenEarth.dataStore;
+      el.textContent = store.getStatusSummary();
+      el.classList.toggle('status-degraded', store.failures.size > 0);
     };
     window.sourceLine = s => `<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${esc(s.name)}</a></p>`;
     window.volcanoCatalogMatch = p => window.OpenEarth.dataStore.findVolcano(p?.Volcano_Number || p?.Volcano_Name);
