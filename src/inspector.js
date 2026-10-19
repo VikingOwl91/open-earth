@@ -689,7 +689,6 @@
     }
 
     _renderPlateOverview(p, coords, meta) {
-      const esc = window.OpenEarth?.geo?.esc || (s => s);
       const val = window.OpenEarth?.geo?.value || ((...xs) => xs[0]);
       const pair = val(p.Plate_Pair, p.PLATEBOUND);
       const length = p.STEPLENGTH != null ? `${Number(p.STEPLENGTH).toFixed(1)} km` : null;

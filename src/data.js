@@ -348,7 +348,7 @@
       el.textContent = store.getStatusSummary();
       el.classList.toggle('status-degraded', store.failures.size > 0);
     };
-    window.sourceLine = s => `<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${esc(s.name)}</a></p>`;
+    window.sourceLine = s => `<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${(geoRef()?.esc || (x => String(x ?? 'Unknown')))(s.name)}</a></p>`;
     window.volcanoCatalogMatch = p => window.OpenEarth.dataStore.findVolcano(p?.Volcano_Number || p?.Volcano_Name);
     window.reportForVolcano = p => window.OpenEarth.dataStore.findReportForVolcano(p);
     window.reportsForVolcano = p => {
