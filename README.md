@@ -140,6 +140,8 @@ Issues, source improvements, provider research, scientific corrections, accessib
 
 Before changing scientific semantics or adding a data provider, please read **[Data Sources](docs/DATA-SOURCES.md)** and **[Architecture](docs/ARCHITECTURE.md)**. For the development workflow, see **[Contributing](CONTRIBUTING.md)**.
 
+Both test suites (JavaScript and Python) run automatically on every pull request via GitHub Actions. Locally, use `npm test` and `npm run test:py`.
+
 ## 📄 License
 
 Open Earth is released under the **[MIT License](LICENSE)**.
