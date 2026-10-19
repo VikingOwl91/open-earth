@@ -38,11 +38,12 @@ Open `http://localhost:8080` in your web browser.
 Before submitting any pull request, verify that both the JavaScript and Python test suites pass:
 
 ```bash
-# Run Node.js JavaScript unit tests
-node --test tests/*.test.js
+# Run both test suites
+npm test && npm run test:py
 
-# Run Python data pipeline unit tests
-pytest
+# Or individually
+npm test          # JavaScript unit tests (node --test)
+npm run test:py   # Python data pipeline unit tests (pytest)
 ```
 
 ---
