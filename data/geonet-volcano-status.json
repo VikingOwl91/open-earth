@@ -8,7 +8,7 @@
     "name": "GeoNet New Zealand (GNS Science)",
     "url": "https://www.geonet.org.nz/volcano"
   },
-  "fetchedAt": "2026-11-01T07:29:46.379267+00:00",
+  "fetchedAt": "2026-11-02T07:39:13.769326+00:00",
   "statuses": [
     {
       "providerId": "geonet",
@@ -157,16 +157,16 @@
       "providerName": "GeoNet New Zealand (GNS Science)",
       "name": "White Island",
       "volcanoId": "whiteisland",
-      "level": "Level 3",
-      "colorCode": "ORANGE",
-      "nativeStatus": "Level 3 (Minor volcanic eruption.)",
-      "label": "Level 3 · ORANGE",
-      "severity": "warning",
-      "activity": "Minor volcanic eruption.",
-      "hazards": "Eruption hazards near vent. Note: ash, lava flow, and lahar (mudflow) hazards may impact areas distant from the volcano.",
+      "level": "Level 2",
+      "colorCode": "YELLOW",
+      "nativeStatus": "Level 2 (Moderate to heightened volcanic unrest.)",
+      "label": "Level 2 · YELLOW",
+      "severity": "watch",
+      "activity": "Moderate to heightened volcanic unrest.",
+      "hazards": "Volcanic unrest hazards, potential for eruption hazards.",
       "reportUrl": "https://www.geonet.org.nz/volcano/whiteisland",
       "provenance": "Official New Zealand Volcanic Alert Level published by GeoNet / GNS Science.",
-      "note": "Eruption hazards near vent. Note: ash, lava flow, and lahar (mudflow) hazards may impact areas distant from the volcano.",
+      "note": "Volcanic unrest hazards, potential for eruption hazards.",
       "volcanoNumber": 241040,
       "matchingMethod": "curated_geonet_id"
     },
