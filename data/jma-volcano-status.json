@@ -8,7 +8,7 @@
     "name": "Japan Meteorological Agency",
     "url": "https://www.jma.go.jp/bosai/map.html#contents=volcano"
   },
-  "fetchedAt": "2026-11-03T07:53:40.552674+00:00",
+  "fetchedAt": "2026-11-04T07:28:38.769079+00:00",
   "statuses": [
     {
       "providerId": "jma",
@@ -115,23 +115,6 @@
     {
       "providerId": "jma",
       "providerName": "Japan Meteorological Agency",
-      "name": "Meakandake",
-      "nameJp": "雌阿寒岳",
-      "volcanoCode": "105",
-      "level": "Level 2",
-      "nativeStatus": "レベル２（火口周辺規制）",
-      "label": "Level 2 · レベル２（火口周辺規制）",
-      "severity": "advisory",
-      "observedAt": "2025-09-15T15:20:00+09:00",
-      "reportUrl": "https://www.data.jma.go.jp/multi/volcano/volcano_detail.html?code=105&lang=en",
-      "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
-      "note": "Near-crater Warning (Restriction on proximity to crater)",
-      "volcanoNumber": 285030,
-      "matchingMethod": "curated_jma_code"
-    },
-    {
-      "providerId": "jma",
-      "providerName": "Japan Meteorological Agency",
       "name": "Kirishimayama(Shinmoedake)",
       "nameJp": "霧島山（新燃岳）",
       "volcanoCode": "551",
@@ -229,6 +212,23 @@
       "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
       "note": "Near-crater Warning (Restriction on proximity to crater)",
       "volcanoNumber": 285070,
+      "matchingMethod": "curated_jma_code"
+    },
+    {
+      "providerId": "jma",
+      "providerName": "Japan Meteorological Agency",
+      "name": "Meakandake",
+      "nameJp": "雌阿寒岳",
+      "volcanoCode": "105",
+      "level": "Level 1",
+      "nativeStatus": "レベル１（活火山であることに留意）",
+      "label": "Level 1 · レベル１（活火山であることに留意）",
+      "severity": "normal",
+      "observedAt": "2026-11-04T10:00:00+09:00",
+      "reportUrl": "https://www.data.jma.go.jp/multi/volcano/volcano_detail.html?code=105&lang=en",
+      "provenance": "Official volcanic warning level published by the Japan Meteorological Agency (JMA).",
+      "note": "Volcanic Forecast (Potential for increased activity)",
+      "volcanoNumber": 285030,
       "matchingMethod": "curated_jma_code"
     }
   ]
