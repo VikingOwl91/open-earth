@@ -8,7 +8,7 @@
     "name": "USGS Volcano Hazards Program",
     "url": "https://volcanoes.usgs.gov/hans-public/"
   },
-  "fetchedAt": "2026-11-12T08:18:05.688369+00:00",
+  "fetchedAt": "2026-11-13T07:53:34.742406+00:00",
   "statuses": [
     {
       "providerId": "usgs",
@@ -1023,8 +1023,8 @@
       "label": "ADVISORY / YELLOW",
       "severity": "advisory",
       "observatory": "Hawaiian Volcano Observatory",
-      "observedAt": "2026-11-11 18:25:51",
-      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-HVO-2026-11-11T17:28:12+00:00",
+      "observedAt": "2026-11-12 18:32:28",
+      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-HVO-2026-11-12T17:56:34+00:00",
       "provenance": "Official alert level and aviation color code published by USGS Volcano Hazards Program.",
       "volcanoNumber": 332010,
       "matchingMethod": "official_vnum",
@@ -1125,8 +1125,8 @@
       "label": "ADVISORY / YELLOW",
       "severity": "advisory",
       "observatory": "Northern Mariana Islands",
-      "observedAt": "2026-11-06 01:13:43",
-      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-NMI-2026-11-06T01:12:03+00:00",
+      "observedAt": "2026-11-13 01:04:55",
+      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-NMI-2026-11-13T01:03:27+00:00",
       "provenance": "Official alert level and aviation color code published by USGS Volcano Hazards Program.",
       "volcanoNumber": 284141,
       "matchingMethod": "official_vnum",
