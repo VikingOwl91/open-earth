@@ -130,6 +130,7 @@ P1.5 consolidates this into clean, modular, unidirectional ES modules under `src
 7. **`src/search.js`**: Search orchestrator. Unifies local catalog matching (volcanoes, trenches) with remote OpenStreetMap Nominatim geocoding and historical USGS seismic catalog queries via FDSNWS.
 8. **`src/modals.js`**: Accessible dialog controllers for About, Impressum (German legal representation), and Datenschutz (privacy & audited network requests).
 9. **`src/app.js`**: Bootstrapper wiring the modules, synchronizing DOM controls, and managing application startup.
+10. **`src/analytics.js`**: Cookieless OpenPanel page analytics. Holds the tracker configuration, skips `localhost`, loopback and `file:`, and loads the vendored tracker from `vendor/openpanel/`. What it sends is documented in `PRIVACY.md`.
 
 ### Solved architectural debts
 

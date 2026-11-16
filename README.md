@@ -124,13 +124,13 @@ These documents intentionally cross-reference the same project rules from differ
 
 The production site is available at **[open-earth.info](https://open-earth.info)**.
 
-Open Earth is currently designed to remain straightforward to self-host: serve `index.html`, `src/`, and `data/` from a static HTTP server. The production infrastructure itself is intentionally not published as a live-machine configuration, but the roadmap includes a future sanitized, reproducible infrastructure reference.
+Open Earth is currently designed to remain straightforward to self-host: serve `index.html`, `src/`, `vendor/`, and `data/` from a static HTTP server. The production infrastructure itself is intentionally not published as a live-machine configuration, but the roadmap includes a future sanitized, reproducible infrastructure reference.
 
 ## 🔒 Privacy
 
-The current application is designed as a static, zero-tracking experience. Open Earth does not need an account to explore the map.
+The current application is designed as a static experience without cookies or user profiles. Open Earth does not need an account to explore the map.
 
-If privacy-preserving telemetry is introduced later, its implementation, schema, aggregation behavior, and metric definitions should be public, and this documentation must be updated to describe what is actually deployed.
+Aggregate page statistics are collected with a self-hosted, cookieless OpenPanel instance. The configuration lives in `src/analytics.js`, the tracker script is vendored in `vendor/openpanel/`, and `docs/PRIVACY.md` lists exactly what is sent. Any further telemetry should have its implementation, schema, aggregation behavior, and metric definitions public, and the documentation must be updated to describe what is actually deployed.
 
 **[Read the privacy documentation →](docs/PRIVACY.md)**
 

@@ -198,7 +198,7 @@ A future optional **Nerd logs** panel could expose fun and useful public statist
 
 Metric definitions must be explicit. For example, "most explored topic" should say whether it means inspector opens, layer activations, or another concrete event rather than presenting an opaque analytics score.
 
-Telemetry is a future capability, not an immediate requirement. For simple traffic counts, server access-log aggregation may be sufficient before any client-side event collection exists.
+Update: basic page-view and outgoing-link counts are now collected with a self-hosted OpenPanel instance (see `PRIVACY.md`). Richer product telemetry remains a future capability, not an immediate requirement. For simple traffic counts, server access-log aggregation may be sufficient before any client-side event collection exists.
 
 Any telemetry that is actually deployed must be reflected accurately in the privacy documentation.
 
