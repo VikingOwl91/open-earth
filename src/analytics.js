@@ -28,6 +28,26 @@
       || host === '::1';
   }
 
+  // Drops screen_view events that differ from the last sent one only by the camera (`c`) URL param.
+  // Anything unexpected is let through.
+  function createScreenViewFilter() {
+    let last = null;
+    return (event) => {
+      try {
+        const payload = event?.payload;
+        if (event?.type !== 'track' || payload?.name !== 'screen_view') return true;
+        const url = new URL(payload.properties.__path);
+        url.searchParams.delete('c');
+        url.searchParams.sort();
+        if (url.href === last) return false;
+        last = url.href;
+        return true;
+      } catch {
+        return true;
+      }
+    };
+  }
+
   function installStub(win) {
     win.op = win.op || function () { var n = []; return new Proxy(function () { arguments.length && n.push([].slice.call(arguments)); }, { get: function (t, r) { return 'q' === r ? n : function () { n.push([r].concat([].slice.call(arguments))); }; }, has: function (t, r) { return 'q' === r; } }); }();
   }
@@ -35,7 +55,7 @@
   function init(win, doc) {
     if (!win || !doc || isLocalContext(win.location)) return false;
     installStub(win);
-    win.op('init', { ...CONFIG });
+    win.op('init', { ...CONFIG, filter: createScreenViewFilter() });
     const script = doc.createElement('script');
     script.src = SCRIPT_URL;
     script.defer = true;
@@ -44,7 +64,7 @@
     return true;
   }
 
-  const Analytics = { CONFIG, SCRIPT_URL, isLocalContext, init };
+  const Analytics = { CONFIG, SCRIPT_URL, isLocalContext, createScreenViewFilter, init };
 
   if (typeof window !== 'undefined') {
     window.OpenEarth = window.OpenEarth || {};
