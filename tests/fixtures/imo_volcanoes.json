@@ -1,0 +1,3401 @@
+[
+ {
+  "code": "BEE",
+  "name": "Beerenberg",
+  "si_name": "Beerenberg",
+  "si_code": "376010",
+  "country": {
+   "iso_code": "NO",
+   "name_is": "Noregur",
+   "name_en": "Norway"
+  },
+  "zone": null,
+  "height": 2085,
+  "alt_name": "Volcano Beerenberg on Jan Mayen",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -8.133,
+    71.083
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 15,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": null,
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": null,
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "b70a75c0-7b64-4489-a926-882491fa98ab",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": null,
+   "previous": null,
+   "total_actual": 0,
+   "history": []
+  },
+  "vals": {
+   "current": null,
+   "previous": null,
+   "total_actual": 0,
+   "history": []
+  }
+ },
+ {
+  "code": "ASK",
+  "name": "Askja",
+  "si_name": "Askja",
+  "si_code": "373060",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 1516,
+  "alt_name": "Askja-Dyngjufjöll, Askja-Hrúthálsar",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.783,
+    65.05
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 35,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": "Explosive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": 100,
+  "sulfur_emission_potential_basaltic": 1200,
+  "iwxxm_identifier": "44c0d8de-ce19-4533-a598-65a5298a38da",
+  "bulletin_identifier": "01",
+  "vona": {
+   "current": {
+    "id": 407,
+    "volcano_code": "ASK",
+    "published_at": "2022-11-09T07:54:42.992000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 317,
+    "volcano_code": "ASK",
+    "published_at": "2021-09-09T16:33:34.079000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 3
+   },
+   "total_actual": 5,
+   "history": [
+    {
+     "id": 407,
+     "volcano_code": "ASK",
+     "published_at": "2022-11-09T07:54:42.992000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 41,
+    "volcano_code": "ASK",
+    "published_at": "2026-08-26T11:11:07.939845Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": {
+    "id": 35,
+    "volcano_code": "ASK",
+    "published_at": "2025-10-15T16:06:21.368183Z",
+    "alert_level_info": {
+     "level": 1,
+     "code_is": "Gult",
+     "code_en": "Yellow",
+     "description_is": "Aukin virkni",
+     "description_en": "Volcanic unrest"
+    }
+   },
+   "total_actual": 3,
+   "history": [
+    {
+     "id": 41,
+     "volcano_code": "ASK",
+     "published_at": "2026-08-26T11:11:07.939845Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "BAR",
+  "name": "Bárðarbunga",
+  "si_name": "Bardarbunga",
+  "si_code": "373030",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 2000,
+  "alt_name": "Veiðivötn",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -17.5,
+    64.633
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": "Explosive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1400,
+  "iwxxm_identifier": "9e2b3dfe-8571-4a67-9830-482ce2fd44d3",
+  "bulletin_identifier": "02",
+  "vona": {
+   "current": {
+    "id": 594,
+    "volcano_code": "BAR",
+    "published_at": "2025-01-16T16:05:07.792000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 4
+   },
+   "previous": {
+    "id": 592,
+    "volcano_code": "BAR",
+    "published_at": "2025-01-15T09:45:05.764000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 3
+   },
+   "total_actual": 5,
+   "history": [
+    {
+     "id": 594,
+     "volcano_code": "BAR",
+     "published_at": "2025-01-16T16:05:07.792000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 4
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 43,
+    "volcano_code": "BAR",
+    "published_at": "2025-02-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 1,
+     "code_is": "Gult",
+     "code_en": "Yellow",
+     "description_is": "Aukin virkni",
+     "description_en": "Volcanic unrest"
+    }
+   },
+   "previous": {
+    "id": 3,
+    "volcano_code": "BAR",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 43,
+     "volcano_code": "BAR",
+     "published_at": "2025-02-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 1,
+      "code_is": "Gult",
+      "code_en": "Yellow",
+      "description_is": "Aukin virkni",
+      "description_en": "Volcanic unrest"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "FAG",
+  "name": "Fagradalsfjall",
+  "si_name": "Fagradalsfjall",
+  "si_code": "371032",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 385,
+  "alt_name": "Also known as part of Krýsuvík-Trölladyngja volcanic system",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -22.26,
+    63.89
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1200,
+  "iwxxm_identifier": "b947efcd-34d5-4407-837a-364024dd5feb",
+  "bulletin_identifier": "03",
+  "vona": {
+   "current": {
+    "id": 473,
+    "volcano_code": "FAG",
+    "published_at": "2023-08-16T11:44:35.261000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 10
+   },
+   "previous": {
+    "id": 472,
+    "volcano_code": "FAG",
+    "published_at": "2023-08-05T17:06:27.994000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 9
+   },
+   "total_actual": 11,
+   "history": [
+    {
+     "id": 473,
+     "volcano_code": "FAG",
+     "published_at": "2023-08-16T11:44:35.261000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 10
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 29,
+    "volcano_code": "FAG",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 29,
+     "volcano_code": "FAG",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "GRV",
+  "name": "Grímsvötn",
+  "si_name": "Grimsvotn",
+  "si_code": "373010",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1722,
+  "alt_name": "Grímsvötn-Laki",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -17.333,
+    64.417
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1800,
+  "iwxxm_identifier": "6408cb96-c5dd-411c-b832-071e6e314e90",
+  "bulletin_identifier": "04",
+  "vona": {
+   "current": {
+    "id": 596,
+    "volcano_code": "GRV",
+    "published_at": "2025-01-20T09:48:12.202000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 3
+   },
+   "previous": {
+    "id": 595,
+    "volcano_code": "GRV",
+    "published_at": "2025-01-17T15:23:04.322000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 2
+   },
+   "total_actual": 18,
+   "history": [
+    {
+     "id": 596,
+     "volcano_code": "GRV",
+     "published_at": "2025-01-20T09:48:12.202000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 3
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 17,
+    "volcano_code": "GRV",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 17,
+     "volcano_code": "GRV",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HEK",
+  "name": "Hekla",
+  "si_name": "Hekla",
+  "si_code": "372070",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1490,
+  "alt_name": "Hekla-Vatnafjöll",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.667,
+    63.992
+   ]
+  },
+  "min_plume_height": 10,
+  "max_plume_height": 25,
+  "possible_max_plume_height": 35,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": 100,
+  "sulfur_emission_potential_basaltic": 2600,
+  "iwxxm_identifier": "fd515ad1-1430-44be-b5d2-b9dc7af8e6ef",
+  "bulletin_identifier": "05",
+  "vona": {
+   "current": {
+    "id": 11,
+    "volcano_code": "HEK",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 11,
+     "volcano_code": "HEK",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 13,
+    "volcano_code": "HEK",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 13,
+     "volcano_code": "HEK",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "KAT",
+  "name": "Katla",
+  "si_name": "Katla",
+  "si_code": "372030",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1490,
+  "alt_name": "Mýrdalsjökull",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.117,
+    63.633
+   ]
+  },
+  "min_plume_height": 10,
+  "max_plume_height": 25,
+  "possible_max_plume_height": 35,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1900,
+  "iwxxm_identifier": "de791664-2947-40f3-b58f-e2ea25143923",
+  "bulletin_identifier": "06",
+  "vona": {
+   "current": {
+    "id": 541,
+    "volcano_code": "KAT",
+    "published_at": "2024-07-29T10:31:19.803000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 2
+   },
+   "previous": {
+    "id": 540,
+    "volcano_code": "KAT",
+    "published_at": "2024-07-27T15:54:28.785000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 1
+   },
+   "total_actual": 9,
+   "history": [
+    {
+     "id": 541,
+     "volcano_code": "KAT",
+     "published_at": "2024-07-29T10:31:19.803000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 2
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 14,
+    "volcano_code": "KAT",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 14,
+     "volcano_code": "KAT",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "BRE",
+  "name": "Brennisteinsfjöll",
+  "si_name": "Brennisteinsfjoll",
+  "si_code": "371040",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 610,
+  "alt_name": "Bláfjöll",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -21.75,
+    63.95
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1500,
+  "iwxxm_identifier": "cc17b092-b40e-41d5-8e86-26c589f925dd",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 4,
+    "volcano_code": "BRE",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 4,
+     "volcano_code": "BRE",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 4,
+    "volcano_code": "BRE",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 4,
+     "volcano_code": "BRE",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "ELD",
+  "name": "Eldey",
+  "si_name": "Eldey",
+  "si_code": "371022",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 70,
+  "alt_name": "Eldstöðvakerfi Eldeyjar og Geirfuglaskers",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -23.0,
+    63.733
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 10,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": null,
+  "prob_duration_explosive": "days to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "df5a550c-6351-4436-b33a-db246bd36e71",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 468,
+    "volcano_code": "ELD",
+    "published_at": "2023-07-11T16:40:08.713000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 2
+   },
+   "previous": {
+    "id": 463,
+    "volcano_code": "ELD",
+    "published_at": "2023-07-07T16:08:20.921000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 1
+   },
+   "total_actual": 3,
+   "history": [
+    {
+     "id": 468,
+     "volcano_code": "ELD",
+     "published_at": "2023-07-11T16:40:08.713000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 2
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 27,
+    "volcano_code": "ELD",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 27,
+     "volcano_code": "ELD",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "ESJ",
+  "name": "Esjufjöll",
+  "si_name": "Esjufjoll",
+  "si_code": "374020",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "ÖVZ",
+   "name_is": "Öræfajökulsgosbelti",
+   "name_en": "Öræfajökull Volcanic Zone"
+  },
+  "height": 1745,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.583,
+    64.283
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": null,
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "e5fad675-b804-4b9c-8859-a53bf1e48bb0",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 5,
+    "volcano_code": "ESJ",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 5,
+     "volcano_code": "ESJ",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 22,
+    "volcano_code": "ESJ",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 22,
+     "volcano_code": "ESJ",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "EYJ",
+  "name": "Eyjafjallajökull",
+  "si_name": "Eyjafjallajokull",
+  "si_code": "372020",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1651,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.625,
+    63.628
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1900,
+  "iwxxm_identifier": "b4cb9f5f-13a3-4c7b-ae98-bbc11049c8f1",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 6,
+    "volcano_code": "EYJ",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 6,
+     "volcano_code": "EYJ",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 18,
+    "volcano_code": "EYJ",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 18,
+     "volcano_code": "EYJ",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "FRE",
+  "name": "Fremrinámar",
+  "si_name": "Fremrinamar",
+  "si_code": "373070",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 970,
+  "alt_name": "Fremrinámur",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.667,
+    65.433
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 700,
+  "iwxxm_identifier": "87d05940-f42e-46d1-b99d-00743690ebdb",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 245,
+    "volcano_code": "FRE",
+    "published_at": "2020-10-28T14:38:01.123000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 7,
+    "volcano_code": "FRE",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 245,
+     "volcano_code": "FRE",
+     "published_at": "2020-10-28T14:38:01.123000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 10,
+    "volcano_code": "FRE",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 10,
+     "volcano_code": "FRE",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "GRN",
+  "name": "Grímsnes",
+  "si_name": "Grimsnes",
+  "si_code": "371060",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "WVZ",
+   "name_is": "Vesturgosbelti",
+   "name_en": "Western Volcanic Zone"
+  },
+  "height": 200,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -20.883,
+    64.05
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "d8cccb18-5f7a-4448-8faf-67e44dfb1775",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 8,
+    "volcano_code": "GRN",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 8,
+     "volcano_code": "GRN",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 15,
+    "volcano_code": "GRN",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 15,
+     "volcano_code": "GRN",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HEI",
+  "name": "Heiðarsporðar",
+  "si_name": "Heidarspordar",
+  "si_code": "373082",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 490,
+  "alt_name": "Heiðarsporður",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.817,
+    65.583
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "909cbcf1-55e2-40ce-86b6-e92255064955",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 10,
+    "volcano_code": "HEI",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 10,
+     "volcano_code": "HEI",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 25,
+    "volcano_code": "HEI",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 25,
+     "volcano_code": "HEI",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HEL",
+  "name": "Helgrindur",
+  "si_name": "Helgrindur",
+  "si_code": "370020",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "SVZ",
+   "name_is": "Snæfellsnesgosbelti",
+   "name_en": "Snæfellsnes Volcanic Zone"
+  },
+  "height": 986,
+  "alt_name": "Lýsuskarð",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -23.25,
+    64.867
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "5e323334-6015-4c92-818e-5927fa529bf7",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 247,
+    "volcano_code": "HEL",
+    "published_at": "2020-11-12T14:36:08.129000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 20,
+    "volcano_code": "HEL",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GRAY",
+     "code_is": "GRÁTT",
+     "description_is": "Eldstöðin virðist óvirk. Vöktun er þó lítil og því er ekki hægt að fullyrða að svo sé.",
+     "description_en": "Volcano appears quiet but is not monitored adequately. Absence of unrest unconfirmed"
+    },
+    "notice_number": 1
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 247,
+     "volcano_code": "HEL",
+     "published_at": "2020-11-12T14:36:08.129000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 28,
+    "volcano_code": "HEL",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 28,
+     "volcano_code": "HEL",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HEN",
+  "name": "Hengill",
+  "si_name": "Hengill",
+  "si_code": "371050",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 803,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -21.3,
+    64.083
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "cb313d38-20ec-4793-aa83-e1887047459c",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 12,
+    "volcano_code": "HEN",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 12,
+     "volcano_code": "HEN",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 30,
+    "volcano_code": "HEN",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 30,
+     "volcano_code": "HEN",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HOF",
+  "name": "Hofsjökull",
+  "si_name": "Hofsjokull",
+  "si_code": "371090",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "HVZ",
+   "name_is": "Hofsjökulsgosbelti",
+   "name_en": "Hofsjökull Volcanic Zone"
+  },
+  "height": 1795,
+  "alt_name": "Hofsjökull-Kerlingarfjöll",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -18.9,
+    64.8
+   ]
+  },
+  "min_plume_height": null,
+  "max_plume_height": null,
+  "possible_max_plume_height": -1,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "4f8c206f-5108-450d-befe-92f0979a2d2c",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 13,
+    "volcano_code": "HOF",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 13,
+     "volcano_code": "HOF",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 47,
+    "volcano_code": "HOF",
+    "published_at": "2026-09-09T11:13:32.653740Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": {
+    "id": 44,
+    "volcano_code": "HOF",
+    "published_at": "2025-12-03T00:00:00Z",
+    "alert_level_info": {
+     "level": 1,
+     "code_is": "Gult",
+     "code_en": "Yellow",
+     "description_is": "Aukin virkni",
+     "description_en": "Volcanic unrest"
+    }
+   },
+   "total_actual": 3,
+   "history": [
+    {
+     "id": 47,
+     "volcano_code": "HOF",
+     "published_at": "2026-09-09T11:13:32.653740Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "HRO",
+  "name": "Hrómundartindur",
+  "si_name": "Hromundartindur",
+  "si_code": "371051",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "WVZ",
+   "name_is": "Vesturgosbelti",
+   "name_en": "Western Volcanic Zone"
+  },
+  "height": 550,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -21.2,
+    64.067
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "311e6163-be2b-4049-9d5b-7fad68e97151",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 14,
+    "volcano_code": "HRO",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 14,
+     "volcano_code": "HRO",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 6,
+    "volcano_code": "HRO",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 6,
+     "volcano_code": "HRO",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "KRA",
+  "name": "Krafla",
+  "si_name": "Krafla",
+  "si_code": "373080",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 800,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.783,
+    65.717
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": 100,
+  "sulfur_emission_potential_basaltic": 1200,
+  "iwxxm_identifier": "93089fa1-2894-4120-9593-258653cad06e",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 16,
+    "volcano_code": "KRA",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 16,
+     "volcano_code": "KRA",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 20,
+    "volcano_code": "KRA",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 20,
+     "volcano_code": "KRA",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "KRY",
+  "name": "Krýsuvík",
+  "si_name": "Krysuvik",
+  "si_code": "371030",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 360,
+  "alt_name": "Krísuvík",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -22.067,
+    63.917
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1400,
+  "iwxxm_identifier": "5e2a74ac-6744-43ec-9277-dae77c126e65",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 395,
+    "volcano_code": "KRY",
+    "published_at": "2022-09-15T15:29:52.108000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 8
+   },
+   "previous": {
+    "id": 390,
+    "volcano_code": "KRY",
+    "published_at": "2022-08-22T10:52:51.698000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 7
+   },
+   "total_actual": 41,
+   "history": [
+    {
+     "id": 395,
+     "volcano_code": "KRY",
+     "published_at": "2022-09-15T15:29:52.108000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 8
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 23,
+    "volcano_code": "KRY",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 23,
+     "volcano_code": "KRY",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "KVE",
+  "name": "Kverkfjöll",
+  "si_name": "Kverkfjoll",
+  "si_code": "373050",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 1933,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.667,
+    64.65
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": "Explosive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1600,
+  "iwxxm_identifier": "d230e638-3826-41ec-9137-feb04dc49e05",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 18,
+    "volcano_code": "KVE",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 18,
+     "volcano_code": "KVE",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 9,
+    "volcano_code": "KVE",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 9,
+     "volcano_code": "KVE",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "LJO",
+  "name": "Ljósufjöll",
+  "si_name": "Ljosufjoll",
+  "si_code": "370030",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "SVZ",
+   "name_is": "Snæfellsnesgosbelti",
+   "name_en": "Snæfellsnes Volcanic Zone"
+  },
+  "height": 1063,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -22.633,
+    64.917
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1300,
+  "iwxxm_identifier": "889076e6-a3d1-476e-bf36-cadab8b819e6",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 19,
+    "volcano_code": "LJO",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 19,
+     "volcano_code": "LJO",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 34,
+    "volcano_code": "LJO",
+    "published_at": "2025-10-15T15:56:24.777374Z",
+    "alert_level_info": {
+     "level": 1,
+     "code_is": "Gult",
+     "code_en": "Yellow",
+     "description_is": "Aukin virkni",
+     "description_en": "Volcanic unrest"
+    }
+   },
+   "previous": {
+    "id": 1,
+    "volcano_code": "LJO",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 34,
+     "volcano_code": "LJO",
+     "published_at": "2025-10-15T15:56:24.777374Z",
+     "alert_level_info": {
+      "level": 1,
+      "code_is": "Gult",
+      "code_en": "Yellow",
+      "description_is": "Aukin virkni",
+      "description_en": "Volcanic unrest"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "ORA",
+  "name": "Öræfajökull",
+  "si_name": "Oraefajokull",
+  "si_code": "374010",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "ÖVZ",
+   "name_is": "Öræfajökulsgosbelti",
+   "name_en": "Öræfajökull Volcanic Zone"
+  },
+  "height": 2110,
+  "alt_name": "Hnappafellsjökull",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.65,
+    64.0
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 35,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": null,
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": 100,
+  "sulfur_emission_potential_basaltic": 1600,
+  "iwxxm_identifier": "911b71dd-5535-4aa8-8032-a85f6fc0047b",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 50,
+    "volcano_code": "ORA",
+    "published_at": "2018-05-04T11:24:22.418000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 264,
+    "volcano_code": "ORA",
+    "published_at": "2017-11-17T21:11:06.747000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 1
+   },
+   "total_actual": 3,
+   "history": [
+    {
+     "id": 50,
+     "volcano_code": "ORA",
+     "published_at": "2018-05-04T11:24:22.418000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 26,
+    "volcano_code": "ORA",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 26,
+     "volcano_code": "ORA",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "PRE",
+  "name": "Prestahnúkur",
+  "si_name": "Prestahnukur",
+  "si_code": "371070",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "WVZ",
+   "name_is": "Vesturgosbelti",
+   "name_en": "Western Volcanic Zone"
+  },
+  "height": 1385,
+  "alt_name": "Prestahnjúkur",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -20.633,
+    64.6
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "51641843-29ef-4f28-87a6-9020d0d2bbdd",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 22,
+    "volcano_code": "PRE",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 22,
+     "volcano_code": "PRE",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 12,
+    "volcano_code": "PRE",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 12,
+     "volcano_code": "PRE",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "SNF",
+  "name": "Snæfell",
+  "si_name": "Snaefell",
+  "si_code": "374801",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "ÖVZ",
+   "name_is": "Öræfajökulsgosbelti",
+   "name_en": "Öræfajökull Volcanic Zone"
+  },
+  "height": 1833,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -15.567,
+    64.8
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": "Explosive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "2e493406-ec0f-443a-80de-2366ab502d16",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 24,
+    "volcano_code": "SNF",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 24,
+     "volcano_code": "SNF",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 32,
+    "volcano_code": "SNF",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 32,
+     "volcano_code": "SNF",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "SNJ",
+  "name": "Snæfellsjökull",
+  "si_name": "Snaefellsjokull",
+  "si_code": "370010",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "SVZ",
+   "name_is": "Snæfellsnesgosbelti",
+   "name_en": "Snæfellsnes Volcanic Zone"
+  },
+  "height": 1446,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -23.783,
+    64.8
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 700,
+  "iwxxm_identifier": "50c50782-b92d-4b03-b9b1-a2119265b53d",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 246,
+    "volcano_code": "SNJ",
+    "published_at": "2020-11-12T14:33:34.946000Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 25,
+    "volcano_code": "SNJ",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GRAY",
+     "code_is": "GRÁTT",
+     "description_is": "Eldstöðin virðist óvirk. Vöktun er þó lítil og því er ekki hægt að fullyrða að svo sé.",
+     "description_en": "Volcano appears quiet but is not monitored adequately. Absence of unrest unconfirmed"
+    },
+    "notice_number": 1
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 246,
+     "volcano_code": "SNJ",
+     "published_at": "2020-11-12T14:33:34.946000Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 31,
+    "volcano_code": "SNJ",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 31,
+     "volcano_code": "SNJ",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "TEY",
+  "name": "Þeistareykir",
+  "si_name": "Theistareykir",
+  "si_code": "373090",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NVZ",
+   "name_is": "Norðurgosbelti",
+   "name_en": "Northern Volcanic Zone"
+  },
+  "height": 540,
+  "alt_name": "Þeystareykir",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -16.967,
+    65.883
+   ]
+  },
+  "min_plume_height": 1,
+  "max_plume_height": 5,
+  "possible_max_plume_height": 5,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1100,
+  "iwxxm_identifier": "bdf771a6-2060-46d8-8be8-d490e8d723ee",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 30,
+    "volcano_code": "TEY",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 30,
+     "volcano_code": "TEY",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 33,
+    "volcano_code": "TEY",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 33,
+     "volcano_code": "TEY",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "THO",
+  "name": "Þórðarhyrna",
+  "si_name": "Thordarhyrna",
+  "si_code": "373012",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1650,
+  "alt_name": "Grímsvötn-Laki",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -17.617,
+    64.267
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "e962e67a-e377-44c8-90a2-ecfb4eebde93",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 31,
+    "volcano_code": "THO",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 31,
+     "volcano_code": "THO",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 7,
+    "volcano_code": "THO",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 7,
+     "volcano_code": "THO",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "TIN",
+  "name": "Tindfjallajökull",
+  "si_name": "Tindfjallajokull",
+  "si_code": "372040",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1464,
+  "alt_name": "Tindfjöll",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.567,
+    63.783
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "f175ebee-0815-4060-9b38-51c2258ed6a8",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 26,
+    "volcano_code": "TIN",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 26,
+     "volcano_code": "TIN",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 2,
+    "volcano_code": "TIN",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 2,
+     "volcano_code": "TIN",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "TOR",
+  "name": "Torfajökull",
+  "si_name": "Torfajokull",
+  "si_code": "372050",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 1190,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.1,
+    63.933
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 12,
+  "possible_max_plume_height": 25,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "hours to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "752b44e6-44e6-4813-b9d7-51dd3539aa7a",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 27,
+    "volcano_code": "TOR",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 27,
+     "volcano_code": "TOR",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 24,
+    "volcano_code": "TOR",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 24,
+     "volcano_code": "TOR",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "TUN",
+  "name": "Tungnafellsjökull",
+  "si_name": "Tungnafellsjokull",
+  "si_code": "373040",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "HVZ",
+   "name_is": "Hofsjökulsgosbelti",
+   "name_en": "Hofsjökull Volcanic Zone"
+  },
+  "height": 1523,
+  "alt_name": "Tungnafellsjökull-Vonarskarð, Vonarskarð",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -17.917,
+    64.75
+   ]
+  },
+  "min_plume_height": null,
+  "max_plume_height": null,
+  "possible_max_plume_height": -1,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "896a57e1-e4cb-442f-8716-ffaf64baa542",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 28,
+    "volcano_code": "TUN",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 28,
+     "volcano_code": "TUN",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 11,
+    "volcano_code": "TUN",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 11,
+     "volcano_code": "TUN",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "VES",
+  "name": "Vestmannaeyjar",
+  "si_name": "Vestmannaeyjar",
+  "si_code": "372010",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "EVZ",
+   "name_is": "Austurgosbelti",
+   "name_en": "Eastern Volcanic Zone"
+  },
+  "height": 283,
+  "alt_name": "Eyjar",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -20.35,
+    63.417
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 10,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Explosive",
+  "predominant_activity_stage_two": "Effusive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "days to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1700,
+  "iwxxm_identifier": "3319a399-80f9-4980-bfec-b0ea33014251",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 29,
+    "volcano_code": "VES",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 29,
+     "volcano_code": "VES",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 8,
+    "volcano_code": "VES",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 8,
+     "volcano_code": "VES",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "LAN",
+  "name": "Langjökull",
+  "si_name": "Langjokull",
+  "si_code": "371080",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "WVZ",
+   "name_is": "Vesturgosbelti",
+   "name_en": "Western Volcanic Zone"
+  },
+  "height": 1435,
+  "alt_name": "Hveravellir (norðurhluti) og Skjaldbreiður (suðurhluti)",
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -19.783,
+    64.85
+   ]
+  },
+  "min_plume_height": null,
+  "max_plume_height": null,
+  "possible_max_plume_height": -1,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": null,
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": null,
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": null,
+  "iwxxm_identifier": "9ba383fe-2222-4c58-b7de-576216090291",
+  "bulletin_identifier": "20",
+  "vona": {
+   "current": {
+    "id": 21,
+    "volcano_code": "LAN",
+    "published_at": "2015-03-01T00:00:00Z",
+    "aviation_color": {
+     "code": "GREEN",
+     "code_is": "GRÆNT",
+     "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+     "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+    },
+    "notice_number": 1
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 21,
+     "volcano_code": "LAN",
+     "published_at": "2015-03-01T00:00:00Z",
+     "aviation_color": {
+      "code": "GREEN",
+      "code_is": "GRÆNT",
+      "description_is": "Virk eldstöð, engar vísbendingar um að gos sé væntanlegt. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot eru talin afstaðin og engar vísbendingar um að gos sé væntanlegt.",
+      "description_en": "Volcano is in normal, non-eruptive state. or, after a change from a higher alert level: Volcanic activity considered to have ceased, and volcano reverted to its normal, non-eruptive state."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 5,
+    "volcano_code": "LAN",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "previous": null,
+   "total_actual": 1,
+   "history": [
+    {
+     "id": 5,
+     "volcano_code": "LAN",
+     "published_at": "2025-01-01T00:00:00Z",
+     "alert_level_info": {
+      "level": 0,
+      "code_is": "Grænt",
+      "code_en": "Green",
+      "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+      "description_en": "Normal background"
+     }
+    }
+   ]
+  }
+ },
+ {
+  "code": "REY",
+  "name": "Reykjanes",
+  "si_name": "Reykjanes",
+  "si_code": "371020",
+  "country": {
+   "iso_code": "IS",
+   "name_is": "Ísland",
+   "name_en": "Iceland"
+  },
+  "zone": {
+   "marker": "NRR",
+   "name_is": "Norður Reykjaneshryggur",
+   "name_en": "Northern Reykjanes Ridge"
+  },
+  "height": 140,
+  "alt_name": null,
+  "geom_point": {
+   "type": "Point",
+   "coordinates": [
+    -22.717,
+    63.817
+   ]
+  },
+  "min_plume_height": 3,
+  "max_plume_height": 10,
+  "possible_max_plume_height": 15,
+  "predominant_activity_stage_one": "Effusive",
+  "predominant_activity_stage_two": "Explosive",
+  "prob_duration_effusive": "weeks to months",
+  "prob_duration_explosive": "days to weeks",
+  "sulfur_emission_potential_silicic": null,
+  "sulfur_emission_potential_basaltic": 1300,
+  "iwxxm_identifier": "3c0f9305-2a98-4b14-95ad-37e293aae2fb",
+  "bulletin_identifier": "07",
+  "vona": {
+   "current": {
+    "id": 706,
+    "volcano_code": "REY",
+    "published_at": "2026-11-10T11:51:51.859639Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 1
+   },
+   "previous": {
+    "id": 636,
+    "volcano_code": "REY",
+    "published_at": "2025-08-05T13:20:37.947000Z",
+    "aviation_color": {
+     "code": "YELLOW",
+     "code_is": "GULT",
+     "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+     "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+    },
+    "notice_number": 16
+   },
+   "total_actual": 87,
+   "history": [
+    {
+     "id": 706,
+     "volcano_code": "REY",
+     "published_at": "2026-11-10T11:51:51.859639Z",
+     "aviation_color": {
+      "code": "YELLOW",
+      "code_is": "GULT",
+      "description_is": "Eldstöðin sýnir merki um virkni, umfram venjulegt ástand. eða, eftir að virknin hefur verið lækkuð frá hærra stigi: Umbrot hafa minnkað markvert en vel er fylgst með, ef vera kynni að þau aukist á ný.",
+      "description_en": "Volcano is experiencing signs of elevated unrest above known background levels. or, after a change from higher alert level: Volcanic activity has decreased significantly but continues to be closely monitored for possible renewed increase."
+     },
+     "notice_number": 1
+    }
+   ]
+  },
+  "vals": {
+   "current": {
+    "id": 36,
+    "volcano_code": "REY",
+    "published_at": "2025-10-15T16:13:52.452639Z",
+    "alert_level_info": {
+     "level": 2,
+     "code_is": "Appelsínugult",
+     "code_en": "Orange",
+     "description_is": "Töluvert aukin virkni",
+     "description_en": "Heightened volcanic unrest"
+    }
+   },
+   "previous": {
+    "id": 21,
+    "volcano_code": "REY",
+    "published_at": "2025-01-01T00:00:00Z",
+    "alert_level_info": {
+     "level": 0,
+     "code_is": "Grænt",
+     "code_en": "Green",
+     "description_is": "Engin aukin virkni - venjulegt bakgrunnsvirkni",
+     "description_en": "Normal background"
+    }
+   },
+   "total_actual": 2,
+   "history": [
+    {
+     "id": 36,
+     "volcano_code": "REY",
+     "published_at": "2025-10-15T16:13:52.452639Z",
+     "alert_level_info": {
+      "level": 2,
+      "code_is": "Appelsínugult",
+      "code_en": "Orange",
+      "description_is": "Töluvert aukin virkni",
+      "description_en": "Heightened volcanic unrest"
+     }
+    }
+   ]
+  }
+ }
+]

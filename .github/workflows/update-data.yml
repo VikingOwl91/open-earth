@@ -13,6 +13,7 @@ on:
       - scripts/update_usgs_volcanoes.py
       - scripts/update_jma_volcanoes.py
       - scripts/update_geonet_volcanoes.py
+      - scripts/update_imo_volcanoes.py
       - .github/workflows/update-data.yml
 
 permissions:
@@ -56,6 +57,10 @@ jobs:
         continue-on-error: true
         id: geonet
         run: python scripts/update_geonet_volcanoes.py
+      - name: Refresh regional volcano monitoring (IMO)
+        continue-on-error: true
+        id: imo
+        run: python scripts/update_imo_volcanoes.py
       - name: Report snapshot status
         if: always()
         run: |
@@ -76,6 +81,9 @@ jobs:
           fi
           if [ "${{ steps.geonet.outcome }}" = "failure" ]; then
             echo "::warning title=GeoNet Snapshot Stale::GeoNet New Zealand snapshot could not be refreshed; retained previous snapshot if present."
+          fi
+          if [ "${{ steps.imo.outcome }}" = "failure" ]; then
+            echo "::warning title=IMO Snapshot Stale::Icelandic Met Office snapshot could not be refreshed; retained previous snapshot if present."
           fi
       - name: Run data tests
         run: python -m unittest discover tests
