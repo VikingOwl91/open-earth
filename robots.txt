@@ -1,0 +1,7 @@
+User-agent: *
+Allow: /
+
+# data/, src/ and vendor/ stay crawlable on purpose: Google renders the page and
+# needs the scripts, styles and snapshots. See docs/HOSTING-SEO.md.
+
+Sitemap: https://open-earth.info/sitemap.xml
