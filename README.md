@@ -58,8 +58,8 @@ Open Earth is being built deliberately in stages rather than becoming an everyth
 | --- | --- | --- |
 | **P1** | Geology foundation | ✅ Done |
 | **P1.5** | Stabilization and product pass | ✅ Done |
-| **P1.5x** | Global/regional geology and volcano coverage | 🔜 Next |
-| **P1.75** | Mobile experience | Planned |
+| **P1.5x** | Global/regional geology and volcano coverage | 🚧 In progress (IMO added, other vetted providers deferred) |
+| **P1.75** | Mobile experience | 🚧 In progress (bottom-sheet inspector done, device testing open) |
 | **P1.9** | Frontend architecture bake-off | Planned |
 | **P2** | Dynamic Earth: deformation, focal mechanisms, InSAR, geodesy, etc. | Planned |
 
@@ -91,13 +91,13 @@ See the **[Roadmap](docs/ROADMAP.md)** for the open-telemetry / public Nerd Logs
 The current application intentionally has a very small stack:
 
 - Vanilla JavaScript
-- Native ES modules
+- Classic browser scripts (no bundler, no ES module imports)
 - HTML + CSS
 - MapLibre GL JS
 - Static JSON datasets plus live authoritative feeds
 - Python scripts for data preparation/update tasks
 
-There is currently **no Node application runtime, frontend bundler, database, or application backend**.
+There is currently **no Node application runtime, frontend bundler, database, or application backend**. Node.js is only used for the unit tests and ESLint (`npm test`, `npm run lint`).
 
 Run it locally with any static HTTP server, for example:
 
@@ -141,7 +141,7 @@ Issues, source improvements, provider research, scientific corrections, accessib
 
 Before changing scientific semantics or adding a data provider, please read **[Data Sources](docs/DATA-SOURCES.md)** and **[Architecture](docs/ARCHITECTURE.md)**. For the development workflow, see **[Contributing](CONTRIBUTING.md)**.
 
-Both test suites (JavaScript and Python) run automatically on every pull request via GitHub Actions. Locally, use `npm test` and `npm run test:py`.
+Both test suites (JavaScript and Python) run automatically on every pull request via GitHub Actions. Locally, use `npm test` and `npm run test:py`; CI also runs `npm run lint`.
 
 ## 📄 License
 
