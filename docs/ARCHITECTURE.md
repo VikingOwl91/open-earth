@@ -92,7 +92,7 @@ Raster-scale products such as GEBCO must be preprocessed into web-appropriate ti
 
 P1 proved the scientific feature set, but runtime feature additions created a monkey-patch chain (`app.js` -> `ui-fixes.js` -> `tectonics.js` -> `exploration.js` -> `history.js` -> `inspector-v2.js` -> `bathymetry.js` -> `trenches.js` -> `semantic-markers.js` -> `inspector-unified.js` -> `pvmbg.js` -> `pvmbg-inspector.js`).
 
-P1.5 consolidates this into clean, modular, unidirectional ES modules under `src/` without monkey-patching or circular dependencies:
+P1.5 consolidates this into clean, modular, unidirectional classic scripts under `src/` (loaded in order from `index.html`, each also exporting through a guarded `module.exports` for the Node tests) without monkey-patching or circular dependencies:
 
 ```text
 ┌─────────────────────────────────────────────────────────────┐
