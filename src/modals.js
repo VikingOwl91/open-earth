@@ -120,11 +120,12 @@
           <h3>3. Direct browser connections</h3>
           <p>To render maps and retrieve live or requested information, your browser may connect directly to third-party infrastructure. Those providers receive the technical information normally required for an HTTP request, such as your IP address.</p>
           <ul class="privacy-endpoint-list">
-            <li><strong>OpenFreeMap:</strong> vector tiles and map assets (<code>tiles.openfreemap.org</code>).</li>
+            <li><strong>OpenFreeMap:</strong> base map styles, vector tiles, glyphs and sprites (<code>tiles.openfreemap.org</code>).</li>
+            <li><strong>MapLibre demo tiles:</strong> only for the Classic base map (<code>demotiles.maplibre.org</code>).</li>
             <li><strong>USGS Earthquake Hazards Program:</strong> live and historical earthquake data (<code>earthquake.usgs.gov</code>).</li>
             <li><strong>GEBCO Bathymetry:</strong> seafloor relief when the optional relief layer is enabled (<code>wms.gebco.net</code>).</li>
-            <li><strong>OpenStreetMap Nominatim:</strong> geocoding when you submit text in the search field (<code>nominatim.openstreetmap.org</code>).</li>
-            <li><strong>Wikipedia / Wikimedia:</strong> volcano preview images when an inspector requests them (<code>en.wikipedia.org</code> and Wikimedia infrastructure).</li>
+            <li><strong>OpenStreetMap Nominatim:</strong> geocoding while you type in the search field, when fewer than five volcanoes match locally; the text typed so far is sent (<code>nominatim.openstreetmap.org</code>).</li>
+            <li><strong>Wikipedia / Wikimedia:</strong> volcano preview images when the inspector opens a volcano. The volcano name and country are sent as a search text to <code>en.wikipedia.org</code>; the image is loaded from the host in the response, for example <code>thumb.wikimedia.org</code>.</li>
             <li><strong>GitHub (raw.githubusercontent.com):</strong> the latest geological snapshots (volcanoes, plate boundaries, trenches, faults, regional volcano alert levels) committed to the public Open Earth repository. Requests carry no search terms or map position.</li>
             <li><strong>unpkg:</strong> MapLibre GL library assets loaded by the application (<code>unpkg.com</code>).</li>
           </ul>

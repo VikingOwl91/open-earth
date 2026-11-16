@@ -65,7 +65,7 @@ Consequence for SEO work: robots.txt, sitemap.xml, head metadata and headers onl
 ### Where this differs from other docs
 
 - `docs/ARCHITECTURE.md` (Static hosting requirements) asks for compression, the right MIME type, long-lived cache headers on snapshots and `no-cache` on `manifest.json`. Compression and MIME type are met. No `Cache-Control` is sent at all. Long-lived caching of `data/*.json` is also not useful in practice: the app requests them with `cache: 'no-cache'`, so they always revalidate. This document recommends `no-cache` (revalidate, 304 when unchanged) for all of `data/`.
-- `docs/PRIVACY.md` says no CSP is set today; that matches the live headers. Its third-party table lists `basemaps.cartocdn.com`, but the code requests basemaps from `tiles.openfreemap.org` (`src/map.js`), and `demotiles.maplibre.org` only for the `classic` style. That table is stale and was not edited here.
+- `docs/PRIVACY.md` says no CSP is set today; that matches the live headers. Its third-party table used to list `basemaps.cartocdn.com`; it now matches the code (`tiles.openfreemap.org`, and `demotiles.maplibre.org` only for the `classic` style).
 
 ## Caddy snippet
 
