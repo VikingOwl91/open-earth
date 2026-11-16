@@ -28,6 +28,14 @@
         this.timer = setTimeout(() => this.search(this.input.value), 220);
       });
 
+      this.input.addEventListener('keydown', async e => {
+        if (e.key !== 'Enter') return;
+        e.preventDefault();
+        clearTimeout(this.timer);
+        await this.search(this.input.value);
+        this.results.querySelector('[data-search-hit]')?.click();
+      });
+
       // Close results when clicking outside
       document.addEventListener('click', e => {
         if (!this.input.contains(e.target) && !this.results.contains(e.target)) {
@@ -120,6 +128,7 @@
           const item = combined[+btn.dataset.searchHit];
           this.results.hidden = true;
           this.input.value = item.label.replace(/^[^ ]+ /, '');
+          this._dismissForMap();
 
           if (item.coords && this.mapController?.map) {
             this.mapController.map.flyTo({ center: [item.coords[0], item.coords[1]], zoom: item.type === 'volcano' ? 8 : 6 });
@@ -131,6 +140,14 @@
           }
         };
       });
+    }
+
+    _dismissForMap() {
+      this.input.blur();
+      const toggle = document.querySelector('#controls-toggle');
+      if (toggle && toggle.offsetParent && toggle.getAttribute('aria-expanded') === 'true' && window.matchMedia('(max-width: 600px)').matches) {
+        toggle.click();
+      }
     }
 
     _bindHistory() {

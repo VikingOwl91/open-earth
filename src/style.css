@@ -987,3 +987,84 @@ body {
     transition-duration: 0.01ms !important;
   }
 }
+
+/* ==========================================================================
+   Mobile (P1.75): touch targets, safe areas, modals
+   ========================================================================== */
+
+@media (max-width: 1024px), (pointer: coarse) {
+  .history-search summary,
+  .history-around,
+  .history-actions button,
+  .reset-view,
+  .search-hit-btn {
+    min-height: 44px;
+  }
+
+  .history-search summary,
+  .reset-view {
+    display: flex;
+    align-items: center;
+  }
+
+  .history-actions button {
+    font-size: 12.5px;
+  }
+
+  .controls-footer {
+    gap: 0 4px;
+  }
+
+  .controls-footer a,
+  .controls-footer button {
+    min-height: 44px;
+    padding: 0 8px;
+    font-size: 12.5px;
+  }
+
+  .controls-footer > span {
+    display: none;
+  }
+
+  .modal-close-btn {
+    width: 44px;
+    height: 44px;
+    top: 10px;
+    right: 10px;
+  }
+
+  .maplibregl-ctrl-group button {
+    width: 44px;
+    height: 44px;
+  }
+
+  .maplibregl-ctrl-attrib.maplibregl-compact {
+    min-height: 44px;
+  }
+
+  .maplibregl-ctrl-attrib-button {
+    width: 44px;
+    height: 44px;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+@media (max-width: 600px) {
+  .modal-overlay {
+    padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+  }
+
+  .modal-dialog {
+    width: 100%;
+    padding: 22px 18px;
+  }
+
+  .modal-header-title {
+    padding-right: 44px;
+  }
+
+  .map-loading {
+    top: calc(max(8px, env(safe-area-inset-top)) + 72px);
+  }
+}

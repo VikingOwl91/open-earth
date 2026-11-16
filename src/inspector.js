@@ -34,9 +34,70 @@
       if (closeBtn) {
         closeBtn.onclick = () => this.close();
       }
+      this._bindSheet();
+    }
+
+    _bindSheet() {
+      const handle = document.querySelector('#details-handle');
+      this.sheetQuery = window.matchMedia('(max-width: 820px)');
+      this.sheetPadded = false;
+      if (!handle) return;
+
+      let startY = null;
+      let swiped = false;
+      handle.addEventListener('pointerdown', e => {
+        startY = e.clientY;
+        swiped = false;
+      });
+      handle.addEventListener('pointerup', e => {
+        if (startY === null) return;
+        const dy = e.clientY - startY;
+        startY = null;
+        if (Math.abs(dy) < 24) return;
+        swiped = true;
+        if (dy < 0) this._setSheetFull(true);
+        else if (this.panel.classList.contains('sheet-full')) this._setSheetFull(false);
+        else this.close();
+      });
+      handle.addEventListener('pointercancel', () => { startY = null; });
+      handle.addEventListener('click', () => {
+        if (swiped) { swiped = false; return; }
+        this._setSheetFull(!this.panel.classList.contains('sheet-full'));
+      });
+    }
+
+    _setSheetFull(full) {
+      const handle = document.querySelector('#details-handle');
+      this.panel.classList.toggle('sheet-full', full);
+      if (!handle) return;
+      handle.setAttribute('aria-expanded', String(full));
+      handle.setAttribute('aria-label', full ? 'Collapse details' : 'Expand details');
+    }
+
+    _revealUnderSheet() {
+      const map = this.mapController?.map;
+      const feature = this.currentFeature;
+      if (!map || !this.sheetQuery?.matches || feature?.geometry?.type !== 'Point') return;
+      const reveal = () => {
+        if (this.currentFeature !== feature || this.panel.hidden) return;
+        const sheet = this.panel.offsetHeight;
+        const size = map.getContainer().getBoundingClientRect();
+        const pt = map.project(feature.geometry.coordinates);
+        const hidden = pt.y > size.height - sheet - 24 || pt.y < 90 || pt.x < 16 || pt.x > size.width - 16;
+        if (!hidden) return;
+        this.sheetPadded = true;
+        map.easeTo({ center: feature.geometry.coordinates, padding: { bottom: sheet }, duration: 400 });
+      };
+      if (map.isMoving()) map.once('moveend', reveal);
+      else reveal();
     }
 
     close() {
+      this._setSheetFull(false);
+      if (this.sheetPadded && this.mapController?.map) {
+        this.sheetPadded = false;
+        this.mapController.map.easeTo({ padding: { bottom: 0 }, duration: 300 });
+      }
       this.panel.classList.remove('open');
       this.panel.hidden = true;
       this.currentLayer = null;
@@ -68,6 +129,7 @@
         this.pushNav(this.currentLayer, this.currentFeature);
       }
 
+      const changed = this.currentFeature !== feature || this.currentLayer !== layer;
       this.currentLayer = layer;
       this.currentFeature = feature;
       this.activeTab = tab;
@@ -77,9 +139,13 @@
       }
 
       this.render();
+      if (changed) this.body.scrollTop = 0;
       this.panel.hidden = false;
       // Slight tick to ensure transition works smoothly
-      requestAnimationFrame(() => this.panel.classList.add('open'));
+      requestAnimationFrame(() => {
+        this.panel.classList.add('open');
+        this._revealUnderSheet();
+      });
     }
 
     render() {
