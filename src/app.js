@@ -76,7 +76,8 @@
         dataStore.loadActivity(),
         dataStore.loadPlates(),
         dataStore.loadTectonics(),
-        dataStore.loadTrenches()
+        dataStore.loadTrenches(),
+        window.OpenEarth.providers.loadAll()
       ];
 
       if (state.layers.faults) {
