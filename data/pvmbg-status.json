@@ -8,7 +8,7 @@
     "name": "PVMBG / MAGMA Indonesia",
     "url": "https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas"
   },
-  "fetchedAt": "2026-11-15T07:49:46.262772+00:00",
+  "fetchedAt": "2026-11-16T07:57:11.360629+00:00",
   "statuses": [
     {
       "providerId": "pvmbg",
@@ -17,7 +17,7 @@
       "level": "III",
       "label": "Siaga",
       "nativeStatus": "Level III - Siaga",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330815?signature=de3d358b59d6b55b66ff2ab3a866d0d5f362e9c875c66a1bc904e70265dbf907",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330896?signature=992cc81f0f1e94ce5c8136bd9e138361647c07f9bfd776a3ef19bf29f29d3933",
       "location": "Lampung",
       "volcanoNumber": 262000,
       "matchingMethod": "curated_alias"
@@ -29,7 +29,7 @@
       "level": "III",
       "label": "Siaga",
       "nativeStatus": "Level III - Siaga",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330813?signature=55223b05aa82d0c25f533afbdd306649787d41364c5a77b8cb3dc9c06c37143c",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330894?signature=3ed5c5b06970afcb03927ae6b1b263c7970de64bceb407f0e643e3afdb88cbf7",
       "location": "Daerah Istimewa Yogyakarta dan Jawa Tengah",
       "volcanoNumber": 263250,
       "matchingMethod": "exact_catalog_name"
@@ -41,7 +41,7 @@
       "level": "III",
       "label": "Siaga",
       "nativeStatus": "Level III - Siaga",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330814?signature=bee14c3955675687d2a00e2f8a0fd57500be4635761acac3d376feaec83429a7",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330895?signature=1655111c533f001210b7b6858941a7dbd6c850cb6f9180f5651e77516395d2f7",
       "location": "Jawa Timur",
       "volcanoNumber": 263300,
       "matchingMethod": "exact_catalog_name"
@@ -53,7 +53,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330694?signature=aa15ae2d09763ca2c03c1ae20f642c5e7dd01cc675135d0b510932dc70b90bb9",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330852?signature=4339b3c9de92b4d5fcd1bed677dfc2a4b8794e04096ce3f57901fed046aec4eb",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264071,
       "matchingMethod": "curated_alias"
@@ -65,7 +65,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330785?signature=2cc3ff6b2a7a1099f308f293b802a9748268e804e86441a8364951311e315b45",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330880?signature=f9cc4a40fd66b44b4fa8467f3aafebaa46b70d5ba81440def58d78c926b67b88",
       "location": "Sulawesi Utara",
       "volcanoNumber": 267040,
       "matchingMethod": "exact_catalog_name"
@@ -77,7 +77,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330689?signature=39ed08ba557d18c7a982537c909e45750272c2b576004e8d6a8b7973b5a0c607",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330848?signature=5a50cf5ea11baab4097e92ccdeb7d01fe174adf7a407000e685db3f95d0fc61e",
       "location": "Maluku",
       "volcanoNumber": 265090,
       "matchingMethod": "exact_catalog_name"
@@ -89,7 +89,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330759?signature=34ac1c2291f00f3612ac9a0a1fca841b955deff1fa44240c00feaaab150824b4",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330837?signature=8968213639410d5a8528b82b9fff6c84936d35cd568ceb253d0e0fab7ba69cbd",
       "location": "Jawa Timur",
       "volcanoNumber": 263310,
       "matchingMethod": "curated_alias"
@@ -101,7 +101,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330793?signature=251601ac15ee26543384cc7a0ca03719c69c27333b5c0ef6c21d06aab43c4c9b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330871?signature=0139b996e184d06845f93bfadaeb5e6c217a5744c6256b4137fc0eac2947df73",
       "location": "Sumatera Selatan",
       "volcanoNumber": 261230,
       "matchingMethod": "exact_catalog_name"
@@ -113,7 +113,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330764?signature=30f6f7ccb56f3f4c73822c1bea889b242d9c13a186b6b774ed8c83391656f588",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330822?signature=8559fa8c76395ddadd83655b20a5696a65028629b3b0cfb3f1631606588b3b02",
       "location": "Maluku Utara",
       "volcanoNumber": 268010,
       "matchingMethod": "exact_catalog_name"
@@ -125,7 +125,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330749?signature=50bf65ea0bc9bda106373c66e1e1e1af56b0a6f0be11c1bf950e386c1240c265",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330820?signature=afcdb050f907392160592915ec650c867bd351df7875179e7132c5e1412ff183",
       "location": "Maluku Utara",
       "volcanoNumber": 268060,
       "matchingMethod": "exact_catalog_name"
@@ -137,7 +137,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330768?signature=a1e7ee8876b74554a1dfe64c8765e3db3eecf8122532087b474888f928751605",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330839?signature=0d9cdbd0bf99634e872b1638256ff53b58dfbaad00c5a878be21792b3395bac8",
       "location": "Maluku Utara",
       "volcanoNumber": 268040,
       "matchingMethod": "exact_catalog_name"
@@ -149,7 +149,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330745?signature=dd4fbbf4bd8115141534491fe99601141c13dced09ad3c096b5c43641d915234",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330821?signature=ecbdf1758f95de4ecbfc2f2edfb38b93f41edc6047b3c233b698ae7e33162a2e",
       "location": "Maluku Utara",
       "volcanoNumber": 268030,
       "matchingMethod": "exact_catalog_name"
@@ -161,7 +161,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330763?signature=18809af7986d8cdc9fb3e0460f309435cebe429a5b97b3999751e3ff2ded8e68",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330826?signature=5249899fc69c2bf76964849b825ca31447eae29813d93d9284a9379f89f27ba6",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264230,
       "matchingMethod": "curated_alias"
@@ -173,7 +173,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330784?signature=a953b624a5b62619b7b76f1dd7bb693ced85851b505d2061ac9a7b9dd360d040",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330861?signature=0206764cb7caf620d35a60b0752115f5e461df1783eab12afaaddff6c02623db",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264110,
       "matchingMethod": "exact_catalog_name"
@@ -185,7 +185,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330751?signature=3bdca743700d48488e2fa434a0b25f5cea0dc379550b7e67cfa72a3bd58dccca",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330838?signature=428b3e50d78ea2425df0fe99044f5cee5a7ef67040f91d982aa5f5eae281f9e5",
       "location": "Sulawesi Utara",
       "volcanoNumber": 267020,
       "matchingMethod": "exact_catalog_name"
@@ -197,7 +197,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330754?signature=febfe06c669bad7048ce59ec37bd9d2258fd150302d0340a8df178c7776dd5cf",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330833?signature=e5b69f13fea3731aa2057539689a19f198ea3e28738c0ded8c02ce8df667bbf4",
       "location": "Jambi, Sumatera Barat",
       "volcanoNumber": 261170,
       "matchingMethod": "exact_catalog_name"
@@ -209,7 +209,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330760?signature=2c1069820463a27cc2cb1a873b44b7f0dceb5bfa6d22a7b07970c5ea9d0ff11c",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330825?signature=04b5febef3be4117500fd3ae556298538274046f3bc547f02cf9d98ea91ff388",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264180,
       "matchingMethod": "curated_alias"
@@ -221,7 +221,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330765?signature=2d9ca041d177059a02f51879edd3543999ddaa0174dde1d5544d0563e82b95e8",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330854?signature=6c60f18867a361245f750ee6b93923998f6225478c58db3ac474c3a182890544",
       "location": "Sulawesi Utara",
       "volcanoNumber": 266100,
       "matchingMethod": "curated_alias"
@@ -233,7 +233,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330756?signature=5c63d8aeeea02f1a61952715e70e9bd3738833a9078e3187f48be3eb1996a80d",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330831?signature=c44b897c21fdd19fc9a0196f7f791659edae9e0e5ef23112114a3e70238491cf",
       "location": "Sumatera Barat",
       "volcanoNumber": 261140,
       "matchingMethod": "exact_catalog_name"
@@ -245,7 +245,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330789?signature=efb7dd27b4450c5f96b274a0393c0306c1134c1fe1ba5b0895b862c846868dfe",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330877?signature=3b721efbe8cdb9876d62ab91b67bb72fa0af3ffdaaa2e959efaf2c963b8ffbf6",
       "location": "Jawa Timur",
       "volcanoNumber": 263340,
       "matchingMethod": "exact_catalog_name"
@@ -257,7 +257,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330776?signature=550eaac1dc6c357cef087a97a384c1f328def40fef8a1909c4043ce515aa51cf",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330882?signature=fb8768097b565ebc6e1b3cd88c310cc8ea529e7656c99c0b8ad00db765f78b00",
       "location": "Nusa Tenggara Barat",
       "volcanoNumber": 264030,
       "matchingMethod": "exact_catalog_name"
@@ -269,7 +269,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330802?signature=f5602f7c8f899b88946a8bb8b417b5388350c1d20f34b6845da3a0d509df719e",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330888?signature=e3260129c3ca0dd48814d6a60fb96d8abff1576b9c5de72f83d2236ea4731f8f",
       "location": "Nusa Tenggara Barat",
       "volcanoNumber": 264050,
       "matchingMethod": "exact_catalog_name"
@@ -281,7 +281,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330782?signature=c8c6c4837bbc950cf30944d3d1eb2a9b1fd74230e375547daca0a395975ce03b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330857?signature=b370eaebc54b872469d8ca67de0ad5768b343a8bbdbc18cc15631c7a7c6f13b6",
       "location": "Sumatera Utara",
       "volcanoNumber": 261080,
       "matchingMethod": "exact_catalog_name"
@@ -293,7 +293,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330770?signature=c448cdc838c5ea34e4113a47861010194051b4742f4400960469b42d9a052ba2",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330843?signature=71828cdb7b0ddfa200d10785060f011ceac953105d8c83418056f8f2a48505e3",
       "location": "Jawa Tengah",
       "volcanoNumber": 263180,
       "matchingMethod": "exact_catalog_name"
@@ -305,7 +305,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330769?signature=2b733429a821386a4b2b9f8f6a98e05e2b28e6af10ad80acaa368f1554088792",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330845?signature=8ec2d2b106b584ff9cd2d97ba08448d7e2b79e9f882320896f4ea7f5bfeaae8d",
       "location": "Sulawesi Utara",
       "volcanoNumber": 266030,
       "matchingMethod": "exact_catalog_name"
@@ -317,7 +317,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330800?signature=327efcc40705e2f99eebb2a6ff8b78aa6c2b86ac87ecf444b3464cdb7164efd2",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330876?signature=8039ed926a406b0210b7a43c77156f7fd78508f053adf32ca5009496e5c2c5ac",
       "location": "Sumatera Utara",
       "volcanoNumber": 261120,
       "matchingMethod": "exact_catalog_name"
@@ -329,7 +329,7 @@
       "level": "II",
       "label": "Waspada",
       "nativeStatus": "Level II - Waspada",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330790?signature=1e7acb51ff3f0c18cc148890397dac189a863c548dc4d5bef1e21ec036f65720",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330864?signature=c71d2aa3b8492cd25491b18e2ba61e3ef6bbf1c631cce456d2992ca742cfc295",
       "location": "Nusa Tenggara Barat",
       "volcanoNumber": 264040,
       "matchingMethod": "exact_catalog_name"
@@ -341,7 +341,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330810?signature=e32777b24587b7c8340b7e9d2a70411994fd350d5c60d0686fd917fe08c048c7",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330873?signature=a17e422db0c4d177dd1665f5ae71388257083095d515405bd49b402db894bdbf",
       "location": "Bali",
       "volcanoNumber": 264020,
       "matchingMethod": "exact_catalog_name"
@@ -353,7 +353,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330761?signature=f72e52d47c94ec2d420eb7babc3998b9550484350908fec649604e7552230e28",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330885?signature=ea301967eb3f576a33e4c7c062eb32fda82d4d5ccce2b9b4d883305942a28635",
       "location": "Sulawesi Utara",
       "volcanoNumber": 266020,
       "matchingMethod": "exact_catalog_name"
@@ -365,7 +365,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330791?signature=0e991d57c0b49a9299b5eea3acb8760d345a1070282e340f654f1372c8588dbf",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330879?signature=c27fe9755b92ea8956b9c152f72cf08a3ba606203d470ba45942ad7b5f4486e0",
       "location": "Jawa Timur",
       "volcanoNumber": 263290,
       "matchingMethod": "exact_catalog_name"
@@ -377,7 +377,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330805?signature=db81b6a6fe90a1aaf4e9357c5ce0466a99b4bef65c10b3179d053aee4b34438e",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330878?signature=9ef838c8670b3728274b9372075ddfd6c8bdb16cf10deb6315f0735d8e43e982",
       "location": "Bali",
       "volcanoNumber": 264010,
       "matchingMethod": "exact_catalog_name"
@@ -401,7 +401,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330807?signature=4366a8a00c2ee1666e461a849497e395523718de5f83bf701a8f48026d5595ec",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330881?signature=dc287c8ffe61822f0372118a5070f239c0691c0f74dbd910f444208f78befe76",
       "location": "Aceh",
       "volcanoNumber": 261050,
       "matchingMethod": "curated_alias"
@@ -413,7 +413,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330774?signature=ba01813aaad7ad2e93d7ea85fe834d4ae779c2e11a1d09bd952e225c2f006ac0",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330868?signature=5599835b2ec1f2482de1e062f25a235f1c801a0763691bab9abc5788fa9fc345",
       "location": "Jawa Barat",
       "volcanoNumber": 263170,
       "matchingMethod": "exact_catalog_name"
@@ -425,7 +425,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330750?signature=e69597ba2f0093ac72b91c3cab5b6d7d25031cb9f61469fa82fc94d1d3743680",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330827?signature=d266ee571944f56fe49d7e48fd8b21a149d23eb3e89560b6e5706cb0f06e5217",
       "location": "Sulawesi Tengah",
       "volcanoNumber": 266010,
       "matchingMethod": "exact_catalog_name"
@@ -437,7 +437,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330792?signature=45e15348b4f626f5144a1dbb2b37ffdb3e011826d866224f818a61951a343bfa",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330862?signature=2d77942db3885fee0b6b650202204c9e7d99d2d74735f23be1f9e4b76055049d",
       "location": "Jawa Tengah",
       "volcanoNumber": 263200,
       "matchingMethod": "curated_alias"
@@ -449,7 +449,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330747?signature=17f2da0a24c4d5060a8401328f4d214e88b23629a4f41eb1f6812053041c933c",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330866?signature=458cf7ded4d77699d4531f7ec1da4bcbda294b192c4b21ebb990a228b026569e",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264100,
       "matchingMethod": "exact_catalog_name"
@@ -461,7 +461,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330766?signature=197def448a98913e17f6d62794de856cffc6b5601194fefe0eb6011214ed7b02",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330891?signature=8279a4121000699e66f87cc609e4f559905dcde68cb15efbd056cd48008af00d",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264160,
       "matchingMethod": "exact_catalog_name"
@@ -473,7 +473,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330794?signature=67d4b06cc858d16b45eb450fb45d5b598651b7543d4c6eb396df6cd38837e6eb",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330869?signature=15ac81e053918ca830a670bc0fd42cb16223a65435fb63d9d04ee2c5e893a7cb",
       "location": "Jawa Barat",
       "volcanoNumber": 263140,
       "matchingMethod": "exact_catalog_name"
@@ -485,7 +485,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330795?signature=de169d23b901dcca11d4d9d71e04ac5341bdec772b783e0386562d57b7e7c11b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330850?signature=ae8b5aac5f1eb4848b067c10e115d6cab58dea078a3263f9c6e8ae0a49ad3942",
       "location": "Jawa Barat",
       "volcanoNumber": 263060,
       "matchingMethod": "curated_alias"
@@ -497,7 +497,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330772?signature=f629c51e0898d1766398c9663d1d9d87ce5ef2fcff2e147f43e155b72cafef67",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330853?signature=9b3e2a06fb819d57d68fe94e28fc1624fbc8cb3dd300e1e705d69153dfeaaf7a",
       "location": "Jawa Barat",
       "volcanoNumber": 263130,
       "matchingMethod": "exact_catalog_name"
@@ -519,7 +519,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330811?signature=30f543c695f8ef687133ebb41ebb5088527a718c5da8e6edf4258b68a648c1a8",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330893?signature=967c476032d61d3fba6952d5eacd36d4e9339d6795b73ffec0726185959e59bb",
       "location": "Jawa Timur",
       "volcanoNumber": 263350,
       "matchingMethod": "exact_catalog_name"
@@ -531,7 +531,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330767?signature=f08f18708386bd64bf304d8401ddf176a22d2bc71a206a68e31abe5ed4721b18",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330840?signature=3994aec945cc57ca288c22061aaacc893543daf12b8030172f64a5eb3a9127f6",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264250,
       "matchingMethod": "curated_alias"
@@ -543,7 +543,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330801?signature=1ce313bac973b853eabf6cc4d0ec110b14b7949e428c57ccf3b996914570ef9b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330883?signature=d03382f0a00144474b08b8f1ffbd7bd102b194707d92a98f2ea81480c8332b8d",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264220,
       "matchingMethod": "exact_catalog_name"
@@ -555,7 +555,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330812?signature=27f57d9d20f5940b173b3a2205b1824d839f6af31f71e4e1afb43f83d2d56ba8",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330872?signature=454231c2616262b7d72a37eb85644b75b3a6d756aa60152b526e3a1aa8616346",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264090,
       "matchingMethod": "exact_catalog_name"
@@ -567,7 +567,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330758?signature=63fcc3a910ebf2e926ea1d7832bbc30cfb3a754256b2f95929e6896531b011d1",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330823?signature=49ac2491ffd9944cbd5272e98170539ad487d761c071d2738a5afba397b15e9c",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264080,
       "matchingMethod": "exact_catalog_name"
@@ -579,7 +579,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330788?signature=66b5420d2c820409e7fe0ea266532e47b67b7b40493f39ec46ba23afa560b530",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330870?signature=4b330d26600ec39fea83623f099b5d24baa4ef24cdf58f97cc4ce3d1dfc4f1b7",
       "location": "Bengkulu",
       "volcanoNumber": 261220,
       "matchingMethod": "exact_catalog_name"
@@ -591,7 +591,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330799?signature=e4f42813fe264f142a6cb588ecf208788fd84d17c0bfdbab7c224d377cc6c487",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330851?signature=d0c50dc24693aa0602e947dc06278fd1613bc95e5b83bbd630e2e6a050210675",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264140,
       "matchingMethod": "exact_catalog_name"
@@ -603,7 +603,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330777?signature=42aaeecac37f389c6248509f816436e7060ec5ddd02aa2e1e4bdd9675e3ff9ea",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330865?signature=8523271375adf55b950565e83bb6670b88059a550041dd501dd1c219caad5114",
       "location": "Jawa Timur",
       "volcanoNumber": 263280,
       "matchingMethod": "exact_catalog_name"
@@ -627,7 +627,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330806?signature=1386d996689f2ae85ec37e227dc1713d377a94f16c3a662a1d25876531d0f212",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330884?signature=21d9d94b7e0b18353e4cbc5d25821d9bd1d6e88717fc269d520ba78398856384",
       "location": "Jawa Timur",
       "volcanoNumber": 263320,
       "matchingMethod": "exact_catalog_name"
@@ -639,7 +639,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330746?signature=3d370d45deabf83ccdb34c4e93a04a2e03549cd9981c3f34160ed755e4bbd73b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330842?signature=14b811edb42bef09457e25a686ec094457bdc33898d52c6841da276b117d3cb7",
       "location": "Nusa Tenggara Timur"
     },
     {
@@ -649,7 +649,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330762?signature=430797e11f9ec9aed874878eb172ea3e37b9baccb56b6088eaebd86643865838",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330824?signature=4fb4a4bc2ecfc059d98a7150fbf27ea0b836f7cb07b3ddc4652279e41e2a50e3",
       "location": "Nusa Tenggara Timur"
     },
     {
@@ -659,7 +659,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330787?signature=3381663b08ea5785db60508bff4baf0a045dd508bea8f74595e753eedde7e707",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330844?signature=9f3bb223be6bdb81f31a462e8ca9d2e440440b8215cd733042e427683b0cecf4",
       "location": "Sulawesi Utara",
       "volcanoNumber": 266110,
       "matchingMethod": "exact_catalog_name"
@@ -671,7 +671,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330803?signature=0505c15ca8e43d61ddf0c419fd8461f6ec983c016e6d7eadc104806835eaff17",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330836?signature=a2ff6690bb2fe3a0a401b664d5bea7460a979640138c521c85f201eb0b46aa96",
       "location": "Jawa Barat",
       "volcanoNumber": 263100,
       "matchingMethod": "exact_catalog_name"
@@ -683,7 +683,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330808?signature=537580a3ffe7d84738acd3856309e205066ed40dad73385a5277dff54d9ba04b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330886?signature=10575ee4bd4e50bb9d19475c59cef869768c425de047cc090e3c26954e3aecf5",
       "location": "Daerah Istimewa Aceh",
       "volcanoNumber": 261030,
       "matchingMethod": "curated_alias"
@@ -695,7 +695,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330816?signature=41f6fcb6b28316e36698231789cce1bd3e2a3d87d12a859c758609348f72b751",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330889?signature=ef4edfac1cf802395e37e8898037f96063aa628ae5030a995e2072a3cb83f92a",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264150,
       "matchingMethod": "curated_alias"
@@ -707,7 +707,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330775?signature=80b533dd872728e16aaba616c970b1ab43ab126e7f1739979f6605cf6fd07868",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330849?signature=eaa2c99da3e502c32ab5bcceb7aaa02be884d3e42feab4e829a424f16d75aa8f",
       "location": "Sulawesi Utara",
       "volcanoNumber": 267010,
       "matchingMethod": "exact_catalog_name"
@@ -719,7 +719,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330773?signature=6bad2e96c707de529d3ddedadf7738fd07a4f3d958a8cf3ee662c55a9a6e4420",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330847?signature=140e0cdb0b64a9bcb85ff7bde9f64b31cea61eaa9046d26c00be8fb957b08e13",
       "location": "Jawa Barat",
       "volcanoNumber": 263050,
       "matchingMethod": "exact_catalog_name"
@@ -731,7 +731,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330804?signature=45ecd6f4ab389d8bfb5a6199496af6b0bc47a8f34dfe61c9161cef86b8d0aecf",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330887?signature=1c16d38df0e757f5245f568ddd30a08716a20ac4e9963eb98e386e4774eeac4b",
       "location": "Daerah Istimewa Aceh"
     },
     {
@@ -741,7 +741,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330771?signature=f835ca26242e543541740a077043c02b7de9ec8ca3ec39732d3c95af81f9fc73",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330828?signature=d06f9f5236a59aae23d93441c2afa718e434b489fadc1687cedea22162c11355",
       "location": "Nusa Tenggara Timur",
       "volcanoNumber": 264270,
       "matchingMethod": "exact_catalog_name"
@@ -753,7 +753,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330797?signature=a0d48cb7f311ad3d386227b7d817348f342f03c703ec507dc78579d51ec2bf7b",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330875?signature=fddc0b1418bfcbb1cf380e424f4f7df3f5fec84ab33d86baf45e8cb1f9b26c33",
       "location": "Jawa Tengah",
       "volcanoNumber": 263220,
       "matchingMethod": "curated_location"
@@ -765,7 +765,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330796?signature=47b554a950df883e72c475e4ab3ad8c029b32859dd29073eb17abffebea29164",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330874?signature=8f8b73bad3c9b997b71c1cce33ee23be2093b4049547681833560146bd15f916",
       "location": "Jawa Tengah",
       "volcanoNumber": 263210,
       "matchingMethod": "exact_catalog_name"
@@ -777,7 +777,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330798?signature=2e0c907f461a94e050229a4651b4a0692b62fd4b3e0bd0169fe1928bde29c7cb",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330867?signature=4561440e6963f51efc651406d31c5cb1c83d9893f15d95867c0885262716ca2b",
       "location": "Sumatera Barat",
       "volcanoNumber": 261160,
       "matchingMethod": "exact_catalog_name"
@@ -789,7 +789,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330781?signature=90a113cef331437325c9855b5bc2b6ced3b17050e5b7684f7768418b6331ae63",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330858?signature=cf2b85329a8dc1a5a58d7202b600c79c3a63b2af200552ec359e86531c760cb2",
       "location": "Sumatera Barat",
       "volcanoNumber": 261150,
       "matchingMethod": "curated_alias"
@@ -801,7 +801,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330786?signature=4029a34bb25111da2deafcffd8b8c2aea0d33faa0f7c2bae8455e96a94d0a0cb",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330855?signature=71dbb6bc60f08b9b52d3cabfbb02bfb1f64638e885c8012fb12113dd17bbf7df",
       "location": "Sulawesi Utara",
       "volcanoNumber": 266130,
       "matchingMethod": "curated_alias"
@@ -813,7 +813,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330779?signature=8aad4e3f56dca5e5fa5e444147d61cb2a6feb2330494717859ab2b4c9ad09807",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330841?signature=5c740f7125907998b656cf4668a15003d9c1007cdd4206c7d8c61ce1adbf4438",
       "location": "Jawa Barat",
       "volcanoNumber": 263090,
       "matchingMethod": "exact_catalog_name"
@@ -825,7 +825,7 @@
       "level": "I",
       "label": "Normal",
       "nativeStatus": "Level I - Normal",
-      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330809?signature=94b7d5a7b18b6a39fb57f101de3e931c8cff20f952d37ea8032f8f4e277b0bd7",
+      "reportUrl": "https://magma.esdm.go.id/v1/gunung-api/laporan/330860?signature=f014315a128e729256bd7facb39216f75abf0ae92fa576148c056ecd5c6db71c",
       "location": "Maluku",
       "volcanoNumber": 265040,
       "matchingMethod": "exact_catalog_name"
