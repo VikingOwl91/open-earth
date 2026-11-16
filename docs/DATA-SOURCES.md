@@ -70,6 +70,46 @@ The following providers were systematically evaluated and deferred due to techni
   - Technical status: The Italian national volcanic alert system is managed under the National Civil Protection department. The public display is embedded inside a proprietary Gatsby client-side SPA without open, documented public JSON endpoints. INGV regional observatories (Catania, Naples, Rome) issue weekly and daily bulletins as PDF reports.
   - Reason for deferral: Absence of a stable, documented machine-readable API endpoint. Deferred until an open structured feed is established.
 
+- **SERNAGEOMIN / RNVV (Chile)** (checked 2026-11-16):
+  - Technical status: Chile replaced its four-colour technical alert with a numeric Volcanic Activity State (EAV 0 to 5) on 2026-10-28, together with a new Red Nacional de Vigilancia Volcanica site (`https://rnvv.sernageomin.cl/`) that is announced as a trial. The site is a client-rendered single-page app; it calls a separate backend whose API is not documented anywhere I could find, and I did not probe it. `https://rnvv.sernageomin.cl/` and `https://www.sernageomin.cl/` both serve an incomplete TLS chain (curl error 60 / OpenSSL 20, GlobalSign intermediate not sent), so a verifying fetch fails. The ArcGIS host `sdngsig.sernageomin.cl` named in search results timed out from the test host.
+  - Reason for deferral: no documented, stable, machine-readable status endpoint; the scale and the platform are three weeks old and in trial; TLS does not verify. Revisit once SERNAGEOMIN documents an API or open-data feed for EAV levels.
+
+- **CENAPRED (Mexico)** (checked 2026-11-16):
+  - Technical status: The Popocatepetl Semaforo de Alerta Volcanica is published on `cenapred.unam.mx` and in gob.mx pages and daily report documents. `www.cenapred.unam.mx` answers an automated client with HTTP 403. `gob.mx/cenapred` has no RSS (404) and no API (404); `datos.gob.mx` CKAN answered 403. The semaforo covers essentially one volcano.
+  - Reason for deferral: no documented machine-readable endpoint, automated access blocked, single-volcano scope. Deferred until an open feed exists.
+
+- **IG-EPN (Ecuador)** (checked 2026-11-16):
+  - Technical status: `igepn.edu.ec` is a Joomla site. Volcano state is published as narrative reports with qualitative internal/surface activity terms (baja, moderada, alta plus trend), not as a numbered or coloured alert scale. The Joomla feed route I tried returns 410 Gone, `robots.txt` lists no data service, and the linked "Descarga de Datos" page is HTML.
+  - Reason for deferral: no alert-level scale and no machine-readable status feed. Narrative text would need scraping.
+
+- **SGC (Colombia)** (checked 2026-11-16):
+  - Technical status: SGC uses a four-level scheme (IV green to I red). Current levels are published in monthly PDF bulletins and news pages on `www2.sgc.gov.co`; `www.sgc.gov.co` answers automated clients with HTTP 403. The public ArcGIS server `srvags.sgc.gov.co/arcgis/rest/services` is reachable and documented, but its volcano content (`Amenaza_Volcanica/Amenaza_Volcanica`) is static hazard zonation for a few volcanoes, not current alert levels.
+  - Reason for deferral: current alert levels exist only in PDF/HTML. The ArcGIS service is useful as future REFERENCE hazard-zone data, not as OBSERVED status.
+
+- **OVSICORI-UNA and RSN (Costa Rica)** (checked 2026-11-16):
+  - Technical status: OVSICORI uses a four-level scale (1 calm, 2 advertencia, 3 precaucion, 4 alarma) announced through bulletins, social media and press. The Joomla RSS feed at `ovsicori.una.ac.cr/index.php?format=feed&type=rss` is reachable but contains no items; the two vulcanology URLs I tried returned HTTP 500. The only feed linked from the RSN home page is an earthquake RSS. The CNE colour alerts for national parks are a different authority and scale.
+  - Reason for deferral: no structured status feed.
+
+- **INSIVUMEH (Guatemala)** (checked 2026-11-16):
+  - Technical status: WordPress site with a generic news feed (`insivumeh.gob.gt/feed/`) and the stock WP REST API. Volcano bulletins are PDFs or social posts. Public colour alerts are issued by CONRED and departmental committees, not by INSIVUMEH.
+  - Reason for deferral: no structured status feed and the alert authority is a different agency.
+
+- **SNET / MARN (El Salvador)** (checked 2026-11-16):
+  - Technical status: `snet.gob.sv/ver/vulcanologia` is HTML with monthly and daily reports; no feed or API is linked. `marn.gob.sv` answered HTTP 503.
+  - Reason for deferral: no machine-readable endpoint found.
+
+- **INGEMMET OVI and IGP CENVUL (Peru)** (checked 2026-11-16):
+  - Technical status: INGEMMET's volcano observatory (colour alerts for Ubinas, Sabancaya and others) publishes weekly and special reports; `ovi.ingemmet.gob.pe` does not resolve and `geocatmin.ingemmet.gob.pe` fails TLS verification (OpenSSL 20). IGP CENVUL (`cenvul.igp.gob.pe`) publishes HTML pages and PDF daily reports with no feed, no API (`/api/volcanes` 404) and no stated reuse terms on the landing page.
+  - Reason for deferral: no machine-readable endpoint, TLS failure on the geoportal, and no documented reuse terms.
+
+- **INETER (Nicaragua)** (checked 2026-11-16):
+  - Technical status: `www.ineter.gob.ni` fails TLS verification (OpenSSL 20, incomplete chain). No feed or API was evaluated beyond that.
+  - Reason for deferral: TLS validation failure.
+
+- **OAVV / SEGEMAR (Argentina)** (checked 2026-11-16):
+  - Technical status: `oavv.segemar.gob.ar` is a WordPress site; the per-volcano "Nivel de alerta" blocks are page-builder markup, not a data field. The WP post feed is empty, the stock REST API exposes only posts, pages and media, and the SIGAM GeoServer WFS capabilities request returned HTTP 500.
+  - Reason for deferral: extracting the level would mean scraping HTML.
+
 - **PHIVOLCS (Philippine Institute of Volcanology and Seismology)**:
   - Technical status: The designated endpoint (`wovodat.phivolcs.dost.gov.ph`) fails SSL certificate verification with self-signed and untrusted certificate chain errors, preventing secure automated fetching in automated pipelines. In addition, status data is bound to dynamic client-side widget scripts.
   - Reason for deferral: SSL/TLS validation failures and lack of a stable headless REST API. Deferred until standard HTTPS certificate chains and open endpoints are deployed.
