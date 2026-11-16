@@ -11,7 +11,7 @@ Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and
 | Layer | Authority / upstream | Runtime strategy | Freshness | Notes |
 | --- | --- | --- | --- | --- |
 | Earthquakes | USGS Earthquake Hazards Program | direct GeoJSON API + FDSNWS catalog | near-real-time live; on-demand historical | 1h / 24h / 7d feeds + custom parameter searches (mag, depth, radius, bounds) |
-| Known Holocene volcanoes | Smithsonian Global Volcanism Program (GVP), Volcanoes of the World | GitHub Raw snapshot; same-origin fallback; GVP WFS preferred by updater | daily snapshot of reference catalog | Reference catalog of ~1,350 Holocene volcanoes. A catalog entry is not evidence of current activity |
+| Known Holocene volcanoes | Smithsonian Global Volcanism Program (GVP), Volcanoes of the World | GitHub Raw snapshot; same-origin fallback; GVP WFS preferred by updater | daily snapshot of reference catalog | Reference catalog of 1,214 Holocene volcanoes (`data/volcanoes.json`, `counts.volcanoes` in `data/manifest.json`). A catalog entry is not evidence of current activity |
 | Volcanic reports | Smithsonian / USGS Weekly Volcanic Activity Report | GitHub Raw normalized snapshot generated from official RSS; same-origin fallback | daily check; source report updates weekly | WVAR covers selected volcanoes with new or ongoing unrest; it is not a comprehensive global census |
 | Regional volcano monitoring | PVMBG, USGS, JMA, GeoNet, IMO | GitHub Raw daily snapshots from official agency APIs; same-origin fallback | daily updater; agency updates occur on alert change | Preserves native alert scales: PVMBG (Levels I-IV), USGS (Alert/Color), JMA (Warnings 1-5), GeoNet (VAL 0-5), IMO (VALS 0-3 plus Aviation Color Code) |
 | Plate boundaries | PB2002 / Peter Bird (2003) | GitHub Raw snapshot; same-origin fallback | reference geology | Categorized by boundary kinematics: subduction, convergent, divergent, transform |
@@ -35,10 +35,10 @@ Open Earth avoids conflating distinct national warning conventions into an overs
 ### Implemented providers
 
 1. **PVMBG / MAGMA Indonesia (Pusat Vulkanologi dan Mitigasi Bencana Geologi)**
-   - API: `https://magma.esdm.go.id/api/v1/gunung-api/tingkat-aktivitas`
-   - Coverage: 127 active Indonesian volcanoes
+   - Source: the public activity-level table at `https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas` (HTML, parsed by `scripts/update_pvmbg.py`)
+   - Coverage: the volcanoes listed in that table, grouped by level including Normal: 69 in the latest snapshot (3 Siaga, 24 Waspada, 42 Normal, 0 Awas), 65 of them matched to a Smithsonian VolcanoNumber. This is the number of volcanoes the page lists, not the national total of active Indonesian volcanoes.
    - Native scale: Level I (Normal), Level II (Waspada), Level III (Siaga), Level IV (Awas)
-   - Matching: Exact Smithsonian VolcanoNumber match where assigned; fallback to normalized Indonesian edifice name.
+   - Matching: curated aliases and one curated name-and-location rule (Sumbing, Java), then an exact normalized name match against the catalog when it is unambiguous. Rows without a match stay in the snapshot without a `volcanoNumber`.
 
 2. **USGS Volcano Hazards Program (United States)**
    - API: `https://volcanoes.usgs.gov/hans-public/api/volcano/getMonitoredVolcanoes`
@@ -47,8 +47,8 @@ Open Earth avoids conflating distinct national warning conventions into an overs
    - Matching: Official GVP `vnum` mapping provided directly by USGS HANS.
 
 3. **Japan Meteorological Agency (JMA Bosai)**
-   - API: `https://www.jma.go.jp/bosai/warning/data/warning.json` + `volcano_dictionary.json` + `volcano_list.json`
-   - Coverage: 111 active volcanoes in Japan with live municipal warning zones
+   - API: `https://www.jma.go.jp/bosai/volcano/data/warning.json` + `volcano_dictionary.json` (`bosai/volcano/const/`); `scripts/update_jma_volcanoes.py` does not read `volcano_list.json`
+   - Coverage: only volcanoes that currently have an entry in `warning.json`: 12 in the latest snapshot (all 12 matched to a Smithsonian VolcanoNumber; 12 to 14 in the snapshot history). Volcanoes without a current JMA warning or forecast entry are not in the snapshot, so a missing JMA status says nothing about that volcano's level. JMA's own dictionary lists 118 volcanoes.
    - Native scale: Volcanic Warning Levels 1 to 5 (Do not approach crater, Do not approach volcano, Evacuate)
    - Matching: Curated mapping of JMA Bosai volcano codes to Smithsonian VolcanoNumbers.
 
