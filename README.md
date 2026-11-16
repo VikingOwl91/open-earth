@@ -38,6 +38,7 @@ Spatial proximity is context, **not a claim of causation**.
   - USGS Volcano Hazards Program
   - Japan Meteorological Agency (JMA)
   - GeoNet New Zealand / GNS Science
+  - Icelandic Met Office (IMO)
 - **Plate tectonics** using the PB2002 model with named plates and typed boundary kinematics
 - **Active faults** from the GEM Global Active Faults database
 - **Named undersea trenches** from the IHO-IOC GEBCO Gazetteer

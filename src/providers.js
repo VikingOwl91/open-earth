@@ -5,6 +5,7 @@
  * - USGS Volcano Hazards Program (United States)
  * - Japan Meteorological Agency / JMA (Japan)
  * - GeoNet / GNS Science (New Zealand)
+ * - Icelandic Met Office / IMO (Iceland)
  *
  * Preserves native alert scales, provider terminology, and snapshot freshness.
  */
@@ -15,7 +16,8 @@
     pvmbg: { id: 'pvmbg', name: 'PVMBG / MAGMA Indonesia', url: 'https://magma.esdm.go.id/v1/gunung-api/tingkat-aktivitas', file: 'pvmbg-status.json', statuses: [], fetchedAt: null },
     usgs: { id: 'usgs', name: 'USGS Volcano Hazards Program', url: 'https://volcanoes.usgs.gov/hans-public/', file: 'usgs-volcano-status.json', statuses: [], fetchedAt: null },
     jma: { id: 'jma', name: 'Japan Meteorological Agency', url: 'https://www.jma.go.jp/bosai/map.html#contents=volcano', file: 'jma-volcano-status.json', statuses: [], fetchedAt: null },
-    geonet: { id: 'geonet', name: 'GeoNet New Zealand (GNS Science)', url: 'https://www.geonet.org.nz/volcano', file: 'geonet-volcano-status.json', statuses: [], fetchedAt: null }
+    geonet: { id: 'geonet', name: 'GeoNet New Zealand (GNS Science)', url: 'https://www.geonet.org.nz/volcano', file: 'geonet-volcano-status.json', statuses: [], fetchedAt: null },
+    imo: { id: 'imo', name: 'Icelandic Met Office (IMO)', url: 'https://en.vedur.is/earthquakes-and-volcanism/volcanoes/', file: 'imo-volcano-status.json', statuses: [], fetchedAt: null }
   };
 
   const geoRef = (typeof window !== 'undefined' && window.OpenEarth && window.OpenEarth.geo) || null;
@@ -155,6 +157,29 @@
         note: s.hazards ? `${s.hazards}` : 'Official GeoNet alert level. Independent of the GVP weekly report.'
       };
     }
+    if (providerId === 'imo') {
+      return {
+        providerId: 'imo',
+        providerName: p.name,
+        name: s.name,
+        volcanoNumber: s.volcanoNumber != null ? Number(s.volcanoNumber) : null,
+        matchingMethod: s.matchingMethod || 'official_si_code',
+        level: s.level,
+        levelName: s.levelName,
+        colorCode: s.colorCode,
+        label: s.label || s.nativeStatus,
+        nativeStatus: s.nativeStatus,
+        severity: s.severity || 'normal',
+        activity: s.activity,
+        observedAt: s.observedAt,
+        colorCodeObservedAt: s.colorCodeObservedAt,
+        reportUrl: s.reportUrl,
+        sourceUrl: p.url,
+        snapshotAge: age,
+        provenance: s.provenance || 'Official Volcano Alert Level System (VALS) notice and ICAO Aviation Color Code published by the Icelandic Met Office.',
+        note: s.note || 'Official IMO VALS level and Aviation Color Code. The two scales are independent. Independent of the GVP weekly report.'
+      };
+    }
     return s;
   }
 
@@ -210,6 +235,18 @@
     return hit ? normalizeRecord('geonet', hit) : null;
   }
 
+  function matchImo(p, vnum, rawName, country) {
+    if (!/iceland/i.test(country)) return null;
+    if (vnum) {
+      const byNum = providers.imo.statuses.find(s => s.volcanoNumber != null && String(s.volcanoNumber) === vnum);
+      if (byNum) return normalizeRecord('imo', byNum);
+    }
+    const target = normStr(rawName);
+    if (!target) return null;
+    const hit = providers.imo.statuses.find(s => normStr(s.name) === target);
+    return hit ? normalizeRecord('imo', hit) : null;
+  }
+
   function regionalMonitoringForVolcano(p) {
     if (!p) return [];
     const vnum = String(getVal(p?.Volcano_Number, p?.VolcanoNumber, p?.volcano_number, '')).trim();
@@ -228,6 +265,9 @@
 
     const gn = matchGeoNet(p, vnum, rawName, country);
     if (gn) records.push(gn);
+
+    const im = matchImo(p, vnum, rawName, country);
+    if (im) records.push(im);
 
     return records;
   }
@@ -255,7 +295,8 @@
               pvmbg: providers.pvmbg.statuses.length,
               usgs: providers.usgs.statuses.length,
               jma: providers.jma.statuses.length,
-              geonet: providers.geonet.statuses.length
+              geonet: providers.geonet.statuses.length,
+              imo: providers.imo.statuses.length
             }
           }));
         }
@@ -283,7 +324,8 @@
       pvmbg: relativeAge(providers.pvmbg.fetchedAt),
       usgs: relativeAge(providers.usgs.fetchedAt),
       jma: relativeAge(providers.jma.fetchedAt),
-      geonet: relativeAge(providers.geonet.fetchedAt)
+      geonet: relativeAge(providers.geonet.fetchedAt),
+      imo: relativeAge(providers.imo.fetchedAt)
     });
     // Auto-load on script execution
     loadAll();
