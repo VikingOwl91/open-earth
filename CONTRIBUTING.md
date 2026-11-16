@@ -13,12 +13,12 @@ Thank you for contributing to Open Earth! Open Earth is an open-source, source-a
 
 ## Local Development
 
-Open Earth uses vanilla ES modules and standard web APIs, requiring no heavy JavaScript bundling build steps.
+Open Earth uses vanilla JavaScript loaded as classic `<script>` tags and standard web APIs, requiring no bundling build steps. Each `src/*.js` file also exposes `module.exports` when run under Node so the unit tests can import it.
 
 ### Prerequisites
 
 - Python 3.10+ (for background data normalization scripts and local testing)
-- Node.js 18+ (for running unit test suites)
+- Node.js 18+ (for the JavaScript unit tests and ESLint)
 
 ### Running the Web Application
 
@@ -44,6 +44,7 @@ npm test && npm run test:py
 # Or individually
 npm test          # JavaScript unit tests (node --test)
 npm run test:py   # Python data pipeline unit tests (pytest)
+npm run lint      # ESLint over src/ and tests/ (also run in CI)
 ```
 
 ---
@@ -52,15 +53,21 @@ npm run test:py   # Python data pipeline unit tests (pytest)
 
 ```text
 open-earth/
+├── .github/workflows/     # CI (lint and tests) and the daily data refresh
 ├── data/                  # Generated normalized GeoJSON/JSON snapshots
 ├── docs/
 │   ├── ARCHITECTURE.md    # Architecture and modular system design
 │   ├── DATA-SOURCES.md    # Upstream data provider registry & specifications
-│   └── PRIVACY.md         # Network request audit and privacy documentation
+│   ├── PRIVACY.md         # Network request audit and privacy documentation
+│   └── ROADMAP.md         # Phases, status and long-term direction
 ├── scripts/               # Python normalization and update pipelines
 │   ├── update_data.py     # Core data snapshot updater (GVP, plates, faults)
 │   ├── update_trenches.py # GEBCO undersea trenches updater
-│   └── update_volcano_providers.py # Regional volcano monitoring updater
+│   ├── update_pvmbg.py    # PVMBG / MAGMA Indonesia status updater
+│   ├── update_usgs_volcanoes.py  # USGS Volcano Hazards Program status updater
+│   ├── update_jma_volcanoes.py   # JMA volcanic warnings updater
+│   ├── update_geonet_volcanoes.py # GeoNet New Zealand alert level updater
+│   └── update_imo_volcanoes.py   # Icelandic Met Office updater
 ├── src/                   # Modular client-side application code
 │   ├── analytics.js       # Cookieless OpenPanel page analytics (off on localhost)
 │   ├── app.js             # Application bootstrapper and orchestrator
@@ -70,11 +77,14 @@ open-earth/
 │   ├── inspector.js       # Unified inspector controller for all feature types
 │   ├── map.js             # MapLibre GL wrapper, layers, and basemap switcher
 │   ├── modals.js          # Accessible dialog modals (About, Impressum, Privacy)
+│   ├── popups.css         # Styles for map popups
 │   ├── providers.js       # Regional volcano monitoring provider adapters
 │   ├── search.js          # Search controller (local entities + Nominatim + USGS catalog)
 │   ├── state.js           # URL-first state management and history navigation
 │   └── style.css          # Core design tokens, layout, and control styling
-├── tests/                 # Unit test suites (JavaScript and Python)
+├── tests/                 # Unit test suites (JavaScript and Python) and fixtures
+├── vendor/openpanel/      # Vendored, pinned OpenPanel tracker script
+├── eslint.config.mjs      # ESLint flat config
 └── index.html             # Main entry point with semantic markup
 ```
 
