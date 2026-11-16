@@ -26,6 +26,8 @@
 
   const POINT_HOVER_LAYERS = ['activity', 'volcanoes', 'earthquakes'];
 
+  const EMPTY = Object.freeze({ type: 'FeatureCollection', features: [] });
+
   class MapController {
     constructor(containerId, stateManager, dataStore) {
       this.containerId = containerId;
@@ -345,9 +347,9 @@
       // 9. Selection Layers
       // Point selection (pulsing circle)
       if (!this.map.getSource('selection')) {
-        this.map.addSource('selection', { type: 'geojson', data: this.selectedPointFeature || ds.EMPTY });
+        this.map.addSource('selection', { type: 'geojson', data: this.selectedPointFeature || EMPTY });
       } else {
-        this.map.getSource('selection').setData(this.selectedPointFeature || ds.EMPTY);
+        this.map.getSource('selection').setData(this.selectedPointFeature || EMPTY);
       }
       if (!this.map.getLayer('selection-casing')) {
         this.map.addLayer({
@@ -380,9 +382,9 @@
 
       // Line selection (crisp white line + casing)
       if (!this.map.getSource('line-selection')) {
-        this.map.addSource('line-selection', { type: 'geojson', data: this.selectedLineFeature || ds.EMPTY });
+        this.map.addSource('line-selection', { type: 'geojson', data: this.selectedLineFeature || EMPTY });
       } else {
-        this.map.getSource('line-selection').setData(this.selectedLineFeature || ds.EMPTY);
+        this.map.getSource('line-selection').setData(this.selectedLineFeature || EMPTY);
       }
       if (!this.map.getLayer('line-selection-casing')) {
         this.map.addLayer({
@@ -411,7 +413,7 @@
 
       // 10. Hover Layers (preview)
       if (!this.map.getSource('hover-point')) {
-        this.map.addSource('hover-point', { type: 'geojson', data: ds.EMPTY });
+        this.map.addSource('hover-point', { type: 'geojson', data: EMPTY });
       }
       if (!this.map.getLayer('hover-point')) {
         this.map.addLayer({
@@ -429,7 +431,7 @@
       }
 
       if (!this.map.getSource('hover-line')) {
-        this.map.addSource('hover-line', { type: 'geojson', data: ds.EMPTY });
+        this.map.addSource('hover-line', { type: 'geojson', data: EMPTY });
       }
       if (!this.map.getLayer('hover-line-casing')) {
         this.map.addLayer({
@@ -546,7 +548,7 @@
           properties: { ...(feature.properties || {}) },
           geometry: feature.geometry
         };
-        this.map.getSource('selection')?.setData(this.dataStore.EMPTY);
+        this.map.getSource('selection')?.setData(EMPTY);
         this.map.getSource('line-selection')?.setData(this.selectedLineFeature);
       } else {
         this.selectedLineFeature = null;
@@ -555,7 +557,7 @@
           properties: { ...(feature.properties || {}) },
           geometry: feature.geometry
         };
-        this.map.getSource('line-selection')?.setData(this.dataStore.EMPTY);
+        this.map.getSource('line-selection')?.setData(EMPTY);
         this.map.getSource('selection')?.setData(this.selectedPointFeature);
       }
 
@@ -566,8 +568,8 @@
     clearSelection() {
       this.selectedPointFeature = null;
       this.selectedLineFeature = null;
-      this.map.getSource('selection')?.setData(this.dataStore.EMPTY);
-      this.map.getSource('line-selection')?.setData(this.dataStore.EMPTY);
+      this.map.getSource('selection')?.setData(EMPTY);
+      this.map.getSource('line-selection')?.setData(EMPTY);
       this.stateManager.update({ selectedFeature: null }, { pushHistory: false, replaceHistory: true });
     }
 
@@ -694,8 +696,8 @@
       const pointSource = this.map.getSource('hover-point');
       const lineSource = this.map.getSource('hover-line');
       if (!hit) {
-        pointSource?.setData(this.dataStore.EMPTY);
-        lineSource?.setData(this.dataStore.EMPTY);
+        pointSource?.setData(EMPTY);
+        lineSource?.setData(EMPTY);
         return;
       }
 
@@ -708,10 +710,10 @@
 
       if (hit.geometry?.type === 'Point') {
         pointSource?.setData(feature);
-        lineSource?.setData(this.dataStore.EMPTY);
+        lineSource?.setData(EMPTY);
       } else {
         lineSource?.setData(feature);
-        pointSource?.setData(this.dataStore.EMPTY);
+        pointSource?.setData(EMPTY);
       }
     }
 
@@ -768,6 +770,7 @@
     BASEMAPS,
     TECTONIC_LAYERS,
     POINT_HOVER_LAYERS,
+    EMPTY,
     MapController
   };
 
