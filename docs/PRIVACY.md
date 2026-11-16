@@ -52,7 +52,8 @@ The configuration lives in `src/analytics.js`:
   clientId: '75cb34b1-c4d2-4299-a93f-f5563fbaf40c', // public client identifier
   trackScreenViews: true,
   trackOutgoingLinks: true,
-  trackAttributes: true
+  trackAttributes: true,
+  filter: createScreenViewFilter() // see "What leaves the browser"
 }
 ```
 
@@ -68,10 +69,12 @@ Observed in headless Chromium against this code (event bodies captured and answe
 
 | Event | When | Payload fields |
 | --- | --- | --- |
-| `screen_view` | On page load and every time the address bar URL changes through the History API. Open Earth rewrites the URL after the map camera settles (about 0.4 s after a pan or zoom) and on feature selection, so a visit produces many `screen_view` events. | `__path` = the full page URL including query string and fragment, `__title` = page title, `__referrer` = `document.referrer` |
+| `screen_view` | On page load and when the address bar URL changes through the History API, except changes that only alter the map camera (see below). Open Earth rewrites the URL about 0.4 s after a pan or zoom and on feature selection. | `__path` = the full page URL including query string and fragment, `__title` = page title, `__referrer` = `document.referrer` |
 | `link_out` | Click on a link whose `href` starts with `http` and points to another host (for example the GitHub or source links) | `href` (target URL), `text` (link text or title), `__path` (current full page URL), `__referrer` |
 
-The full page URL contains the map state: selected feature (`v=type:id`), map center and zoom (`c=lat,lng,zoom`), projection, basemap, layer selection and any historical-search parameters. The map position and selected feature of each view are therefore transmitted to the analytics server.
+The full page URL contains the map state: selected feature (`v=type:id`), map center and zoom (`c=lat,lng,zoom`), projection, basemap, layer selection and any historical-search parameters. The map position and selected feature of each sent view are therefore transmitted to the analytics server.
+
+A `filter` function in `src/analytics.js` (`createScreenViewFilter`) drops a `screen_view` when its URL differs from the previously sent `screen_view` only in the `c` (camera) parameter. Panning or zooming alone therefore sends nothing. The first view of a visit is always sent, and so is every change to any other parameter (selected feature, projection, basemap, range, layers, historical search). A sent view still carries the full URL including the current `c` value, so the initial page view and later changes carry the map position at that moment. `link_out` and any other event are not affected by the filter. If an event does not have the expected shape, the filter lets it through. Observed in headless Chromium (event bodies captured by a local stand-in): one load, two pans and one feature selection produced four `screen_view` events before the filter and two after it.
 
 Request metadata sent with every event (standard for any HTTP request, plus the SDK headers): `openpanel-client-id`, `openpanel-sdk-name` (`web`), `openpanel-sdk-version`, `Content-Type`, `Origin`, `Referer`, `User-Agent`, `Accept-Language`, `Sec-CH-UA*` client hints where the browser sends them, and the client IP address as seen by the server. The script does not send screen size, timezone, installed fonts, canvas or other fingerprinting values in the payload.
 
