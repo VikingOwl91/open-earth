@@ -20,9 +20,15 @@ Complete.
 
 Architecture cleanup, URL/deep-link state, navigation history, holistic UI/UX, accessibility, lifecycle/performance work, privacy/legal/source review, documentation, and regression coverage.
 
-## Next: P1.5x - Regional coverage pass
+## P1.5x - Regional coverage pass (in progress)
 
 Before adding new geoscience dimensions, broaden the existing geology/volcano monitoring coverage.
+
+Status:
+
+- Integrated regional providers: PVMBG (Indonesia), USGS, JMA (Japan), GeoNet (New Zealand) and IMO (Iceland, VALS plus Aviation Color Code).
+- Vetted and deferred, with reasons recorded in `DATA-SOURCES.md`: INGV (Italy), PHIVOLCS (Philippines), ten Americas observatories (Chile, Mexico, Ecuador, Colombia, Costa Rica, Guatemala, El Salvador, Peru, Nicaragua, Argentina), and Pacific, Russia, Caribbean and other regions (KVERT, VMGD, RVO, MVO, IPGP, CIVISA, Canary Islands, Taiwan, Korea, UWI Seismic Research Centre). At the time of checking, none of them met the criteria below.
+- Still open: Fiji, Tonga, Solomon Islands, Cape Verde, Ethiopia, DR Congo and Karthala (Comoros) were only checked by web search; deferred providers are worth rechecking when an upstream publishes an API, schema or licence (for example INGV/EPOS VONA).
 
 Goals:
 
@@ -35,9 +41,9 @@ Goals:
 
 Potential providers/regions to investigate include INGV (Italy), IMO (Iceland), SERNAGEOMIN (Chile), CENAPRED (Mexico), PHIVOLCS (Philippines), KVERT (Kamchatka), IG-EPN (Ecuador), SGC (Colombia), OVSICORI (Costa Rica), MVO (Montserrat), VMGD (Vanuatu), RVO (Papua New Guinea), and other authoritative national or regional geological surveys/observatories.
 
-This list is research input, not an integration commitment.
+This list is research input, not an integration commitment. Every authority named here has now been vetted at least once; see `DATA-SOURCES.md` for the outcome per provider.
 
-## P1.75 - Mobile experience
+## P1.75 - Mobile experience (in progress)
 
 Before P2 adds more scientific capability and UI complexity, make the existing Open Earth geology experience genuinely usable on phones and small touch devices.
 
@@ -56,6 +62,12 @@ Goals include:
 - test the real application on representative mobile viewport sizes and touch interaction, not only desktop responsive emulation
 
 The objective is feature and semantic parity where it makes sense, not pixel-for-pixel desktop parity. Mobile may use different interaction patterns when they better fit the device.
+
+Status:
+
+- Done: bottom-sheet inspector on narrow screens, larger touch targets and tap selection on the map.
+- Implemented in CSS but not yet verified on devices: safe-area insets and `dvh` viewport units.
+- Still open: testing on real devices including Safari on iOS, landscape orientation, and a payload and performance review for mobile networks (the `data/` snapshots are about 31 MB in total before transport compression).
 
 ## P1.9 - Frontend architecture bake-off
 
@@ -198,7 +210,7 @@ A future optional **Nerd logs** panel could expose fun and useful public statist
 
 Metric definitions must be explicit. For example, "most explored topic" should say whether it means inspector opens, layer activations, or another concrete event rather than presenting an opaque analytics score.
 
-Update: basic page-view and outgoing-link counts are now collected with a self-hosted OpenPanel instance (see `PRIVACY.md`). Richer product telemetry remains a future capability, not an immediate requirement. For simple traffic counts, server access-log aggregation may be sufficient before any client-side event collection exists.
+Update: cookieless page views and outgoing-link clicks are now collected with a self-hosted OpenPanel instance (see `PRIVACY.md` for exactly what is sent, including the map state in the page URL). Richer product telemetry, public aggregates and a Nerd logs panel remain future capabilities, not an immediate requirement. For simple traffic counts, server access-log aggregation may be sufficient before any client-side event collection exists.
 
 Any telemetry that is actually deployed must be reflected accurately in the privacy documentation.
 
@@ -239,8 +251,8 @@ The immediate roadmap remains deliberately narrow:
 ```text
 P1      DONE
 P1.5    DONE
-P1.5x   Regional geology / volcano coverage
-P1.75   Mobile experience
+P1.5x   Regional geology / volcano coverage (in progress)
+P1.75   Mobile experience (in progress)
 P1.9    Frontend architecture bake-off
 P2      Dynamic Earth
 
