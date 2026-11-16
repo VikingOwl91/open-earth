@@ -1,5 +1,6 @@
-import test from 'node:test';
+import test, { mock } from 'node:test';
 import assert from 'node:assert/strict';
+import { setImmediate } from 'node:timers';
 import Data from '../src/data.js';
 
 test('DataStore: lookup functions find features by id and normalized name', () => {
@@ -76,13 +77,15 @@ function stubFetch(handler) {
   const originalFetch = globalThis.fetch;
   const originalWarn = console.warn;
   const calls = [];
-  globalThis.fetch = async url => {
+  const warnings = [];
+  globalThis.fetch = async (url, opts) => {
     calls.push(String(url));
-    return handler(String(url));
+    return handler(String(url), opts);
   };
-  console.warn = () => {};
+  console.warn = (...args) => warnings.push(args);
   return {
     calls,
+    warnings,
     restore: () => {
       globalThis.fetch = originalFetch;
       console.warn = originalWarn;
@@ -135,5 +138,178 @@ test('DataStore: fetchSnapshot reports a failure when both copies fail', async (
     assert.doesNotMatch(store.getStatusSummary(), /snapshots via GitHub/);
   } finally {
     stub.restore();
+  }
+});
+
+const remoteMs = Data.REMOTE_SNAPSHOT_TIMEOUTS;
+const localMs = Data.LOCAL_SNAPSHOT_TIMEOUTS;
+const flush = () => new Promise(resolve => setImmediate(resolve));
+const abortError = () => Object.assign(new Error('The operation was aborted.'), { name: 'AbortError' });
+const isLocal = url => url.startsWith('./data/');
+
+function hang(opts) {
+  return new Promise((resolve, reject) => {
+    opts.signal.addEventListener('abort', () => reject(abortError()));
+  });
+}
+
+test('DataStore: the snapshot timeouts are positive and the local one is the more generous', () => {
+  assert.ok(remoteMs.headerMs > 0 && remoteMs.bodyMs > 0);
+  assert.ok(localMs.headerMs > remoteMs.headerMs);
+  assert.ok(Data.LIVE_TIMEOUTS.headerMs > 0);
+});
+
+test('DataStore: a GitHub Raw request that never answers times out and falls back to the local copy', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  const signals = [];
+  const stub = stubFetch((url, opts) => {
+    signals.push(opts.signal);
+    return isLocal(url) ? jsonResponse({ local: true }) : hang(opts);
+  });
+  try {
+    const store = new Data.DataStore();
+    const pending = store.fetchSnapshot('plates.json', 'plates');
+    await flush();
+    assert.equal(stub.calls.length, 1);
+    mock.timers.tick(remoteMs.headerMs - 1);
+    await flush();
+    assert.equal(stub.calls.length, 1);
+    assert.equal(signals[0].aborted, false);
+    mock.timers.tick(1);
+    assert.deepEqual(await pending, { local: true });
+    assert.equal(signals[0].aborted, true);
+    assert.deepEqual(stub.calls.map(isLocal), [false, true]);
+    assert.deepEqual([...store.snapshotFallbacks], ['plates.json']);
+    assert.equal(store.failures.has('plates'), false);
+    assert.match(store.getStatusSummary(), /local snapshot fallback: plates\.json/);
+    assert.match(String(stub.warnings[0][0]), /timed out waiting for response headers after 4000 ms/);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
+  }
+});
+
+test('DataStore: a GitHub Raw copy that answers before the timeout is used and nothing fires afterwards', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  const signals = [];
+  let answer;
+  const stub = stubFetch((url, opts) => {
+    signals.push(opts.signal);
+    return new Promise(resolve => { answer = () => resolve(jsonResponse({ remote: true })); });
+  });
+  try {
+    const store = new Data.DataStore();
+    const pending = store.fetchSnapshot('volcanoes.json', 'volcanoes');
+    await flush();
+    mock.timers.tick(remoteMs.headerMs - 1);
+    answer();
+    assert.deepEqual(await pending, { remote: true });
+    mock.timers.tick(remoteMs.bodyMs + localMs.headerMs + remoteMs.headerMs);
+    await flush();
+    assert.equal(signals[0].aborted, false);
+    assert.equal(stub.calls.length, 1);
+    assert.equal(store.snapshotFallbacks.size, 0);
+    assert.equal(store.failures.size, 0);
+    assert.equal(stub.warnings.length, 0);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
+  }
+});
+
+test('DataStore: a slow body within the budget is not aborted, a stalled body falls back to local', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  let release;
+  const stub = stubFetch((url, opts) => {
+    if (isLocal(url)) return jsonResponse({ local: true });
+    return {
+      ok: true,
+      json: () => new Promise((resolve, reject) => {
+        release = () => resolve({ slow: true });
+        opts.signal.addEventListener('abort', () => reject(abortError()));
+      })
+    };
+  });
+  try {
+    const store = new Data.DataStore();
+    const slow = store.fetchSnapshot('plate-steps.json', 'plateSteps');
+    await flush();
+    mock.timers.tick(remoteMs.bodyMs - 1);
+    release();
+    assert.deepEqual(await slow, { slow: true });
+    assert.equal(store.snapshotFallbacks.size, 0);
+
+    const stalled = store.fetchSnapshot('plate-polygons.json', 'platePolygons');
+    await flush();
+    mock.timers.tick(remoteMs.bodyMs);
+    assert.deepEqual(await stalled, { local: true });
+    assert.deepEqual([...store.snapshotFallbacks], ['plate-polygons.json']);
+    assert.match(String(stub.warnings[0][0]), /timed out downloading the body after 60000 ms/);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
+  }
+});
+
+test('DataStore: fetchSnapshot returns null and reports a failure when both copies time out', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  const stub = stubFetch((url, opts) => hang(opts));
+  try {
+    const store = new Data.DataStore();
+    const pending = store.fetchSnapshot('trenches.json', 'trenches');
+    await flush();
+    mock.timers.tick(remoteMs.headerMs);
+    await flush();
+    assert.equal(stub.calls.length, 2);
+    assert.equal(isLocal(stub.calls[1]), true);
+    mock.timers.tick(localMs.headerMs - 1);
+    await flush();
+    assert.equal(store.failures.has('trenches'), true);
+    mock.timers.tick(1);
+    assert.equal(await pending, null);
+    assert.equal(store.snapshotFallbacks.size, 0);
+    assert.equal(store.failures.has('trenches'), true);
+    assert.doesNotMatch(store.getStatusSummary(), /snapshots via GitHub/);
+    assert.match(String(stub.warnings[1][0]), /timed out waiting for response headers after 10000 ms/);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
+  }
+});
+
+test('DataStore: an AbortError that did not come from the timer is handled as a plain failure', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  const stub = stubFetch(url => {
+    if (isLocal(url)) return jsonResponse({ local: true });
+    throw abortError();
+  });
+  try {
+    const store = new Data.DataStore();
+    assert.deepEqual(await store.fetchSnapshot('faults.json', 'faults'), { local: true });
+    assert.deepEqual([...store.snapshotFallbacks], ['faults.json']);
+    assert.doesNotMatch(String(stub.warnings[0][0]), /timed out/);
+    assert.equal(await store.fetchJson('https://example.test/x.json', 'x'), null);
+    assert.equal(store.failures.has('x'), true);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
+  }
+});
+
+test('DataStore: a live USGS request that never answers times out and reports a failure', async () => {
+  mock.timers.enable({ apis: ['setTimeout'] });
+  const stub = stubFetch((url, opts) => hang(opts));
+  try {
+    const store = new Data.DataStore();
+    const pending = store.loadEarthquakes('day');
+    await flush();
+    mock.timers.tick(Data.LIVE_TIMEOUTS.headerMs);
+    const result = await pending;
+    assert.equal(result.features.length, 0);
+    assert.equal(store.failures.has('earthquakes'), true);
+    assert.equal(stub.calls.length, 1);
+  } finally {
+    stub.restore();
+    mock.timers.reset();
   }
 });

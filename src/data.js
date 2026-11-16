@@ -23,6 +23,14 @@
 
   const SNAPSHOT_BASE = 'https://raw.githubusercontent.com/VikingOwl91/open-earth/main/data';
 
+  // headerMs: time until the response headers arrive (connect plus first byte).
+  // bodyMs: time to download and parse the body once the headers are in.
+  // A slow but progressing download is not aborted early; the body budget only
+  // stops a stalled stream.
+  const REMOTE_SNAPSHOT_TIMEOUTS = Object.freeze({ headerMs: 4000, bodyMs: 60000 });
+  const LOCAL_SNAPSHOT_TIMEOUTS = Object.freeze({ headerMs: 10000, bodyMs: 60000 });
+  const LIVE_TIMEOUTS = Object.freeze({ headerMs: 20000, bodyMs: 60000 });
+
   const EMPTY = Object.freeze({ type: 'FeatureCollection', features: [] });
   const geoRef = () => (typeof window !== 'undefined' && window.OpenEarth && window.OpenEarth.geo) || null;
 
@@ -59,27 +67,41 @@
       return () => this.listeners.delete(fn);
     }
 
-    async fetchJson(url, label) {
+    async fetchJson(url, label, timeouts = LIVE_TIMEOUTS) {
+      const controller = new AbortController();
+      let timer = null;
+      let expired = null;
+      const arm = (ms, phase) => {
+        timer = setTimeout(() => {
+          expired = `${phase} after ${ms} ms`;
+          controller.abort();
+        }, ms);
+      };
       try {
-        const r = await fetch(url, { cache: 'no-cache' });
+        arm(timeouts.headerMs, 'timed out waiting for response headers');
+        const r = await fetch(url, { cache: 'no-cache', signal: controller.signal });
+        clearTimeout(timer);
         if (!r.ok) throw new Error(`HTTP ${r.status}`);
+        arm(timeouts.bodyMs, 'timed out downloading the body');
         this.failures.delete(label);
         return await r.json();
       } catch (e) {
         this.failures.add(label);
-        console.warn(`[OpenEarth] Failed fetching ${label} from ${url}:`, e);
+        console.warn(`[OpenEarth] Failed fetching ${label} from ${url}${expired ? ` (${expired})` : ''}:`, e);
         return null;
+      } finally {
+        clearTimeout(timer);
       }
     }
 
     async fetchSnapshot(file, label) {
-      const remote = await this.fetchJson(`${SNAPSHOT_BASE}/${encodeURIComponent(file)}`, label);
+      const remote = await this.fetchJson(`${SNAPSHOT_BASE}/${encodeURIComponent(file)}`, label, REMOTE_SNAPSHOT_TIMEOUTS);
       if (remote) {
         this.snapshotFallbacks.delete(file);
         return remote;
       }
 
-      const local = await this.fetchJson(`./data/${encodeURIComponent(file)}`, label);
+      const local = await this.fetchJson(`./data/${encodeURIComponent(file)}`, label, LOCAL_SNAPSHOT_TIMEOUTS);
       if (local) this.snapshotFallbacks.add(file);
       return local;
     }
@@ -307,6 +329,9 @@
     SOURCES,
     FEEDS,
     EMPTY,
+    REMOTE_SNAPSHOT_TIMEOUTS,
+    LOCAL_SNAPSHOT_TIMEOUTS,
+    LIVE_TIMEOUTS,
     DataStore
   };
 

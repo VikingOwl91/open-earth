@@ -14,6 +14,7 @@ export default [
         history: 'readonly',
         localStorage: 'readonly',
         fetch: 'readonly',
+        AbortController: 'readonly',
         console: 'readonly',
         setTimeout: 'readonly',
         clearTimeout: 'readonly',
