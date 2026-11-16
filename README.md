@@ -125,7 +125,7 @@ These documents intentionally cross-reference the same project rules from differ
 
 The production site is available at **[open-earth.info](https://open-earth.info)**.
 
-Open Earth is currently designed to remain straightforward to self-host: serve `index.html`, `src/`, `vendor/`, and `data/` from a static HTTP server. The production infrastructure itself is intentionally not published as a live-machine configuration, but the roadmap includes a future sanitized, reproducible infrastructure reference.
+Open Earth is currently designed to remain straightforward to self-host: serve `index.html`, `src/`, `vendor/`, and `data/` from a static HTTP server. The browser reads the geological snapshots from the `main` branch of the public repository on GitHub (`SNAPSHOT_BASE` in `src/data.js`) and only uses the served `data/` files as a fallback, so a fork that generates its own snapshots has to change that constant. The production infrastructure itself is intentionally not published as a live-machine configuration, but the roadmap includes a future sanitized, reproducible infrastructure reference.
 
 ## 🔒 Privacy
 
