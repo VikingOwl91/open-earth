@@ -114,7 +114,6 @@
     getStatusSummary() {
       const core = ['earthquakes', 'volcanoes', 'plates'];
       const ok = core.filter(x => !this.failures.has(x)).length;
-      const age = this.snapshotAge();
       let text;
       if (ok === core.length) {
         text = `${ok}/${core.length} core sources healthy`;
@@ -123,7 +122,6 @@
       } else {
         text = `Source issues: ${[...this.failures].join(', ')} — data may be incomplete`;
       }
-      if (age) text += ` · snapshot ${age}`;
       if (this.snapshotFallbacks.size > 0) {
         const files = [...this.snapshotFallbacks];
         text += ` · local snapshot fallback: ${files.length > 3 ? `${files.length} files` : files.join(', ')}`;
@@ -364,10 +362,34 @@
     window.snapshotAge = () => window.OpenEarth.dataStore.snapshotAge();
     window.setStatus = () => {
       const el = document.querySelector('#status');
-      if (!el) return;
-      const store = window.OpenEarth.dataStore;
-      el.textContent = store.getStatusSummary();
-      el.classList.toggle('status-degraded', store.failures.size > 0);
+      const ds = window.OpenEarth.dataStore;
+      if (el) {
+        el.textContent = ds.getStatusSummary();
+        el.classList.toggle('status-degraded', ds.failures.size > 0);
+      }
+      const snapshotInfo = document.querySelector('#snapshot-info');
+      if (snapshotInfo) {
+        const providers = window.OpenEarth.providers;
+        const fetchedAt = Object.values(providers?.providers || {})
+          .map(provider => Date.parse(provider.fetchedAt || ''))
+          .filter(Number.isFinite);
+        const regionalAge = fetchedAt.length
+          ? providers.relativeAge(new Date(Math.min(...fetchedAt)).toISOString())
+          : 'age unavailable';
+        const lines = [
+          `Catalog/reports: ${ds.snapshotAge() || 'age unavailable'}`,
+          `Regional monitoring: ${regionalAge}`,
+          'Update schedule: daily'
+        ];
+        if (snapshotInfo.dataset.lines !== lines.join('\n')) {
+          snapshotInfo.dataset.lines = lines.join('\n');
+          snapshotInfo.replaceChildren(...lines.map(line => {
+            const span = document.createElement('span');
+            span.textContent = line;
+            return span;
+          }));
+        }
+      }
     };
     window.sourceLine = s => `<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${(geoRef()?.esc || (x => String(x ?? 'Unknown')))(s.name)}</a></p>`;
     window.volcanoCatalogMatch = p => window.OpenEarth.dataStore.findVolcano(p?.Volcano_Number || p?.Volcano_Name);
