@@ -33,6 +33,7 @@
       this.containerId = containerId;
       this.stateManager = stateManager;
       this.dataStore = dataStore;
+      this.dataStore.EMPTY = this.dataStore.EMPTY || { type: 'FeatureCollection', features: [] };
 
       const state = stateManager.get();
       this.map = new maplibregl.Map({
@@ -574,9 +575,10 @@
     }
 
     _startPulseAnimation() {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
       const animate = ts => {
         if (this.selectedPointFeature && this.map.getLayer('selection')) {
-          const p = (Math.sin(ts / 360) + 1) / 2;
+          const p = reduceMotion.matches ? 0.5 : (Math.sin(ts / 360) + 1) / 2;
           const r = 12 + p * 8;
           this.map.setPaintProperty('selection', 'circle-radius', r);
           this.map.setPaintProperty('selection', 'circle-stroke-width', 2.5 + p * 1.5);
@@ -631,9 +633,34 @@
           }
         }
       });
+
+      // Touch: fingers are imprecise, so a tap near a marker selects it
+      this.map.on('click', e => this._onTouchTap(e));
+    }
+
+    _onTouchTap(e) {
+      if (!window.matchMedia('(pointer: coarse)').matches || !window.OpenEarth?.inspector) return;
+      const visible = id => this.map.getLayer(id) && this.map.getLayoutProperty(id, 'visibility') !== 'none';
+      const exactLayers = ['earthquakes', 'volcanoes', 'activity', 'trenches-hit', 'faults', ...TECTONIC_LAYERS].filter(visible);
+      if (exactLayers.length && this.map.queryRenderedFeatures(e.point, { layers: exactLayers }).length) return;
+
+      const pointLayers = POINT_HOVER_LAYERS.filter(visible);
+      if (!pointLayers.length) return;
+      const r = 16;
+      const hits = this.map.queryRenderedFeatures([[e.point.x - r, e.point.y - r], [e.point.x + r, e.point.y + r]], { layers: pointLayers });
+      if (!hits.length) return;
+
+      const priority = { activity: 0, volcanoes: 1, earthquakes: 2 };
+      const dist = f => {
+        const p = this.map.project(f.geometry.coordinates);
+        return Math.hypot(p.x - e.point.x, p.y - e.point.y);
+      };
+      hits.sort((a, b) => (dist(a) - dist(b)) || ((priority[a.layer.id] ?? 9) - (priority[b.layer.id] ?? 9)));
+      window.OpenEarth.inspector.inspect(hits[0].layer.id, hits[0]);
     }
 
     _onMouseMove(e) {
+      if (window.matchMedia('(hover: none)').matches) return;
       const state = this.stateManager.get();
       const pointLayers = POINT_HOVER_LAYERS.filter(id => this.map.getLayer(id) && this.map.getLayoutProperty(id, 'visibility') !== 'none');
       const pointHits = pointLayers.length ? this.map.queryRenderedFeatures(e.point, { layers: pointLayers }) : [];
