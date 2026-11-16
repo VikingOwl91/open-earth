@@ -822,7 +822,7 @@
         return `
           <div class="poi-hero">
             <a href="${item.url}" target="_blank" rel="noreferrer">
-              <img src="${item.src}" alt="${name}" loading="lazy"/>
+              <img src="${item.src}" alt="${name}" loading="lazy" crossorigin="anonymous"/>
               <span>${item.title} · Wikipedia ↗</span>
             </a>
           </div>
@@ -861,7 +861,7 @@
           el.outerHTML = `
             <div class="poi-hero">
               <a href="${data.url}" target="_blank" rel="noreferrer">
-                <img src="${data.src}" alt="${name}" loading="lazy"/>
+                <img src="${data.src}" alt="${name}" loading="lazy" crossorigin="anonymous"/>
                 <span>${data.title} · Wikipedia ↗</span>
               </a>
             </div>

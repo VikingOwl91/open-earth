@@ -111,7 +111,7 @@
         <section class="modal-section">
           <h3>1. Cookies and profiles</h3>
           <p>Open Earth itself does not set cookies, does not use advertising and does not build user profiles. The analytics described in section 4 sets no cookies and writes nothing to your device storage.</p>
-          <p>Images and map data are requested by your browser directly from third-party hosts (section 3), and those hosts can set cookies of their own. Observed on 2026-11-16: when a Wikipedia preview image was shown in the volcano inspector, <code>thumb.wikimedia.org</code> set two cookies, <code>NetworkProbeLimit</code> and <code>WMF-Uniq</code>. They belong to that host, not to Open Earth. This is what that host did in one test, not a statement about Wikimedia's policy. In the same test no cookie was stored on page load.</p>
+          <p>Images and map data are requested by your browser directly from third-party hosts (section 3), and those hosts can set cookies of their own. Wikipedia preview images are requested without credentials, so in a Chromium test on 2026-11-16 no cookie from <code>thumb.wikimedia.org</code> was stored when the volcano inspector showed one. Without that setting the same host was observed to set two cookies, <code>NetworkProbeLimit</code> and <code>WMF-Uniq</code>; they belong to that host, not to Open Earth. This describes what that host did in tests, not Wikimedia's policy. Other hosts and other browsers were not tested.</p>
         </section>
         <section class="modal-section">
           <h3>2. Local storage</h3>

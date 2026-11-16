@@ -129,7 +129,7 @@ Open Earth is currently designed to remain straightforward to self-host: serve `
 
 ## 🔒 Privacy
 
-The current application is designed as a static experience without user profiles. Open Earth itself sets no cookies and does not need an account to explore the map. Maps, images and data are requested by the browser directly from third-party hosts, and those hosts can set their own cookies: on 2026-11-16 `thumb.wikimedia.org` set two (`NetworkProbeLimit`, `WMF-Uniq`) when a Wikipedia preview image was shown. Details are in `docs/PRIVACY.md`.
+The current application is designed as a static experience without user profiles. Open Earth itself sets no cookies and does not need an account to explore the map. Maps, images and data are requested by the browser directly from third-party hosts, and those hosts can set their own cookies. Wikipedia preview images are requested with `crossorigin="anonymous"`, so Chromium stored none from `thumb.wikimedia.org` in a test on 2026-11-16; without it that host set two. Details are in `docs/PRIVACY.md`.
 
 Aggregate page statistics are collected with a self-hosted, cookieless OpenPanel instance. The configuration lives in `src/analytics.js`, the tracker script is vendored in `vendor/openpanel/`, and `docs/PRIVACY.md` lists exactly what is sent. Any further telemetry should have its implementation, schema, aggregation behavior, and metric definitions public, and the documentation must be updated to describe what is actually deployed.
 
