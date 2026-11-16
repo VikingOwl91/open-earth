@@ -275,9 +275,8 @@
   async function loadProvider(id) {
     const p = providers[id];
     try {
-      const r = await fetch(`./data/${p.file}`, { cache: 'no-cache' });
-      if (!r.ok) throw Error(r.status);
-      const d = await r.json();
+      const d = await window.OpenEarth.dataStore.fetchSnapshot(p.file, `regional:${id}`);
+      if (!d) throw Error('snapshot unavailable');
       p.statuses = Array.isArray(d.statuses) ? d.statuses : [];
       p.fetchedAt = d.fetchedAt || null;
     } catch (e) {
@@ -327,8 +326,6 @@
       geonet: relativeAge(providers.geonet.fetchedAt),
       imo: relativeAge(providers.imo.fetchedAt)
     });
-    // Auto-load on script execution
-    loadAll();
   }
 
   if (typeof module !== 'undefined' && module.exports) {

@@ -21,6 +21,8 @@
     week: 'https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson'
   };
 
+  const SNAPSHOT_BASE = 'https://raw.githubusercontent.com/VikingOwl91/open-earth/main/data';
+
   const EMPTY = Object.freeze({ type: 'FeatureCollection', features: [] });
   const geoRef = () => (typeof window !== 'undefined' && window.OpenEarth && window.OpenEarth.geo) || null;
 
@@ -41,6 +43,7 @@
       this.historicalData = null;
 
       this.failures = new Set();
+      this.snapshotFallbacks = new Set();
       this.promises = new Map();
       this.listeners = new Set();
     }
@@ -69,6 +72,18 @@
       }
     }
 
+    async fetchSnapshot(file, label) {
+      const remote = await this.fetchJson(`${SNAPSHOT_BASE}/${encodeURIComponent(file)}`, label);
+      if (remote) {
+        this.snapshotFallbacks.delete(file);
+        return remote;
+      }
+
+      const local = await this.fetchJson(`./data/${encodeURIComponent(file)}`, label);
+      if (local) this.snapshotFallbacks.add(file);
+      return local;
+    }
+
     fetchCached(key, fetcher) {
       if (!this.promises.has(key)) {
         this.promises.set(key, fetcher().catch(e => {
@@ -81,7 +96,7 @@
 
     async loadManifest() {
       return this.fetchCached('manifest', async () => {
-        const d = await this.fetchJson('./data/manifest.json', 'manifest');
+        const d = await this.fetchSnapshot('manifest.json', 'manifest');
         if (d) this.manifest = d;
         return this.manifest;
       });
@@ -99,7 +114,6 @@
     getStatusSummary() {
       const core = ['earthquakes', 'volcanoes', 'plates'];
       const ok = core.filter(x => !this.failures.has(x)).length;
-      const age = this.snapshotAge();
       let text;
       if (ok === core.length) {
         text = `${ok}/${core.length} core sources healthy`;
@@ -108,7 +122,12 @@
       } else {
         text = `Source issues: ${[...this.failures].join(', ')} — data may be incomplete`;
       }
-      if (age) text += ` · snapshot ${age}`;
+      if (this.snapshotFallbacks.size > 0) {
+        const files = [...this.snapshotFallbacks];
+        text += ` · local snapshot fallback: ${files.length > 3 ? `${files.length} files` : files.join(', ')}`;
+      } else if (this.manifest) {
+        text += ' · snapshots via GitHub';
+      }
       return text;
     }
 
@@ -123,7 +142,7 @@
 
     async loadVolcanoes() {
       return this.fetchCached('volcanoes', async () => {
-        const d = await this.fetchJson('./data/volcanoes.json', 'volcanoes');
+        const d = await this.fetchSnapshot('volcanoes.json', 'volcanoes');
         this.volcanoes = d?.features ? d : EMPTY;
         this.notify('volcanoes', this.volcanoes);
         return this.volcanoes;
@@ -132,7 +151,7 @@
 
     async loadActivity() {
       return this.fetchCached('activity', async () => {
-        const d = await this.fetchJson('./data/volcanic-reports.json', 'activity');
+        const d = await this.fetchSnapshot('volcanic-reports.json', 'activity');
         this.activity = d?.features ? d : EMPTY;
         this.notify('activity', this.activity);
         return this.activity;
@@ -141,7 +160,7 @@
 
     async loadPlates() {
       return this.fetchCached('plates', async () => {
-        const d = await this.fetchJson('./data/plates.json', 'plates');
+        const d = await this.fetchSnapshot('plates.json', 'plates');
         this.plates = d?.features ? d : EMPTY;
         this.notify('plates', this.plates);
         return this.plates;
@@ -151,8 +170,8 @@
     async loadTectonics() {
       return this.fetchCached('tectonics', async () => {
         const [steps, poly] = await Promise.all([
-          this.fetchJson('./data/plate-steps.json', 'plateSteps'),
-          this.fetchJson('./data/plate-polygons.json', 'platePolygons')
+          this.fetchSnapshot('plate-steps.json', 'plateSteps'),
+          this.fetchSnapshot('plate-polygons.json', 'platePolygons')
         ]);
         this.plateSteps = steps?.features ? steps : EMPTY;
         this.platePolygons = poly?.features ? poly : EMPTY;
@@ -163,7 +182,7 @@
 
     async loadTrenches() {
       return this.fetchCached('trenches', async () => {
-        const d = await this.fetchJson('./data/trenches.json', 'trenches');
+        const d = await this.fetchSnapshot('trenches.json', 'trenches');
         this.trenches = d?.features ? d : EMPTY;
         this.notify('trenches', this.trenches);
         return this.trenches;
@@ -172,7 +191,7 @@
 
     async loadFaults() {
       return this.fetchCached('faults', async () => {
-        const d = await this.fetchJson('./data/faults.json', 'faults');
+        const d = await this.fetchSnapshot('faults.json', 'faults');
         this.faults = d?.features ? d : EMPTY;
         this.notify('faults', this.faults);
         return this.faults;
@@ -181,7 +200,7 @@
 
     async loadEruptions() {
       return this.fetchCached('eruptions', async () => {
-        const d = await this.fetchJson('./data/eruptions.json', 'eruptions');
+        const d = await this.fetchSnapshot('eruptions.json', 'eruptions');
         this.eruptions = d?.features ? d : EMPTY;
         this.notify('eruptions', this.eruptions);
         return this.eruptions;
@@ -343,10 +362,34 @@
     window.snapshotAge = () => window.OpenEarth.dataStore.snapshotAge();
     window.setStatus = () => {
       const el = document.querySelector('#status');
-      if (!el) return;
-      const store = window.OpenEarth.dataStore;
-      el.textContent = store.getStatusSummary();
-      el.classList.toggle('status-degraded', store.failures.size > 0);
+      const ds = window.OpenEarth.dataStore;
+      if (el) {
+        el.textContent = ds.getStatusSummary();
+        el.classList.toggle('status-degraded', ds.failures.size > 0);
+      }
+      const snapshotInfo = document.querySelector('#snapshot-info');
+      if (snapshotInfo) {
+        const providers = window.OpenEarth.providers;
+        const fetchedAt = Object.values(providers?.providers || {})
+          .map(provider => Date.parse(provider.fetchedAt || ''))
+          .filter(Number.isFinite);
+        const regionalAge = fetchedAt.length
+          ? providers.relativeAge(new Date(Math.min(...fetchedAt)).toISOString())
+          : 'age unavailable';
+        const lines = [
+          `Catalog/reports: ${ds.snapshotAge() || 'age unavailable'}`,
+          `Regional monitoring: ${regionalAge}`,
+          'Update schedule: daily'
+        ];
+        if (snapshotInfo.dataset.lines !== lines.join('\n')) {
+          snapshotInfo.dataset.lines = lines.join('\n');
+          snapshotInfo.replaceChildren(...lines.map(line => {
+            const span = document.createElement('span');
+            span.textContent = line;
+            return span;
+          }));
+        }
+      }
     };
     window.sourceLine = s => `<p class="source">Source: <a href="${s.url}" target="_blank" rel="noreferrer">${(geoRef()?.esc || (x => String(x ?? 'Unknown')))(s.name)}</a></p>`;
     window.volcanoCatalogMatch = p => window.OpenEarth.dataStore.findVolcano(p?.Volcano_Number || p?.Volcano_Name);
@@ -355,7 +398,7 @@
       const r = window.OpenEarth.dataStore.findReportForVolcano(p);
       return r ? [r] : [];
     };
-    window.localSnapshot = (file, label) => window.OpenEarth.dataStore.fetchJson(`./data/${file}`, label);
+    window.localSnapshot = (file, label) => window.OpenEarth.dataStore.fetchSnapshot(file, label);
   }
 
   if (typeof module !== 'undefined' && module.exports) {

@@ -125,9 +125,10 @@
             <li><strong>GEBCO Bathymetry:</strong> seafloor relief when the optional relief layer is enabled (<code>wms.gebco.net</code>).</li>
             <li><strong>OpenStreetMap Nominatim:</strong> geocoding when you submit text in the search field (<code>nominatim.openstreetmap.org</code>).</li>
             <li><strong>Wikipedia / Wikimedia:</strong> volcano preview images when an inspector requests them (<code>en.wikipedia.org</code> and Wikimedia infrastructure).</li>
+            <li><strong>GitHub (raw.githubusercontent.com):</strong> the latest geological snapshots (volcanoes, plate boundaries, trenches, faults, regional volcano alert levels) committed to the public Open Earth repository. Requests carry no search terms or map position.</li>
             <li><strong>unpkg:</strong> MapLibre GL library assets loaded by the application (<code>unpkg.com</code>).</li>
           </ul>
-          <p class="semantic-note">Reference geology datasets such as volcanoes, plate boundaries, trenches and faults are served as static files from the Open Earth deployment. Detailed source provenance is documented in the project repository.</p>
+          <p class="semantic-note">Reference geology datasets such as volcanoes, plate boundaries, trenches and faults are loaded from the public Open Earth repository on GitHub. If GitHub cannot be reached, the copies served by this site are used instead. Detailed source provenance is documented in the project repository.</p>
         </section>
         <section class="modal-section">
           <h3>4. Page analytics</h3>

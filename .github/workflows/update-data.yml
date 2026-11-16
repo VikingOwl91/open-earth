@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '17 1 * * *'
   push:
-    branches: [main, feat/p1-trenches-bathymetry, feat/p1-pvmbg-status, feat/p1-final]
+    branches: [main]
     paths:
       - scripts/update_data.py
       - scripts/update_trenches.py
@@ -104,3 +104,27 @@ jobs:
           done
           echo 'Failed to push refreshed snapshots after 3 attempts.' >&2
           exit 1
+      - name: Fail run if any provider refresh failed
+        if: always()
+        env:
+          GVP_OUTCOME: ${{ steps.gvp.outcome }}
+          GEBCO_OUTCOME: ${{ steps.gebco.outcome }}
+          PVMBG_OUTCOME: ${{ steps.pvmbg.outcome }}
+          USGS_OUTCOME: ${{ steps.usgs.outcome }}
+          JMA_OUTCOME: ${{ steps.jma.outcome }}
+          GEONET_OUTCOME: ${{ steps.geonet.outcome }}
+          IMO_OUTCOME: ${{ steps.imo.outcome }}
+        run: |
+          failed=0
+          for source in GVP GEBCO PVMBG USGS JMA GEONET IMO; do
+            outcome_var="${source}_OUTCOME"
+            outcome="${!outcome_var}"
+            if [ "$outcome" = "failure" ]; then
+              echo "::error title=${source} refresh failed::The previous snapshot was retained for this source."
+              failed=1
+            fi
+          done
+          if [ "$failed" -ne 0 ]; then
+            echo 'One or more data sources failed to refresh.' >&2
+            exit 1
+          fi

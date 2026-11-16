@@ -31,6 +31,8 @@ python3 -m http.server 8080
 
 Open `http://localhost:8080` in your web browser.
 
+The app loads snapshots from the `main` branch on GitHub first and falls back to the local `data/` files only when GitHub is unreachable. To test locally regenerated snapshots, point `SNAPSHOT_BASE` in `src/data.js` at `./data` or block `raw.githubusercontent.com` in your browser.
+
 ---
 
 ## Running Tests

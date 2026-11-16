@@ -53,6 +53,11 @@
       <div class="view-grid"><label>Projection<select id="projection"><option value="mercator">Mercator</option><option value="globe">Globe</option></select></label><label>Base map<select id="basemap"><option value="dark">Dark</option><option value="positron">Positron</option><option value="liberty">Liberty</option><option value="fiord">Fiord</option><option value="classic">Classic</option></select></label></div>
       <div id="projection-note" class="note">Classic Web Mercator projection.</div>
       <button id="reset-view" class="reset-view" type="button">Reset view & settings</button>
+      <div class="refresh-row">
+        <button id="refresh-data" class="refresh-data" type="button">↻ Refresh data</button>
+        <div id="snapshot-info" class="snapshot-info" aria-live="polite"><span>Snapshot: checking…</span><span>Update schedule: daily</span></div>
+      </div>
+      <div class="note refresh-data-note">Reload the latest published snapshots from GitHub. GitHub may cache updates for up to 5 minutes.</div>
       <div id="status" class="status">Loading public sources…</div>
       <footer class="controls-footer" aria-label="Project links and legal">
         <a class="github-link" href="https://github.com/VikingOwl91/open-earth" target="_blank" rel="noreferrer" title="Open Earth repository on GitHub"><svg viewBox="0 0 16 16" width="14" height="14" aria-hidden="true"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg> GitHub</a>

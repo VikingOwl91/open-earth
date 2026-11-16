@@ -4,29 +4,29 @@ Open Earth prefers authoritative public sources and keeps provenance visible in 
 
 > **Reference geology → normalized repository snapshots. Live activity → direct APIs when browser-safe, otherwise frequently refreshed snapshots.**
 
-Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and `.github/workflows/update-data.yml` runs the refresh daily. `data/manifest.json` records upstream URLs, generation time, and feature counts.
+Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and `.github/workflows/update-data.yml` runs the refresh daily. The workflow commits changed snapshots to `main`. The browser reads the latest committed snapshots from GitHub Raw (up to five minutes of CDN caching), with the deployed `data/` files as a fallback. The visible **Refresh data** control reloads those snapshots. `data/manifest.json` records upstream URLs, generation time, and feature counts.
 
 ## Implemented layers
 
 | Layer | Authority / upstream | Runtime strategy | Freshness | Notes |
 | --- | --- | --- | --- | --- |
 | Earthquakes | USGS Earthquake Hazards Program | direct GeoJSON API + FDSNWS catalog | near-real-time live; on-demand historical | 1h / 24h / 7d feeds + custom parameter searches (mag, depth, radius, bounds) |
-| Known Holocene volcanoes | Smithsonian Global Volcanism Program (GVP), Volcanoes of the World | bundled snapshot; GVP WFS preferred by updater | daily snapshot of reference catalog | Reference catalog of ~1,350 Holocene volcanoes. A catalog entry is not evidence of current activity |
-| Volcanic reports | Smithsonian / USGS Weekly Volcanic Activity Report | bundled normalized snapshot generated from official RSS | daily check; source report updates weekly | WVAR covers selected volcanoes with new or ongoing unrest; it is not a comprehensive global census |
-| Regional volcano monitoring | PVMBG, USGS, JMA, GeoNet, IMO | bundled daily snapshots from official agency APIs | daily updater; agency updates occur on alert change | Preserves native alert scales: PVMBG (Levels I-IV), USGS (Alert/Color), JMA (Warnings 1-5), GeoNet (VAL 0-5), IMO (VALS 0-3 plus Aviation Color Code) |
-| Plate boundaries | PB2002 / Peter Bird (2003) | bundled snapshot | reference geology | Categorized by boundary kinematics: subduction, convergent, divergent, transform |
-| Plate polygons | PB2002 / Peter Bird (2003) | bundled snapshot | reference geology | 52 named tectonic plates with containing polygon query support |
-| Seafloor trenches | IHO-IOC GEBCO Gazetteer of Undersea Feature Names | bundled snapshot | reference geology | Named seafloor trenches with official generic classifications |
+| Known Holocene volcanoes | Smithsonian Global Volcanism Program (GVP), Volcanoes of the World | GitHub Raw snapshot; same-origin fallback; GVP WFS preferred by updater | daily snapshot of reference catalog | Reference catalog of ~1,350 Holocene volcanoes. A catalog entry is not evidence of current activity |
+| Volcanic reports | Smithsonian / USGS Weekly Volcanic Activity Report | GitHub Raw normalized snapshot generated from official RSS; same-origin fallback | daily check; source report updates weekly | WVAR covers selected volcanoes with new or ongoing unrest; it is not a comprehensive global census |
+| Regional volcano monitoring | PVMBG, USGS, JMA, GeoNet, IMO | GitHub Raw daily snapshots from official agency APIs; same-origin fallback | daily updater; agency updates occur on alert change | Preserves native alert scales: PVMBG (Levels I-IV), USGS (Alert/Color), JMA (Warnings 1-5), GeoNet (VAL 0-5), IMO (VALS 0-3 plus Aviation Color Code) |
+| Plate boundaries | PB2002 / Peter Bird (2003) | GitHub Raw snapshot; same-origin fallback | reference geology | Categorized by boundary kinematics: subduction, convergent, divergent, transform |
+| Plate polygons | PB2002 / Peter Bird (2003) | GitHub Raw snapshot; same-origin fallback | reference geology | 52 named tectonic plates with containing polygon query support |
+| Seafloor trenches | IHO-IOC GEBCO Gazetteer of Undersea Feature Names | GitHub Raw snapshot; same-origin fallback | reference geology | Named seafloor trenches with official generic classifications |
 | Bathymetry | GEBCO 2026 Gridded Bathymetry | direct WMS raster tiles from gebco.net | remote service | Global shaded-relief topography/bathymetry context. Scientific visualization only, not for navigation |
-| Active faults | GEM Global Active Faults | bundled snapshot, lazy rendered | reference geology | Global fault kinematics and slip rates where mapped |
+| Active faults | GEM Global Active Faults | GitHub Raw snapshot, lazy rendered; same-origin fallback | reference geology | Global fault kinematics and slip rates where mapped |
 | Basemap | OpenFreeMap / OpenMapTiles / OpenStreetMap | direct vector tiles | provider-managed | Dark, Positron, Liberty, Fiord, and Classic styles |
 | Place search | Nominatim / OpenStreetMap | direct request | live | Local volcano and visible earthquake matching before remote geocoding |
 
 ## Architecture and reliability model
 
-The browser should not depend on upstream CORS policy for reference geology. GitHub Actions performs cross-origin acquisition and normalization, commits changed snapshots, and the static web client reads same-origin files from `data/`. Direct USGS earthquake feeds remain live because they are explicitly designed for browser consumption.
+The browser should not depend on scientific upstream CORS policy for reference geology. GitHub Actions performs cross-origin acquisition and normalization, then commits changed snapshots to `main`; the static web client fetches those public snapshots from GitHub Raw and falls back to same-origin `data/` files if GitHub is unavailable. Direct USGS earthquake feeds remain live because they are explicitly designed for browser consumption.
 
-Failure isolation is enforced in `.github/workflows/update-data.yml`: every upstream refresh step (GVP core snapshots, GEBCO trenches, and each regional volcano monitoring provider) runs with isolated error handling so an upstream outage never blocks data updates for the rest of the application.
+Failure isolation is enforced in `.github/workflows/update-data.yml`: every upstream refresh step (GVP core snapshots, GEBCO trenches, and each regional volcano monitoring provider) runs with isolated error handling so an upstream outage never blocks data updates for the rest of the application. After the other snapshots are committed, a final step fails the run if any provider refresh failed, so an outage is visible in the Actions list instead of only as a warning annotation.
 
 ## Regional volcano monitoring providers
 

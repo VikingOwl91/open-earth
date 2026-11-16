@@ -76,7 +76,8 @@
         dataStore.loadActivity(),
         dataStore.loadPlates(),
         dataStore.loadTectonics(),
-        dataStore.loadTrenches()
+        dataStore.loadTrenches(),
+        window.OpenEarth.providers.loadAll()
       ];
 
       if (state.layers.faults) {
@@ -84,6 +85,8 @@
       }
 
       await Promise.all(loadTasks);
+
+      window.setInterval(() => window.setStatus(), 60_000);
 
       // Rehydrate all layers on the map
       mapController.rehydrateLayers();
@@ -266,6 +269,12 @@
         window.location.href = window.location.pathname;
       });
     }
+
+    document.querySelector('#refresh-data')?.addEventListener('click', e => {
+      e.currentTarget.disabled = true;
+      e.currentTarget.textContent = 'Refreshing…';
+      window.location.reload();
+    });
 
     // Modals triggers
     document.querySelector('#open-about')?.addEventListener('click', () => {
