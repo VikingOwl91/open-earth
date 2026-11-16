@@ -33,7 +33,6 @@
       this.containerId = containerId;
       this.stateManager = stateManager;
       this.dataStore = dataStore;
-      this.dataStore.EMPTY = this.dataStore.EMPTY || { type: 'FeatureCollection', features: [] };
 
       const state = stateManager.get();
       this.map = new maplibregl.Map({
