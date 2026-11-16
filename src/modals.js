@@ -75,7 +75,7 @@
           <p>To avoid false geological conclusions, Open Earth strictly separates:</p>
           <ul>
             <li><strong>Reference Geology:</strong> Authoritative catalog facts (Smithsonian GVP, Peter Bird PB2002, GEM Faults).</li>
-            <li><strong>Observed Activity:</strong> Live events and official alerts from responsible regional agencies (USGS, PVMBG, JMA, GeoNet).</li>
+            <li><strong>Observed Activity:</strong> Live events and official alerts from responsible regional agencies (USGS, PVMBG, JMA, GeoNet, IMO).</li>
             <li><strong>Derived Calculations:</strong> Spatial proximity metrics, clearly marked so that proximity is never mistaken for causation.</li>
           </ul>
         </section>`;
@@ -98,7 +98,7 @@
         </section>
         <section class="modal-section">
           <h3>Disclaimer</h3>
-          <p><strong>Content:</strong> Data and visualizations are based on publicly available sources from scientific institutions including USGS, Smithsonian Institution, GEBCO, PB2002, GEM Foundation, PVMBG, JMA and GeoNet. No guarantee is made as to completeness, accuracy or timeliness.</p>
+          <p><strong>Content:</strong> Data and visualizations are based on publicly available sources from scientific institutions including USGS, Smithsonian Institution, GEBCO, PB2002, GEM Foundation, PVMBG, JMA, GeoNet and IMO. No guarantee is made as to completeness, accuracy or timeliness.</p>
           <p><strong>No safety or navigation function:</strong> Open Earth is provided for educational and research purposes. It is expressly <em>not</em> intended for navigation, aviation, maritime use, emergency warnings, evacuation decisions or other safety-critical decisions. Always consult the responsible official authorities.</p>
         </section>`;
     }

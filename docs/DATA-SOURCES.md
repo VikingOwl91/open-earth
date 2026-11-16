@@ -13,7 +13,7 @@ Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and
 | Earthquakes | USGS Earthquake Hazards Program | direct GeoJSON API + FDSNWS catalog | near-real-time live; on-demand historical | 1h / 24h / 7d feeds + custom parameter searches (mag, depth, radius, bounds) |
 | Known Holocene volcanoes | Smithsonian Global Volcanism Program (GVP), Volcanoes of the World | bundled snapshot; GVP WFS preferred by updater | daily snapshot of reference catalog | Reference catalog of ~1,350 Holocene volcanoes. A catalog entry is not evidence of current activity |
 | Volcanic reports | Smithsonian / USGS Weekly Volcanic Activity Report | bundled normalized snapshot generated from official RSS | daily check; source report updates weekly | WVAR covers selected volcanoes with new or ongoing unrest; it is not a comprehensive global census |
-| Regional volcano monitoring | PVMBG, USGS, JMA, GeoNet | bundled daily snapshots from official agency APIs | daily updater; agency updates occur on alert change | Preserves native alert scales: PVMBG (Levels I-IV), USGS (Alert/Color), JMA (Warnings 1-5), GeoNet (VAL 0-5) |
+| Regional volcano monitoring | PVMBG, USGS, JMA, GeoNet, IMO | bundled daily snapshots from official agency APIs | daily updater; agency updates occur on alert change | Preserves native alert scales: PVMBG (Levels I-IV), USGS (Alert/Color), JMA (Warnings 1-5), GeoNet (VAL 0-5), IMO (VALS 0-3 plus Aviation Color Code) |
 | Plate boundaries | PB2002 / Peter Bird (2003) | bundled snapshot | reference geology | Categorized by boundary kinematics: subduction, convergent, divergent, transform |
 | Plate polygons | PB2002 / Peter Bird (2003) | bundled snapshot | reference geology | 52 named tectonic plates with containing polygon query support |
 | Seafloor trenches | IHO-IOC GEBCO Gazetteer of Undersea Feature Names | bundled snapshot | reference geology | Named seafloor trenches with official generic classifications |
@@ -58,17 +58,23 @@ Open Earth avoids conflating distinct national warning conventions into an overs
    - Native scale: New Zealand Volcanic Alert Level 0 to 5 and Aviation Color Code
    - Matching: Curated mapping of GeoNet volcano identifiers to Smithsonian VolcanoNumbers.
 
+5. **Icelandic Met Office (IMO)**
+   - API: `https://api.vedur.is/volcanoes/volcanoes` (OpenAPI document at `https://api.vedur.is/volcanoes/openapi.json`, listed in the IMO API Swagger UI at `https://api.vedur.is/`)
+   - Coverage: 33 Icelandic volcanic systems with a current VALS notice (Beerenberg on Jan Mayen is listed by the API but has no notices and is skipped)
+   - Native scales: Volcano Alert Level System VALS 0 to 3 (Green, Yellow, Orange, Red) and the ICAO Aviation Color Code from the latest VONA. IMO documents the two as independent and states that they may differ at any given time, so both are stored and shown side by side and never merged into one value
+   - Matching: Official Smithsonian VolcanoNumber supplied by IMO as `si_code`
+   - Terms: CC BY 4.0 declared in the OpenAPI document; `access-control-allow-origin: *` was observed, but Open Earth still reads the same-origin snapshot
+   - Freshness: the API returns the current VALS and VONA notice per volcano with their publication timestamps (`observedAt`, `colorCodeObservedAt`). An old timestamp is a long-standing unchanged level, not a stale snapshot
+   - Checked 2026-11-16 against the live API; the earlier deferral (PNG status map only) no longer applies
+
 ### Vetted and deferred providers
 
 The following providers were systematically evaluated and deferred due to technical and scientific limitations in their upstream endpoints:
 
-- **IMO (Icelandic Met Office)**:
-  - Technical status: Icelandic volcano alert levels are published exclusively as a static server-side rendered PNG graphic (`https://en.vedur.is/photos/volcanoes/volcano_status.png`) coupled to an HTML client-side image map coordinate grid.
-  - Reason for deferral: No machine-readable JSON, GeoJSON, or XML status endpoint exists. The public RSS feed publishes narrative text bulletins without structured status codes. Automating OCR or image parsing would introduce fragile, unverified assumptions into an authoritative pipeline. Deferred until IMO publishes an official structured API.
-
 - **INGV / DPC (Istituto Nazionale di Geofisica e Vulcanologia / Dipartimento della Protezione Civile, Italy)**:
   - Technical status: The Italian national volcanic alert system is managed under the National Civil Protection department. The public display is embedded inside a proprietary Gatsby client-side SPA without open, documented public JSON endpoints. INGV regional observatories (Catania, Naples, Rome) issue weekly and daily bulletins as PDF reports.
   - Reason for deferral: Absence of a stable, documented machine-readable API endpoint. Deferred until an open structured feed is established.
+  - Rechecked 2026-11-16: the EPOS VOLC-TCS portal (`https://vo-tcs.ct.ingv.it/dataportal/api/volc_list/`) lists a "Volcano Observatory Notice for Aviation Italy" service whose REST wrapper `https://vo-tcs.ct.ingv.it/rest/vona/volcano_name=Etna/publication_date=<ISO>` returns JSON with `current_color` and `previous_color`. Still deferred: the service description says the underlying messages are PDF files; the query requires a volcano name and a start date and there is no schema or OpenAPI document; it is a VONA event log for the Aviation Color Code only (not the Civil Protection alert level), so a volcano without recent notices has no current status (the last Stromboli notice returned is from 2022-10-17); records are inconsistent (Vulcano notices carry `volcano_name: "Stromboli"`); no licence is stated; PDF links are plain `http://`. Worth revisiting if INGV publishes a schema and licence.
 
 - **SERNAGEOMIN / RNVV (Chile)** (checked 2026-11-16):
   - Technical status: Chile replaced its four-colour technical alert with a numeric Volcanic Activity State (EAV 0 to 5) on 2026-10-28, together with a new Red Nacional de Vigilancia Volcanica site (`https://rnvv.sernageomin.cl/`) that is announced as a trial. The site is a client-rendered single-page app; it calls a separate backend whose API is not documented anywhere I could find, and I did not probe it. `https://rnvv.sernageomin.cl/` and `https://www.sernageomin.cl/` both serve an incomplete TLS chain (curl error 60 / OpenSSL 20, GlobalSign intermediate not sent), so a verifying fetch fails. The ArcGIS host `sdngsig.sernageomin.cl` named in search results timed out from the test host.
@@ -113,6 +119,33 @@ The following providers were systematically evaluated and deferred due to techni
 - **PHIVOLCS (Philippine Institute of Volcanology and Seismology)**:
   - Technical status: The designated endpoint (`wovodat.phivolcs.dost.gov.ph`) fails SSL certificate verification with self-signed and untrusted certificate chain errors, preventing secure automated fetching in automated pipelines. In addition, status data is bound to dynamic client-side widget scripts.
   - Reason for deferral: SSL/TLS validation failures and lack of a stable headless REST API. Deferred until standard HTTPS certificate chains and open endpoints are deployed.
+  - Rechecked 2026-11-16: `www.phivolcs.dost.gov.ph` still fails chain verification (openssl verify code 21, the server does not send the GlobalSign intermediate; curl exits 60). `wovodat.phivolcs.dost.gov.ph` now presents a verifiable chain (verify code 0) but three requests (`/`, `/bulletin/list-of-bulletin`, `/api`) timed out after 30 s and plain HTTP reset the connection. No documented API found. The original "self-signed" wording was imprecise: the failure is an incomplete chain.
+
+### Vetted and deferred: Pacific, Russia, Caribbean and other regions (checked 2026-11-16)
+
+- **KVERT (Kamchatka Volcanic Eruption Response Team, IVS FEB RAS)**:
+  - Technical status: `http://kvert.febras.net/` serves server-rendered HTML pages (VONA/VAN lists, daily and weekly reports, aviation forecast). `https://kvert.febras.net/` and `https://www.kscnet.ru/ivs/kvert/` timed out, so the site is reachable over plain HTTP only. `/rss` returns 404 and no JSON, XML, CAP or KML endpoint is linked from the site (`robots.txt` also disallows `/*KML/`).
+  - Terms: the site user agreement (`/copyright.php`) forbids commercial use and use of materials without the rights holders' consent (Art. 1270 of the Civil Code of the Russian Federation), with attribution required.
+  - Reason for deferral: HTML only, no HTTPS, no documented feed, restrictive terms. Scraping the report lists would be fragile. If KVERT is added later it publishes the ICAO Aviation Color Code only (no national alert scale), so only `colorCode` may be shown. Smithsonian/USGS WVAR already carries Kamchatka reports as REFERENCE/OBSERVED context.
+- **VMGD (Vanuatu Meteorology and Geo-Hazards Department)**:
+  - Technical status: `https://www.vmgd.gov.vu/` is a Next.js static-generated site. Volcano alert levels (0 to 5, seven volcanoes) exist only inside the page's embedded `__NEXT_DATA__` props, which are fed by a headless WordPress at `content.vmgd.gov.vu` (`/wp-json/` returns 403, GET `/graphql` returns 500). No RSS, CAP or documented API was found. TLS is valid (Let's Encrypt).
+  - Terms: `/terms-and-conditions` allows internal use with attribution, forbids commercial redistribution without written permission from the Director and forbids modification.
+  - Reason for deferral: the only machine-readable path is an undocumented framework payload whose shape and build id change on each deployment, and the terms do not clearly allow redistributing a snapshot. Deferred until VMGD publishes an API or grants permission.
+- **RVO (Rabaul Volcanological Observatory, Papua New Guinea)**:
+  - Technical status: no official RVO web service found. `rvo.gov.pg` and `www.rvo.gov.pg` do not resolve in DNS; web search returns only press items and Smithsonian weekly reports that cite RVO.
+  - Reason for deferral: nothing machine-readable to integrate. RVO activity reaches Open Earth through the Smithsonian/USGS weekly report layer.
+- **MVO (Montserrat Volcano Observatory)**:
+  - Technical status: `https://www.mvo.ms/` is a WordPress site. The Hazard Level System (v3, 2014) is published as a PDF and the current level appears in prose activity statements and weekly reports. The server does not send its intermediate certificate: openssl reports verify code 21 and the WebFetch client failed with "unable to verify the first certificate". `www.montserratvolcanoobservatory.info` no longer resolves.
+  - Reason for deferral: no structured status feed, and the HTTPS chain cannot be verified by a strict client. The MVO Hazard Level is its own scale and would need its own label if ever added (one volcano, Soufriere Hills, VolcanoNumber 360050).
+- **IPGP observatories (OVPF Reunion, OVSG Guadeloupe, OVSM Martinique)**:
+  - Technical status: alert levels (for example OVPF "2-2") appear in the communique list at `https://www.ipgp.fr/communiques-et-bulletins-de-lobservatoire/` and inside PDF communiques. The site is WordPress; `/feed/` is a general news feed, and the REST API exposes an `alerte` taxonomy (terms such as `1`, `2`, `2-1`) but the communique records themselves are not exposed through REST (`category_communique` terms show a count of 0 and no post type carries them).
+  - Reason for deferral: no structured per-volcano status; extracting levels would mean scraping HTML or reading PDFs. The three observatories also use different local scales.
+- **CIVISA (Azores)**: `https://www.civisa.pt/` is a site-builder page with a V0 to V7 alert scale on an HTML "Alertas" page (Terceira, Sao Jorge). No feed or API found. Deferred.
+- **Canary Islands (IGN / PEVOLCA)**: the volcanic traffic light (green, yellow, orange, red) is set by the Canary Islands government on advice of a scientific committee, not published by IGN as a data service. No machine-readable endpoint found; IGN pages probed (`/web/vlc-semaforo-volcanico`, `/web/ign/portal/vlc-estado-actual`) returned 404. Deferred.
+- **Taiwan (CWA, Tatun Volcano Group)**: data.gov.tw dataset 174287 is a PDF of the release guidelines for levels 0 to 3 (Open Government Data License 1.0), not a status feed. Deferred.
+- **Korea (KMA, Baekdusan)**: no volcano alert-level endpoint found among the KMA Open API listings reached by search (access is through key-gated data.go.kr services). Deferred.
+- **UWI Seismic Research Centre (Soufriere St Vincent, Kick-'em-Jenny, Soufriere Saint Lucia)**: `https://uwiseismic.com/` publishes alert levels in news posts; no structured status endpoint found (only the home page and web search were checked). Deferred.
+- **Fiji, Tonga, Solomon Islands, Cape Verde, Ethiopia, DR Congo (Goma Volcano Observatory), Karthala (Comoros)**: web search found no official machine-readable alert-level endpoint (`ovg-goma.org` does not resolve). These were not probed beyond search and remain open for a future pass.
 
 ## 3-tier geodynamic classification model
 
@@ -125,7 +158,7 @@ When examining any feature on Open Earth, the inspector presents a structured ge
    - Fault kinematics from the GEM Active Faults database (e.g. Normal, Reverse, Strike-slip).
 
 2. **OBSERVED (Live and recent events)**:
-   - Official alert level from the responsible national observatory (PVMBG, USGS, JMA, GeoNet).
+   - Official alert level from the responsible national observatory (PVMBG, USGS, JMA, GeoNet, IMO).
    - Active weekly reports from the Smithsonian / USGS WVAR.
    - Live and recent seismicity within 250 km from the USGS Earthquake Hazards Program.
 
