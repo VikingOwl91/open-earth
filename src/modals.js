@@ -63,7 +63,7 @@
         <div class="modal-principle-box"><strong>Core Principle</strong><p>“Every displayed fact knows where it came from and how old it is.”</p></div>
         <section class="modal-section">
           <h3>Open Source & Public Architecture</h3>
-          <p>Open Earth is built on public geoscience datasets, modern vector mapping (MapLibre GL), and transparent data provenance. It runs entirely as a static web application without accounts, user databases, tracking analytics, cookies, or server-side telemetry.</p>
+          <p>Open Earth is built on public geoscience datasets, modern vector mapping (MapLibre GL), and transparent data provenance. It runs entirely as a static web application without accounts or user databases and sets no cookies. It uses cookieless page analytics on a self-hosted OpenPanel instance (see Privacy).</p>
           <div class="modal-link-grid">
             <a class="modal-action-link" href="https://github.com/VikingOwl91/open-earth" target="_blank" rel="noreferrer"><span>⌥</span> GitHub Repository</a>
             <a class="modal-action-link" href="https://github.com/VikingOwl91/open-earth/blob/main/LICENSE" target="_blank" rel="noreferrer"><span>⚖</span> MIT License</a>
@@ -107,10 +107,10 @@
       return `
         <h2 id="modal-title" class="modal-header-title">Privacy</h2>
         <p class="modal-tagline">Transparent information about local storage and browser network requests.</p>
-        <div class="modal-principle-box"><strong>Open Earth does not track you.</strong><p>No tracking services, advertising networks, user profiles or cookies.</p></div>
+        <div class="modal-principle-box"><strong>Open Earth does not track you.</strong><p>No advertising networks, user profiles or cookies. Page views are counted with a self-hosted, cookieless analytics tool (section 4).</p></div>
         <section class="modal-section">
-          <h3>1. No cookies or tracking</h3>
-          <p>Open Earth does not set functional or advertising cookies and does not use analytics, advertising or fingerprinting. The application therefore does not use a cookie consent banner.</p>
+          <h3>1. No cookies or profiles</h3>
+          <p>Open Earth does not set functional or advertising cookies, does not use advertising and does not build user profiles. The analytics described in section 4 sets no cookies and writes nothing to your device storage.</p>
         </section>
         <section class="modal-section">
           <h3>2. Local storage</h3>
@@ -130,7 +130,12 @@
           <p class="semantic-note">Reference geology datasets such as volcanoes, plate boundaries, trenches and faults are served as static files from the Open Earth deployment. Detailed source provenance is documented in the project repository.</p>
         </section>
         <section class="modal-section">
-          <h3>4. Controller and privacy contact</h3>
+          <h3>4. Page analytics</h3>
+          <p>Open Earth counts page views and clicks on links to other sites with OpenPanel, running on a server operated by the project (<code>op.nachtigall.dev</code>). The tracker script is served from this site. Purpose: aggregate product statistics. It sets no cookies and stores nothing in cookies, localStorage, sessionStorage or IndexedDB; no user profile or user ID is created and session replay is off.</p>
+          <p>Each event contains the full page URL including the map position, zoom and selected feature in the address bar, the page title and referrer, and for outgoing links the target URL and link text. Like any request, it also carries your IP address, browser user agent and language to the server. Because the URL changes while you move the map, one visit sends several events. Retention is not yet documented. The legal basis is legitimate interest in aggregate statistics (Art. 6(1)(f) GDPR). There is no opt-out switch in the app; you can block <code>op.nachtigall.dev</code> in your browser without affecting the map. Details: <a href="https://github.com/VikingOwl91/open-earth/blob/main/docs/PRIVACY.md" target="_blank" rel="noreferrer">docs/PRIVACY.md</a>.</p>
+        </section>
+        <section class="modal-section">
+          <h3>5. Controller and privacy contact</h3>
           <p>Responsible for this website: Christian Nachtigall, Karwendelstr. 21, 82061 Neuried, Germany. Privacy questions: <a href="mailto:contact@nachtigall.dev">contact@nachtigall.dev</a>.</p>
         </section>`;
     }
