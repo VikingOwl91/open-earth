@@ -34,9 +34,21 @@ browser data ─> source adapters ─> normalized features ─> map + details/se
 - `faults.json`
 - `manifest.json`
 
-`.github/workflows/update-data.yml` runs daily and can be dispatched manually. It commits only changed generated data to `main`. The browser fetches those snapshots from GitHub Raw with cache revalidation; GitHub's CDN may retain a copy for up to five minutes. Same-origin `data/*.json` files are a fallback if GitHub is unavailable. Earthquakes intentionally remain direct USGS feeds.
+`.github/workflows/update-data.yml` runs daily and can be dispatched manually. It commits only changed generated data to `main`. The browser fetches those snapshots from GitHub Raw with cache revalidation; GitHub's CDN may retain a copy for up to five minutes. Same-origin `data/*.json` files are a fallback if GitHub is unavailable or does not answer in time (see the timeouts below). Earthquakes intentionally remain direct USGS feeds.
 
 The browser treats the latest snapshots on repository `main` as authoritative. It must not silently retry CORS-prone scientific upstreams when a snapshot is empty; emptiness/staleness is surfaced as data state instead. The visible refresh control reloads the page, causing GitHub snapshots to be requested again.
+
+### Snapshot and live fetch timeouts
+
+Every `fetchJson` call in `src/data.js` runs under an `AbortController`. Two timers guard it, one for the time until the response headers arrive (connect plus first byte) and one for downloading and parsing the body once the headers are in. A timeout aborts the request and counts as a failed fetch, exactly like a network error or a non-2xx status. The timers are cleared when the request settles. The values are constants at the top of `src/data.js`:
+
+| Request | Headers | Body | On timeout |
+| --- | --- | --- | --- |
+| GitHub Raw snapshot (`REMOTE_SNAPSHOT_TIMEOUTS`) | 4 s | 60 s | fall back to the same-origin copy; the file shows up in `snapshotFallbacks` and in the status line |
+| Same-origin snapshot (`LOCAL_SNAPSHOT_TIMEOUTS`) | 10 s | 60 s | the load fails: the label goes into `failures` and the loader returns an empty collection, as for any other failure |
+| Live USGS feed and historical search (`LIVE_TIMEOUTS`) | 20 s | 60 s | the load fails and `failures` reports it |
+
+The header budget is short because a missing answer from GitHub is the case where the local copy is faster. The body budget is long on purpose: once the server answers, a slow connection that keeps delivering bytes must not be cut off, and the local copy would not be faster on the same link. The body timer only stops a stalled stream. The remote attempts of a page load run in parallel, but `loadManifest` runs first and on its own, so when GitHub never answers the added start-up delay is about two header budgets, not one (measured in headless Chromium: start-up finished after 1.6 s normally and after 8.4 s with every GitHub request hanging).
 
 ## Normalized feature direction
 
@@ -125,7 +137,7 @@ P1.5 consolidates this into clean, modular, unidirectional classic scripts under
 1. **`src/geo.js`**: Pure spatial math (`haversine`, `pointSegmentKm`, `nearestLine`, `segments`, `pointInRing`, `pointInPolygon`, `containingPlate`, `boundaryContext`, `centerOfGeometry`, `nearbyQuakes`, `STEP_META`) and HTML escaping/formatting (`esc`, `norm`, `value`, `fmtDate`). Zero dependencies, runs identically in browser and Node.js test runners.
 2. **`src/state.js`**: Centralized state management. Serializes and parses the URL state schema (`?v=type:id&c=lat,lng,z...`), manages `localStorage` fallback persistence, pushes state on feature selection, replaces state on camera drag, and handles `popstate` events for browser Back/Forward navigation.
 3. **`src/providers.js`**: Adapters for regional volcano monitoring authorities (PVMBG, USGS, JMA, GeoNet, IMO). Preserves native alert scales, applies conservative fuzzy matching against Smithsonian VolcanoNumbers, computes relative alert ages, and emits custom alert events.
-4. **`src/data.js`**: In-memory data store with single-flight cache (`fetchCache`) and promise re-use. `fetchSnapshot` reads snapshots from GitHub Raw first and from the same-origin `data/` copy second, and records which files used the fallback. Eliminates duplicate network requests for `eruptions.json`, `trenches.json`, and reference catalogs. Exposes direct entity lookups (`findVolcano`, `findReportForVolcano`, `findEruptionsForVolcano`, `findTrench`, `findFault`, `findBoundary`, `findEarthquake`).
+4. **`src/data.js`**: In-memory data store with single-flight cache (`fetchCache`) and promise re-use. `fetchSnapshot` reads snapshots from GitHub Raw first and from the same-origin `data/` copy second, and records which files used the fallback. Each attempt has a header and a body timeout, so a hanging host falls back instead of blocking start-up. Eliminates duplicate network requests for `eruptions.json`, `trenches.json`, and reference catalogs. Exposes direct entity lookups (`findVolcano`, `findReportForVolcano`, `findEruptionsForVolcano`, `findTrench`, `findFault`, `findBoundary`, `findEarthquake`).
 5. **`src/map.js`**: MapLibre GL wrapper. Handles layer creation, styling, and toggling. Provides robust basemap switching across all 5 styles (`dark`, `positron`, `liberty`, `fiord`, `classic`) by listening to MapLibre's `style.load` lifecycle event and rehydrating all application sources, layers, and selections.
 6. **`src/inspector.js`**: Unified feature inspector for all 5 feature types (`volcano`, `earthquake`, `trench`, `fault`, `boundary`). Implements header actions (Back, Share URL, Close), tabbed views (Overview, History, Nearby, Sources), bounded report summaries (preventing wall-of-text issues), lazy Wikipedia imagery, and 3-tier geodynamic classification.
 7. **`src/search.js`**: Search orchestrator. Unifies local catalog matching (volcanoes, trenches) with remote OpenStreetMap Nominatim geocoding and historical USGS seismic catalog queries via FDSNWS.

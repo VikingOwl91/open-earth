@@ -4,7 +4,7 @@ Open Earth prefers authoritative public sources and keeps provenance visible in 
 
 > **Reference geology → normalized repository snapshots. Live activity → direct APIs when browser-safe, otherwise frequently refreshed snapshots.**
 
-Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and `.github/workflows/update-data.yml` runs the refresh daily. The workflow commits changed snapshots to `main`. The browser reads the latest committed snapshots from GitHub Raw (up to five minutes of CDN caching), with the deployed `data/` files as a fallback. The visible **Refresh data** control reloads those snapshots. `data/manifest.json` records upstream URLs, generation time, and feature counts.
+Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and `.github/workflows/update-data.yml` runs the refresh daily. The workflow commits changed snapshots to `main`. The browser reads the latest committed snapshots from GitHub Raw (up to five minutes of CDN caching), with the deployed `data/` files as a fallback (used when GitHub fails or does not start answering within 4 seconds). The visible **Refresh data** control reloads those snapshots. `data/manifest.json` records upstream URLs, generation time, and feature counts.
 
 ## Implemented layers
 
@@ -24,7 +24,7 @@ Generated snapshots live in `data/`; `scripts/update_data.py` refreshes them and
 
 ## Architecture and reliability model
 
-The browser should not depend on scientific upstream CORS policy for reference geology. GitHub Actions performs cross-origin acquisition and normalization, then commits changed snapshots to `main`; the static web client fetches those public snapshots from GitHub Raw and falls back to same-origin `data/` files if GitHub is unavailable. Direct USGS earthquake feeds remain live because they are explicitly designed for browser consumption.
+The browser should not depend on scientific upstream CORS policy for reference geology. GitHub Actions performs cross-origin acquisition and normalization, then commits changed snapshots to `main`; the static web client fetches those public snapshots from GitHub Raw and falls back to same-origin `data/` files if GitHub is unavailable or does not respond within 4 seconds (response headers; the body then gets up to 60 seconds). Direct USGS earthquake feeds remain live because they are explicitly designed for browser consumption.
 
 Failure isolation is enforced in `.github/workflows/update-data.yml`: every upstream refresh step (GVP core snapshots, GEBCO trenches, and each regional volcano monitoring provider) runs with isolated error handling so an upstream outage never blocks data updates for the rest of the application. After the other snapshots are committed, a final step fails the run if any provider refresh failed, so an outage is visible in the Actions list instead of only as a warning annotation.
 
