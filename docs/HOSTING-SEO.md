@@ -83,7 +83,7 @@ open-earth.info {
 		X-Frame-Options "DENY"
 		Permissions-Policy "geolocation=(), camera=(), microphone=(), payment=(), usb=()"
 		# Proposal only. Run report-only first, see the CSP section.
-		Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' https://unpkg.com; img-src 'self' data: blob: https://tiles.openfreemap.org https://wms.gebco.net https://thumb.wikimedia.org https://upload.wikimedia.org; connect-src 'self' https://tiles.openfreemap.org https://demotiles.maplibre.org https://wms.gebco.net https://earthquake.usgs.gov https://nominatim.openstreetmap.org https://en.wikipedia.org https://op.nachtigall.dev; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
+		Content-Security-Policy-Report-Only "default-src 'self'; script-src 'self' https://unpkg.com; style-src 'self' https://unpkg.com; img-src 'self' data: blob: https://tiles.openfreemap.org https://wms.gebco.net https://thumb.wikimedia.org https://upload.wikimedia.org; connect-src 'self' https://tiles.openfreemap.org https://demotiles.maplibre.org https://wms.gebco.net https://earthquake.usgs.gov https://nominatim.openstreetmap.org https://en.wikipedia.org https://raw.githubusercontent.com https://op.nachtigall.dev; font-src 'self'; worker-src 'self' blob:; object-src 'none'; base-uri 'self'; form-action 'none'; frame-ancestors 'none'"
 	}
 
 	# Unversioned file names: always revalidate, the ETag makes it a cheap 304.
@@ -137,17 +137,17 @@ Origins, derived from the code:
 | `connect-src` | `https://nominatim.openstreetmap.org` | `src/search.js` geocoding |
 | `connect-src` | `https://en.wikipedia.org` | `src/inspector.js` thumbnail lookup |
 | `img-src` | `https://thumb.wikimedia.org`, `https://upload.wikimedia.org` | not in the code: the Wikipedia API returns the thumbnail URL at runtime. The first host was seen in the report-only trial below (it was the one that violated the first draft); `upload.wikimedia.org` is the other host Wikipedia uses for images and is included as a precaution, not observed |
+| `connect-src` | `https://raw.githubusercontent.com` | `src/data.js` `SNAPSHOT_BASE`: every `data/*.json` snapshot is fetched from `raw.githubusercontent.com/VikingOwl91/open-earth/main/data` first, with `./data/` on the same origin as fallback |
 | `connect-src` | `https://op.nachtigall.dev` | `src/analytics.js` `apiUrl` |
 | `worker-src` | `'self' blob:` | MapLibre creates its worker from a blob (a `blob:` request shows up in the Lighthouse trace) |
 | `img-src` | `data: blob:` | `index.html` favicon is a `data:` URI; MapLibre uses blob images |
 
 Not included, on purpose:
 
-- `https://raw.githubusercontent.com`: not requested by the current frontend (only `scripts/update_data.py` uses it, in CI). If the WIP lands and the browser fetches from there, add it to `connect-src`.
 - `https://openpanel.dev`: only needed if the tracker is switched back to the CDN copy (see `docs/PRIVACY.md`).
 - `'unsafe-inline'` and `'unsafe-eval'`: `grep` finds no inline `style=` attributes and no inline scripts in `index.html` or `src/*.js`. If the trial reports violations, fix the cause instead of adding them. If `index.html` gains a JSON-LD block (`<script type="application/ld+json">`), it is data and is not governed by `script-src`.
 
-Trial run so far: the policy above, as report-only behind that test Caddy, was loaded in Chromium 156 with a deep-linked volcano (Krakatau), all five basemaps, the bathymetry and faults toggles, the inspector with its Wikipedia image, a search, and the About and Privacy dialogs. The first draft produced one violation (`img-src` for the thumbnail host `thumb.wikimedia.org`); after adding it the same walk-through reported 0 violations. The trial ran on `127.0.0.1`, where analytics is disabled by design, so `op.nachtigall.dev` was not exercised, and it covered Chromium only. Repeat it on the real host before enforcing.
+Trial run so far (it predates the `raw.githubusercontent.com` snapshot fetch, so that origin was not part of it): the policy above, minus the `raw.githubusercontent.com` entry, as report-only behind that test Caddy, was loaded in Chromium 156 with a deep-linked volcano (Krakatau), all five basemaps, the bathymetry and faults toggles, the inspector with its Wikipedia image, a search, and the About and Privacy dialogs. The first draft produced one violation (`img-src` for the thumbnail host `thumb.wikimedia.org`); after adding it the same walk-through reported 0 violations. The trial ran on `127.0.0.1`, where analytics is disabled by design, so `op.nachtigall.dev` was not exercised, and it covered Chromium only. Repeat it on the real host before enforcing.
 
 Links out (GitHub, Ko-fi, provider pages) are navigations, not subresources, so the CSP does not affect them.
 
