@@ -5,7 +5,7 @@ on:
   schedule:
     - cron: '17 1 * * *'
   push:
-    branches: [main, feat/p1-trenches-bathymetry, feat/p1-pvmbg-status, feat/p1-final]
+    branches: [main]
     paths:
       - scripts/update_data.py
       - scripts/update_trenches.py
