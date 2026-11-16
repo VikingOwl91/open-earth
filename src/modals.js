@@ -63,7 +63,7 @@
         <div class="modal-principle-box"><strong>Core Principle</strong><p>“Every displayed fact knows where it came from and how old it is.”</p></div>
         <section class="modal-section">
           <h3>Open Source & Public Architecture</h3>
-          <p>Open Earth is built on public geoscience datasets, modern vector mapping (MapLibre GL), and transparent data provenance. It runs entirely as a static web application without accounts or user databases and sets no cookies. It uses cookieless page analytics on a self-hosted OpenPanel instance (see Privacy).</p>
+          <p>Open Earth is built on public geoscience datasets, modern vector mapping (MapLibre GL), and transparent data provenance. It runs entirely as a static web application without accounts or user databases. Open Earth itself sets no cookies. Maps, images and data are loaded by your browser directly from third-party hosts, which can set cookies of their own (see Privacy). It uses cookieless page analytics on a self-hosted OpenPanel instance.</p>
           <div class="modal-link-grid">
             <a class="modal-action-link" href="https://github.com/VikingOwl91/open-earth" target="_blank" rel="noreferrer"><span>⌥</span> GitHub Repository</a>
             <a class="modal-action-link" href="https://github.com/VikingOwl91/open-earth/blob/main/LICENSE" target="_blank" rel="noreferrer"><span>⚖</span> MIT License</a>
@@ -107,10 +107,11 @@
       return `
         <h2 id="modal-title" class="modal-header-title">Privacy</h2>
         <p class="modal-tagline">Transparent information about local storage and browser network requests.</p>
-        <div class="modal-principle-box"><strong>Open Earth does not track you.</strong><p>No advertising networks, user profiles or cookies. Page views are counted with a self-hosted, cookieless analytics tool (section 4).</p></div>
+        <div class="modal-principle-box"><strong>Open Earth does not track you.</strong><p>No advertising networks and no user profiles. Open Earth itself sets no cookies, but third-party hosts that serve images and map data can set their own (section 1). Page views are counted with a self-hosted, cookieless analytics tool (section 4).</p></div>
         <section class="modal-section">
-          <h3>1. No cookies or profiles</h3>
-          <p>Open Earth does not set functional or advertising cookies, does not use advertising and does not build user profiles. The analytics described in section 4 sets no cookies and writes nothing to your device storage.</p>
+          <h3>1. Cookies and profiles</h3>
+          <p>Open Earth itself does not set cookies, does not use advertising and does not build user profiles. The analytics described in section 4 sets no cookies and writes nothing to your device storage.</p>
+          <p>Images and map data are requested by your browser directly from third-party hosts (section 3), and those hosts can set cookies of their own. Observed on 2026-11-16: when a Wikipedia preview image was shown in the volcano inspector, <code>thumb.wikimedia.org</code> set two cookies, <code>NetworkProbeLimit</code> and <code>WMF-Uniq</code>. They belong to that host, not to Open Earth. This is what that host did in one test, not a statement about Wikimedia's policy. In the same test no cookie was stored on page load.</p>
         </section>
         <section class="modal-section">
           <h3>2. Local storage</h3>
@@ -125,7 +126,7 @@
             <li><strong>USGS Earthquake Hazards Program:</strong> live and historical earthquake data (<code>earthquake.usgs.gov</code>).</li>
             <li><strong>GEBCO Bathymetry:</strong> seafloor relief when the optional relief layer is enabled (<code>wms.gebco.net</code>).</li>
             <li><strong>OpenStreetMap Nominatim:</strong> geocoding while you type in the search field, when fewer than five volcanoes match locally; the text typed so far is sent (<code>nominatim.openstreetmap.org</code>).</li>
-            <li><strong>Wikipedia / Wikimedia:</strong> volcano preview images when the inspector opens a volcano. The volcano name and country are sent as a search text to <code>en.wikipedia.org</code>; the image is loaded from the host in the response, for example <code>thumb.wikimedia.org</code>.</li>
+            <li><strong>Wikipedia / Wikimedia:</strong> volcano preview images when the inspector opens a volcano. The volcano name and country are sent as a search text to <code>en.wikipedia.org</code>; the image is then loaded by your browser from the host in the response, for example <code>thumb.wikimedia.org</code>.</li>
             <li><strong>GitHub (raw.githubusercontent.com):</strong> the latest geological snapshots (volcanoes, plate boundaries, trenches, faults, regional volcano alert levels) committed to the public Open Earth repository. Requests carry no search terms or map position.</li>
             <li><strong>unpkg:</strong> MapLibre GL library assets loaded by the application (<code>unpkg.com</code>).</li>
           </ul>

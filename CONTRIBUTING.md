@@ -7,7 +7,7 @@ Thank you for contributing to Open Earth! Open Earth is an open-source, source-a
 1. **Static Runtime**: Open Earth runs entirely in the browser without accounts, databases, or application servers.
 2. **Every Fact Has a Source**: Never discard provenance, source timestamps, or agency alert scales.
 3. **Focused Scope**: Open Earth focuses strictly on solid-Earth geology (seismicity, volcanism, plate kinematics, undersea trenches, active faulting). Atmospheric weather, wildfires, and general disaster management are out of scope.
-4. **Privacy First**: Zero cookies, no user profiles. The only analytics is cookieless, aggregate OpenPanel page statistics on a self-hosted instance, documented in `docs/PRIVACY.md`. Any new tracking or event must be added there first.
+4. **Privacy First**: Open Earth sets no cookies and builds no user profiles. Third-party hosts that serve images and map data can set their own, which `docs/PRIVACY.md` documents. The only analytics is cookieless, aggregate OpenPanel page statistics on a self-hosted instance, documented in `docs/PRIVACY.md`. Any new tracking or event must be added there first.
 
 ---
 

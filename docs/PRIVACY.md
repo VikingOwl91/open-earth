@@ -6,7 +6,8 @@ Open Earth is designed from the ground up as a client-side, privacy-respecting s
 
 1. **No Backend or User Tracking**
    - Open Earth operates without a user account system, application database, or tracking backend.
-   - There are no session cookies, tracking cookies, advertising beacons, or third-party analytics services (no Google Analytics, no Matomo).
+   - Open Earth itself sets no cookies: no session cookies, tracking cookies or advertising beacons, and no third-party analytics services (no Google Analytics, no Matomo).
+   - Images and map data are requested by your browser directly from third-party hosts, and those hosts can set cookies of their own. Observed on 2026-11-16: `thumb.wikimedia.org` set two cookies when a Wikipedia preview image was shown. See [Cookies and device storage](#cookies-and-device-storage).
    - Open Earth does run cookieless, aggregate page analytics with a self-hosted OpenPanel instance. What it sends is listed under [Page analytics](#page-analytics-openpanel).
 
 2. **Local Storage Usage**
@@ -31,8 +32,8 @@ When you use Open Earth, your browser makes network requests only to fetch stati
 | **`demotiles.maplibre.org`** | MapLibre demo style and tiles, used only for the Classic basemap (`src/map.js`). | Standard tile coordinate requests. | Standard browser tile cache. |
 | **`wms.gebco.net`** | General Bathymetric Chart of the Oceans (GEBCO) WMS raster bathymetry tiles. | Standard WMS BBOX bounding box parameters. | Standard browser image tile cache. |
 | **`nominatim.openstreetmap.org`** | OpenStreetMap Nominatim geocoding service. Contacted while you type in the search bar (at least 2 characters, about 0.2 s after the last keystroke) when the volcano catalog has fewer than 5 local matches (`src/search.js`). | The text typed so far, as the `q` query parameter. | Standard HTTPS GET. |
-| **`en.wikipedia.org`** | Wikipedia API search for a preview image when the inspector opens a volcano (`src/inspector.js`). | Search text built from the volcano name and country, for example `Krakatau volcano Indonesia`. | Standard HTTPS GET. |
-| **`thumb.wikimedia.org`** | The preview image itself. The host comes from the Wikipedia API response, not from the code; `thumb.wikimedia.org` was the host returned for a test lookup on 2026-11-16. Other Wikimedia hosts such as `upload.wikimedia.org` are possible for other images but were not observed. | Standard HTTP GET for the image. | Standard browser image cache. |
+| **`en.wikipedia.org`** | Wikipedia API search for a preview image when the inspector opens a volcano (`src/inspector.js`). | Search text built from the volcano name and country, for example `Krakatau volcano Indonesia`. Sent once per volcano and page load; the result is cached in memory. | Standard HTTPS GET. |
+| **`thumb.wikimedia.org`** | The preview image itself. The host comes from the Wikipedia API response, not from the code; `thumb.wikimedia.org` was the host returned for a test lookup on 2026-11-16. Other Wikimedia hosts such as `upload.wikimedia.org` are possible for other images but were not observed. | Standard HTTP GET for the image. Observed on 2026-11-16: this host set the cookies `NetworkProbeLimit` and `WMF-Uniq` in the browser when the image was shown (see [Cookies and device storage](#cookies-and-device-storage)). | Standard browser image cache. |
 | **`unpkg.com`** | CDN hosting MapLibre GL JS and CSS vendor distribution files. | Standard HTTP GET for static JavaScript and stylesheet assets. | Standard CDN edge caching. |
 | **`op.nachtigall.dev`** | Self-hosted OpenPanel instance receiving page analytics events. Not contacted on `localhost`, loopback addresses or `file:`. | Page URL (including the map state in the query string), page title, referrer, and standard request headers. See [Page analytics](#page-analytics-openpanel). | Retention is not documented here yet. |
 
@@ -82,6 +83,15 @@ Request metadata sent with every event (standard for any HTTP request, plus the 
 
 ### Cookies and device storage
 
+- Open Earth (the pages, scripts and the analytics tracker) sets no cookies. Observed in Chromium: after the first page load, `context.cookies()` was empty.
+- Third-party hosts are different, because the browser requests images and map data from them directly and they can answer with `Set-Cookie`. Observed on 2026-11-16 in headless Chromium against this code (page load, search for Krakatau, select it so the inspector shows its Wikipedia thumbnail): two cookies were stored, both for the host that serves the thumbnail and not for Open Earth.
+
+  | Cookie | Domain | Notes |
+  | --- | --- | --- |
+  | `NetworkProbeLimit` | `thumb.wikimedia.org` | Value `0.001`, expires about one hour later, `Secure`, `SameSite=None`, not `HttpOnly` |
+  | `WMF-Uniq` | `.thumb.wikimedia.org` | `HttpOnly`, `Secure`, `SameSite=None`, expires 2027-11-16 |
+
+  This describes what that host did in one test run. It is not a statement about Wikimedia's cookie policy, and which cookies a host sets can change. No cookie was stored for any other host in that run. `curl -I` against `upload.wikimedia.org` image URLs and `en.wikipedia.org` API responses also showed `Set-Cookie` headers; the API request from the page is a `fetch` without credentials, and no `en.wikipedia.org` cookie was stored in the browser test. Cookies from other third-party hosts in other situations (other basemaps, other images, other regions) were not checked.
 - The tracker sets no cookies and writes nothing to `localStorage`, `sessionStorage` or IndexedDB. Observed in a browser session (load, map pans, outgoing link click, opening the privacy dialog): `document.cookie` empty, no `sessionStorage` entries, no IndexedDB databases, and the only `localStorage` key is the application's own `open-earth:view:v1`, which is present without the tracker too. In the tracker source, `sessionStorage` is only read at start-up and is only written by a revenue-tracking function that Open Earth does not use.
 - Visitors are not recognised by a stored identifier. The OpenPanel documentation describes unique-visitor counting through a daily rotating hash of non-identifying signals; how the self-hosted server derives and stores that value has not been verified for this document.
 
