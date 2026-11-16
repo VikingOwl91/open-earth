@@ -1118,3 +1118,77 @@ body {
     top: calc(max(8px, env(safe-area-inset-top)) + 72px);
   }
 }
+
+/* ==========================================================================
+   SEO: brand heading and no-JavaScript fallback
+   ========================================================================== */
+
+.brand h1 {
+  display: block;
+  margin: 0;
+  font-size: 16px;
+  font-weight: 750;
+  line-height: inherit;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-bright);
+}
+
+.noscript-info {
+  top: 18px;
+  left: 396px;
+  width: min(520px, calc(100% - 414px));
+  max-height: calc(100% - 36px);
+  overflow-y: auto;
+  padding: 16px 18px;
+  font-size: 13px;
+}
+
+.noscript-info h2 {
+  margin: 0 0 6px;
+  font-size: 16px;
+  color: var(--text-bright);
+}
+
+.noscript-info h3 {
+  margin: 14px 0 4px;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.noscript-info p {
+  margin: 0 0 8px;
+}
+
+.noscript-info ul {
+  margin: 0 0 10px;
+  padding-left: 18px;
+}
+
+.noscript-info a {
+  color: var(--text-link);
+}
+
+.noscript-info a:hover {
+  color: var(--text-link-hover);
+}
+
+@media (max-width: 1024px) {
+  .noscript-info {
+    top: 12px;
+    left: 384px;
+    right: 12px;
+    width: auto;
+    max-height: calc(100% - 24px);
+  }
+}
+
+@media (max-width: 600px) {
+  .noscript-info {
+    top: 80px;
+    left: 12px;
+    max-height: calc(50% - 90px);
+  }
+}

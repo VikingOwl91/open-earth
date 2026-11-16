@@ -4,21 +4,100 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"/>
   <meta name="theme-color" content="#060e16"/>
-  <title>Open Earth</title>
-  <meta name="description" content="Explore live Earth activity and geological context on one open map."/>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='25' fill='none' stroke='%2363d7e6' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%2363d7e6'/%3E%3C/svg%3E"/>
+  <title>Open Earth: Live Earthquakes, Volcanoes &amp; Tectonic Plates</title>
+  <meta name="description" content="Free, open-source map of live USGS earthquakes, volcano alert levels from regional agencies, plate boundaries, active faults and undersea trenches."/>
+  <link rel="canonical" href="https://open-earth.info/"/>
+  <meta property="og:type" content="website"/>
+  <meta property="og:site_name" content="Open Earth"/>
+  <meta property="og:title" content="Open Earth: Live Earthquakes, Volcanoes &amp; Tectonic Plates"/>
+  <meta property="og:description" content="Free, open-source map of live USGS earthquakes, volcano alert levels from regional agencies, plate boundaries, active faults and undersea trenches."/>
+  <meta property="og:url" content="https://open-earth.info/"/>
+  <meta property="og:locale" content="en_US"/>
+  <meta property="og:image" content="https://open-earth.info/assets/og-image.png"/>
+  <meta property="og:image:type" content="image/png"/>
+  <meta property="og:image:width" content="1200"/>
+  <meta property="og:image:height" content="630"/>
+  <meta property="og:image:alt" content="Open Earth globe centered on the western Pacific, showing earthquakes, volcanoes and plate boundaries along the Ring of Fire."/>
+  <meta name="twitter:card" content="summary_large_image"/>
+  <meta name="twitter:title" content="Open Earth: Live Earthquakes, Volcanoes &amp; Tectonic Plates"/>
+  <meta name="twitter:description" content="Free, open-source map of live USGS earthquakes, volcano alert levels from regional agencies, plate boundaries, active faults and undersea trenches."/>
+  <meta name="twitter:image" content="https://open-earth.info/assets/og-image.png"/>
+  <meta name="twitter:image:alt" content="Open Earth globe centered on the western Pacific, showing earthquakes, volcanoes and plate boundaries along the Ring of Fire."/>
+  <link rel="manifest" href="./manifest.webmanifest"/>
+  <link rel="icon" type="image/png" sizes="32x32" href="./assets/favicon-32.png"/>
+  <link rel="apple-touch-icon" sizes="180x180" href="./assets/apple-touch-icon.png"/>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='25' fill='none' stroke='%2363d7e6' stroke-width='5'/%3E%3Ccircle cx='32' cy='32' r='7' fill='%2363d7e6'/%3E%3C/svg%3E"/>
   <link rel="preconnect" href="https://unpkg.com"/>
   <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@5.7.1/dist/maplibre-gl.css"/>
   <link rel="stylesheet" href="./src/style.css"/>
   <link rel="stylesheet" href="./src/inspector.css"/>
   <link rel="stylesheet" href="./src/popups.css"/>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebSite",
+        "@id": "https://open-earth.info/#website",
+        "url": "https://open-earth.info/",
+        "name": "Open Earth",
+        "description": "Free, open-source map of live USGS earthquakes, volcano alert levels from regional agencies, plate boundaries, active faults and undersea trenches.",
+        "inLanguage": "en"
+      },
+      {
+        "@type": "WebApplication",
+        "@id": "https://open-earth.info/#app",
+        "url": "https://open-earth.info/",
+        "name": "Open Earth",
+        "alternateName": "Open Earth living geology explorer",
+        "description": "Open Earth is an open-source, source-aware map for exploring live earthquakes, volcanoes, plate tectonics, active faults and undersea trenches, with the source and age of every fact kept visible.",
+        "applicationCategory": "ReferenceApplication",
+        "operatingSystem": "Any",
+        "browserRequirements": "Requires JavaScript and WebGL",
+        "isAccessibleForFree": true,
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "license": "https://github.com/VikingOwl91/open-earth/blob/main/LICENSE",
+        "sameAs": "https://github.com/VikingOwl91/open-earth",
+        "image": "https://open-earth.info/assets/og-image.png",
+        "inLanguage": "en",
+        "isPartOf": { "@id": "https://open-earth.info/#website" },
+        "featureList": [
+          "Live earthquakes from the USGS feeds, with historical catalog search",
+          "Holocene volcano catalog from the Smithsonian Global Volcanism Program",
+          "Regional volcano alert levels from PVMBG, USGS, JMA, GeoNet and the Icelandic Met Office",
+          "Tectonic plate boundaries from the PB2002 model",
+          "Active faults from the GEM Global Active Faults database",
+          "Named undersea trenches and optional GEBCO seafloor relief",
+          "Search and shareable links to map views and features"
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body>
   <main id="app">
     <div id="map" aria-label="Interactive map of Earth"></div>
     <div id="map-loading" class="map-loading" hidden><span></span> Updating map…</div>
 
-    <header class="brand panel"><div class="mark" aria-hidden="true">◎</div><div><strong>OPEN EARTH</strong><span>living geology explorer</span></div></header>
+    <header class="brand panel"><div class="mark" aria-hidden="true">◎</div><div><h1>Open Earth</h1><span>living geology explorer</span></div></header>
+
+    <noscript>
+      <section class="noscript-info panel" aria-label="About Open Earth">
+        <h2>About Open Earth</h2>
+        <p>Open Earth is a free, open-source map of live earthquakes, volcanoes, tectonic plate boundaries, active faults and undersea trenches. The map needs JavaScript, so please enable it to explore. Every fact on the map shows its source and age.</p>
+        <h3>Data sources</h3>
+        <ul>
+          <li><a href="https://earthquake.usgs.gov/" rel="noreferrer">USGS Earthquake Hazards Program</a>: live and historical earthquakes</li>
+          <li><a href="https://volcano.si.edu/" rel="noreferrer">Smithsonian Global Volcanism Program</a>: Holocene volcano catalog and weekly activity reports</li>
+          <li>Regional volcano alert levels: <a href="https://magma.esdm.go.id/" rel="noreferrer">PVMBG</a>, <a href="https://volcanoes.usgs.gov/" rel="noreferrer">USGS Volcano Hazards Program</a>, <a href="https://www.jma.go.jp/" rel="noreferrer">Japan Meteorological Agency</a>, <a href="https://www.geonet.org.nz/" rel="noreferrer">GeoNet</a>, <a href="https://en.vedur.is/" rel="noreferrer">Icelandic Met Office</a></li>
+          <li><a href="https://github.com/fraxen/tectonicplates" rel="noreferrer">PB2002 plate model</a> (Bird, 2003): plates and boundaries</li>
+          <li><a href="https://github.com/GEMScienceTools/gem-global-active-faults" rel="noreferrer">GEM Global Active Faults</a>: active faults</li>
+          <li><a href="https://www.gebco.net/" rel="noreferrer">GEBCO</a>: undersea feature names and seafloor relief</li>
+        </ul>
+        <p><a href="https://github.com/VikingOwl91/open-earth" rel="noreferrer">Source code on GitHub</a> (MIT license) · <a href="https://github.com/VikingOwl91/open-earth/blob/main/docs/DATA-SOURCES.md" rel="noreferrer">Full data source documentation</a></p>
+      </section>
+    </noscript>
 
     <section class="controls panel" aria-label="Map controls">
       <button id="controls-toggle" class="controls-toggle" type="button" aria-expanded="true" aria-controls="controls-body"><span>Map controls</span><span id="controls-toggle-action">Hide</span></button>
