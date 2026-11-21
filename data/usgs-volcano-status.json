@@ -8,7 +8,7 @@
     "name": "USGS Volcano Hazards Program",
     "url": "https://volcanoes.usgs.gov/hans-public/"
   },
-  "fetchedAt": "2026-11-20T08:30:07.996758+00:00",
+  "fetchedAt": "2026-11-21T08:15:36.231167+00:00",
   "statuses": [
     {
       "providerId": "usgs",
@@ -173,8 +173,8 @@
       "label": "WATCH / ORANGE",
       "severity": "watch",
       "observatory": "Alaska Volcano Observatory",
-      "observedAt": "2026-11-13 21:04:48",
-      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-AVO-2026-11-13T19:12:01+00:00",
+      "observedAt": "2026-11-20 20:33:25",
+      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-AVO-2026-11-20T18:41:17+00:00",
       "provenance": "Official alert level and aviation color code published by USGS Volcano Hazards Program.",
       "volcanoNumber": 311120,
       "matchingMethod": "official_vnum",
@@ -1023,8 +1023,8 @@
       "label": "ADVISORY / YELLOW",
       "severity": "advisory",
       "observatory": "Hawaiian Volcano Observatory",
-      "observedAt": "2026-11-19 18:37:16",
-      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-HVO-2026-11-19T17:51:12+00:00",
+      "observedAt": "2026-11-20 19:00:03",
+      "reportUrl": "https://volcanoes.usgs.gov/hans-public/notice/DOI-USGS-HVO-2026-11-20T18:09:53+00:00",
       "provenance": "Official alert level and aviation color code published by USGS Volcano Hazards Program.",
       "volcanoNumber": 332010,
       "matchingMethod": "official_vnum",
