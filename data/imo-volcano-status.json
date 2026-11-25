@@ -10,7 +10,7 @@
     "name": "Icelandic Met Office (IMO)",
     "url": "https://en.vedur.is/earthquakes-and-volcanism/volcanoes/"
   },
-  "fetchedAt": "2026-11-24T10:53:39.100007+00:00",
+  "fetchedAt": "2026-11-25T09:49:53.837466+00:00",
   "statuses": [
     {
       "providerId": "imo",
@@ -665,7 +665,7 @@
       "severity": "watch",
       "activity": "Heightened volcanic unrest",
       "observedAt": "2025-10-15T16:13:52.452639Z",
-      "colorCodeObservedAt": "2026-11-10T11:51:51.859639Z",
+      "colorCodeObservedAt": "2026-11-24T12:00:15.307682Z",
       "reportUrl": "https://en.vedur.is/earthquakes-and-volcanism/volcanoes/",
       "provenance": "Official Volcano Alert Level System (VALS) notice and ICAO Aviation Color Code published by the Icelandic Met Office.",
       "note": "VALS and the Aviation Color Code are independent IMO scales and may differ at any given time.",
